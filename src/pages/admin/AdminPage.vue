@@ -1,7 +1,7 @@
 <template>
   <v-app class="admin-app">
     <admin-header />
-    <v-main style="background-color: #f7f7f7">
+    <v-main class="admin-main">
       <router-view />
     </v-main>
     <admin-footer />
@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .admin-main {
+    background-color: #f2f1f2;
+  }
 </style>

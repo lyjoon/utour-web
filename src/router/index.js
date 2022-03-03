@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import AdminPage from "../pages/admin/AdminPage";
 
+import AdminLogin from "../components/admin/AdminLogin";
+
 Vue.use(Router)
 
 export default new Router({
@@ -15,12 +17,12 @@ export default new Router({
     {
       path: '/admin',
       component: AdminPage,
-      /*children: [
+      children: [
         {
           path: '',
           component: AdminLogin
         },
-      ]*/
+      ]
     },
   ]
 })
