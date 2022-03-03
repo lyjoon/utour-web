@@ -15,14 +15,19 @@ body, th, td, input, select, textarea, button, #app{
 .align-items-center{align-items: center !important;}
 .align-items-end{align-items: end !important;}
 
-/* font */
-.font-montserrat-100 {font-family: 'Montserrat', sans-serif !important;}
+.container {
+  min-width: 1280px;
+  max-width: 1440px;
+}
 
+/* font */
+.font-montserrat-100 {
+  font-family: 'Montserrat', sans-serif !important;
+}
 .font-montserrat-300 {
   font-family: 'Montserrat', sans-serif !important;
   font-family: 'Quicksand', sans-serif !important;
 }
-
 .font-gothic {
   font-family: Nanum Gothic Coding !important;
 }

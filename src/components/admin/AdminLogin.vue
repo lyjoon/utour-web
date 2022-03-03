@@ -4,7 +4,10 @@
 
       <v-flex class="admin-login mx-auto" >
         <v-card class="pa-10" rounded elevation="1">
-          <v-card-title>ID 로그인</v-card-title>
+          <v-card-title>관리자 로그인</v-card-title>
+          <v-card-subtitle>
+            회원가입은 관리자에게 문의해주시기 바랍니다.
+          </v-card-subtitle>
 
           <v-card-text>
 
@@ -31,7 +34,12 @@
           </v-card-text>
 
           <v-card-actions class="pl-4 pr-4">
-            <v-btn class="primary flex-fill" height="50px">
+            <v-btn class="primary"
+                   block
+                   height="56px"
+                   outlined
+                   elevation="0"
+                   color="white">
               <span class="text-h6">SIGN IN</span>
             </v-btn>
 
