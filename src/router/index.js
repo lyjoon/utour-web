@@ -3,20 +3,33 @@ import Router from 'vue-router'
 
 import AdminPage from "../pages/admin/AdminPage";
 
-import AdminLogin from "../components/admin/AdminLogin";
+import AdminLogin from "../components/admin/main/AdminLogin";
 import AdminProductList from "../components/admin/product/AdminProductList";
 import AdminHotelList from "../components/admin/hotel/AdminHotelList";
-import AdminMain from "../components/admin/AdminMain";
+import AdminMain from "../components/admin/main/AdminMain";
+import NotFound from "../pages/NotFound";
+import AppPage from "../pages/public/AppPage";
+import ProductList from "../components/public/product/ProductList";
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history', //removes # (hashtag) from url
   routes: [
-    /*{
+    {
+      // 404
       path: '*',
-      redirect: '/'
-    },*/
+      component: NotFound
+    },{
+      path: '/',
+      component: AppPage,
+      children: [
+        {
+          path: 'product',
+          component: ProductList
+        }
+      ]
+    },
     {
       path: '/admin',
       component: AdminPage,
