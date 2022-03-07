@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Quicksand:wght@300&display=swap');
 
+html {
+  min-width: 1280px;
+}
 a {text-decoration: none !important;}
 body, th, td, input, select, textarea, button, #app{
   font-family: 'Noto Sans KR', sans-serif !important;
