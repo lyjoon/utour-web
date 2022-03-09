@@ -9,7 +9,7 @@ import AdminHotelList from "../components/admin/hotel/AdminHotelList";
 import AdminMain from "../components/admin/main/AdminMain";
 import NotFound from "../pages/NotFound";
 import AppPage from "../pages/public/AppPage";
-import ProductList from "../components/public/product/ProductList";
+import ProductsPage from "../pages/public/ProductsPage";
 
 Vue.use(Router)
 
@@ -25,8 +25,12 @@ export default new Router({
       component: AppPage,
       children: [
         {
+          path: '',
+          component: ProductsPage
+        },
+        {
           path: 'product',
-          component: ProductList
+          component: ProductsPage
         }
       ]
     },

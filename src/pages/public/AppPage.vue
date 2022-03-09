@@ -1,23 +1,25 @@
 <template>
   <v-app class="app-main">
     <app-header />
-    <v-main>
+    <app-navigator />
+    <v-content class="mt-4">
       <router-view />
-    </v-main>
+    </v-content>
   </v-app>
 </template>
 
 <script>
 
 import AppHeader from "../../components/public/AppHeader";
+import AppNavigator from "../../components/public/AppNavigator";
 export default {
   name: "AppPage",
-  components: {AppHeader},
+  components: {AppNavigator, AppHeader},
 }
 </script>
 
 <style scoped>
   .app-main {
-    background-color: #f2f1f2;
+    background-color: white;
   }
 </style>

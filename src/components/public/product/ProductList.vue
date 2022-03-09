@@ -1,7 +1,7 @@
 <template>
-  <v-container>
-    숨셔
-  </v-container>
+  <v-layout row>
+    <v-flex></v-flex>
+  </v-layout>
 </template>
 
 <script>
