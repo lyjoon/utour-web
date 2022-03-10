@@ -2,7 +2,7 @@
   <v-app class="app-main">
     <app-header />
     <app-navigator />
-    <v-content class="mt-4">
+    <v-content class="mt-2">
       <router-view />
     </v-content>
   </v-app>

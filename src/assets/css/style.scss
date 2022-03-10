@@ -53,3 +53,20 @@ body, th, td, input, select, textarea, button, #app{
     }
   }
 }
+
+
+/* product_search */
+.product_search {
+
+  .v-text-field {
+    div.v-input__append-outer {
+      margin-top: 0px !important;
+    }
+  }
+
+  .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: none;
+    background-color: #e2e2e2;
+  }
+
+}

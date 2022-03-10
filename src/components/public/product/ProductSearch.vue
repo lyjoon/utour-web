@@ -1,31 +1,36 @@
 <template>
-  <v-layout row class="_con">
+  <v-layout row class="product_search">
     <v-flex class="col-4 pl-0">
       <v-text-field
-          dense
           solo
-          class="elevation-0"
-          style="box-shadow: none"
-          height="40px"
           hide-details
-          prepend-inner-icon="mdi-earth" :autofocus="false"
+          class="elevation-0"
+          readonly
           placeholder="필리핀으로"
-      />
+      >
+        <template v-slot:prepend-inner>
+          <v-icon left>mdi-earth</v-icon>
+        </template>
+      </v-text-field>
     </v-flex>
     <v-flex class="col-4"></v-flex>
     <v-flex class="col-4 pr-0">
-<!--      <input style="background-color: #f0f0f0;height: 36px; border-radius: 2px;width: 400px;" type="text" />-->
       <div class="d-flex">
         <v-text-field
-            dense
             solo
-            height="40px"
             hide-details
             class="elevation-0"
-            prepend-inner-icon="mdi-magnify"
-            placeholder="검색어"
-        />
-        <v-btn dark elevation="0" top class="ml-2" height="40px">ok</v-btn>
+            placeholder="키워드 검색">
+          <template v-slot:prepend-inner>
+            <v-icon left>
+              mdi-magnify
+            </v-icon>
+          </template>
+          <template v-slot:append-outer>
+            <v-btn height="48px" dark color="red darken-2" class="v_btn_search" elevation="0">검색</v-btn>
+          </template>
+
+        </v-text-field>
       </div>
     </v-flex>
   </v-layout>
@@ -38,15 +43,4 @@ export default {
 </script>
 
 <style scoped>
-  ._con {
-    /*border: 1px solid red;*/
-  }
-  .product_search_input_1 {
-    background-color: #f0f0f0;
-  }
-  .v-text-field--outlined fieldset{
-    border-style: none !important;
-    border-bottom: 0px !important;
-    border-top: red !important;
-  }
 </style>
