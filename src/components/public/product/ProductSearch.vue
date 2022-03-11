@@ -1,6 +1,6 @@
 <template>
   <v-layout row class="product_search">
-    <v-flex class="col-4 pl-0">
+    <v-flex class="col-4">
       <v-text-field
           solo
           hide-details
@@ -14,7 +14,7 @@
       </v-text-field>
     </v-flex>
     <v-flex class="col-4"></v-flex>
-    <v-flex class="col-4 pr-0">
+    <v-flex class="col-4">
       <div class="d-flex">
         <v-text-field
             solo
@@ -27,7 +27,9 @@
             </v-icon>
           </template>
           <template v-slot:append-outer>
-            <v-btn height="48px" dark color="red darken-2" class="v_btn_search" elevation="0">검색</v-btn>
+            <v-btn height="48px" dark color="red darken-2" class="v_btn_search" elevation="0" >
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
           </template>
 
         </v-text-field>
