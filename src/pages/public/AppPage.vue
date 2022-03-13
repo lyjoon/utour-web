@@ -2,9 +2,9 @@
   <v-app class="app-main">
     <app-header />
     <app-navigator />
-    <v-content class="mt-2">
+    <v-main class="mt-2">
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

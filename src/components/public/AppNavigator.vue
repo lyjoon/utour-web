@@ -1,6 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="drawer"
-                       color="grey"
+  <v-navigation-drawer color="grey"
                        class="lighten-4"
                        app
                        absolute
@@ -19,7 +18,7 @@
       <v-divider class="mt-2 mb-2 mx-auto" />
 
       <v-list-item link>
-        <v-list-item-icon>
+        <v-list-item-icon @click="showInquiry">
           <v-icon>mdi-file-document-edit</v-icon>
         </v-list-item-icon>
         <v-list-item-title>Starred</v-list-item-title>
@@ -51,17 +50,37 @@
         </v-list-item-icon>
         <v-list-item-title>My Files</v-list-item-title>
       </v-list-item>
-
     </v-list>
+
+    <v-dialog v-model="model.inquiryDialog" width="1100px" eager persistent>
+      <inquiry-form @close="closeInquiry"></inquiry-form>
+    </v-dialog>
+
   </v-navigation-drawer>
 </template>
 
 <script>
+import InquiryForm from "./inquiry/InquiryForm";
 export default {
   name: "AppNavigator",
+  components: {InquiryForm},
   computed: {
     drawer() {
       return true;
+    }
+  },
+  data: ()=>({
+    model : {
+      inquiryDialog: false
+    }
+  }),
+  methods: {
+    showInquiry: function (){
+      this.model.inquiryDialog = true;
+    },
+    closeInquiry: function () {
+      console.log('closeInquiryDialog');
+      this.model.inquiryDialog = false;
     }
   }
 }

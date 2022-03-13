@@ -57,7 +57,6 @@ body, th, td, input, select, textarea, button, #app{
 
 /* product_search */
 .product_search {
-
   .v-text-field {
     div.v-input__append-outer {
       margin-top: 0px !important;
@@ -68,5 +67,14 @@ body, th, td, input, select, textarea, button, #app{
     box-shadow: none;
     background-color: #e2e2e2;
   }
+}
 
+
+
+/* inquiry-form */
+.inquiry_form {
+  padding: 20px 15px;
+  .v-text-field.v-input--dense:not(.v-text-field--outlined) input {
+    padding: 2px 0 6px;
+  }
 }
