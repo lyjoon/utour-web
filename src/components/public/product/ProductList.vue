@@ -47,6 +47,11 @@ export default {
         title: '유앤미 바이 코쿤',
         desc: '수상비행기',
         src: 'http://www.honeymoonlove.co.kr/resort_images/PV%20-%202%20EX.jpg'
+      },
+      {
+        title: '그랜드파크 로얄',
+        desc: '로스카보스',
+        src: 'http://www.honeymoonlove.co.kr/resort_images/_MG_0612.jpg'
       }
     ]
   })

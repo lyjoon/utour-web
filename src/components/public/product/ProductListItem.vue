@@ -1,6 +1,6 @@
 <template>
 
-  <v-card link elevation="0" outlined>
+  <v-card link elevation="0" outlined to="/hotel">
     <v-img
         :height="imageHeight"
         dark

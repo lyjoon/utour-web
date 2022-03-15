@@ -10,6 +10,7 @@ import AdminMain from "../components/admin/main/AdminMain";
 import NotFound from "../pages/NotFound";
 import AppPage from "../pages/public/AppPage";
 import ProductsPage from "../pages/public/ProductsPage";
+import HotelPage from "../pages/public/HotelPage";
 
 Vue.use(Router)
 
@@ -25,12 +26,17 @@ export default new Router({
       component: AppPage,
       children: [
         {
+          //main(index)
           path: '',
           component: ProductsPage
         },
         {
-          path: 'product',
+          path: 'products',
           component: ProductsPage
+        },
+        {
+          path: 'hotel',
+          component: HotelPage
         }
       ]
     },
