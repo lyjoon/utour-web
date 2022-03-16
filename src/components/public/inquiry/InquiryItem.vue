@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-card-subtitle class="pl-2">
+      <!--      <v-avatar color="grey" rounded size="16px" class="mb-1 mr-2" />-->
+      <span style="font-size: 18px">여행상품 문의하기</span>
+    </v-card-subtitle>
+
     <v-form ref="frm" lazy-validation>
       <v-row dense>
         <v-col class="col-12">
