@@ -2,7 +2,6 @@
   <v-navigation-drawer color="grey"
                        class="lighten-4"
                        app
-                       absolute
                        fixed
                        permanent
                        mini-variant
