@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: "ProductListItem",
+  name: "ProductItem",
   computed: {
     imageHeight() {
       return 400 + 'px';

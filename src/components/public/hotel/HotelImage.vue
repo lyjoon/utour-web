@@ -1,31 +1,42 @@
 <template>
-  <v-row dense>
-    <v-col class="col-6">
-      <v-img :src="images[0]"
-             :height="mainImageHeight" />
-    </v-col>
-    <v-col class="col-3">
-      <v-img :src="images[1]"
-             :height="subImageHeight" />
-      <v-img :src="images[2]"
-             class="mt-2"
-             :height="subImageHeight" />
-    </v-col>
-    <v-col class="col-3">
-      <v-img :src="images[3]"
-             :height="subImageHeight"
-             position="0 auto" />
-      <v-img :src="images[4]"
-             class="mt-2"
-             :height="subImageHeight"
-             position="0 auto" />
-    </v-col>
-  </v-row>
+  <div>
+    <v-row dense>
+      <v-col class="col-6">
+        <v-img :src="images[0]"
+               :height="mainImageHeight" />
+      </v-col>
+      <v-col class="col-3">
+        <v-img :src="images[1]"
+               :height="subImageHeight" />
+        <v-img :src="images[2]"
+               class="mt-2"
+               :height="subImageHeight" />
+      </v-col>
+      <v-col class="col-3">
+        <v-img :src="images[3]"
+               :height="subImageHeight"
+               position="0 auto" />
+        <v-img :src="images[4]"
+               class="mt-2 align-end justify-end text-right pa-2"
+               :height="subImageHeight"
+               position="0 auto" >
+          <template v-slot:default>
+            <v-btn class="v-btn-more" @click="openDialog">더보기</v-btn>
+          </template>
+        </v-img>
+      </v-col>
+    </v-row>
+    <v-dialog fullscreen v-model="imageDialog" class="white" eager hide-overlay>
+      <picture-view @close="closeDialog" />
+    </v-dialog>
+  </div>
 </template>
 
 <script>
+import PictureView from "../picture/PictureView";
 export default {
   name: "HotelImage",
+  components: {PictureView},
   computed: {
     mainImageHeight() {
       return 510 + 'px';
@@ -40,11 +51,23 @@ export default {
       , "https://s3.ap-northeast-2.amazonaws.com/refreshclub/cache/50/b9/50b99ab60174ace81381a3ae6a7f457d.jpg"
       , "http://img3.tmon.kr/cdn3/deals/2019/04/24/1989097598/original_1989097598_front_0b1f9_1556091307production.jpg"
       , "https://s3.ap-northeast-2.amazonaws.com/refreshclub/cache/29/22/2922a6b683e0775427d1b30070428ac7.jpg"
-    ]
-  })
+    ],
+    imageDialog: false
+  }),
+  methods: {
+    openDialog : function (){
+      this.imageDialog = true;
+    },
+    closeDialog: function (){
+      this.imageDialog = false;
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+  .v-btn-more {
+    opacity: 0.4;
+    font-weight: 400;
+  }
 </style>

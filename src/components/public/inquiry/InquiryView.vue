@@ -67,7 +67,7 @@
 
 <script>
 export default {
-  name: "InquiryForm",
+  name: "InquiryView",
   methods : {
     close : function (){
       //this.$refs.frm.reset();

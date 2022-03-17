@@ -52,17 +52,17 @@
     </v-list>
 
     <v-dialog v-model="model.inquiryDialog" width="1100px" eager persistent>
-      <inquiry-form @close="closeInquiry"></inquiry-form>
+      <inquiry-view @close="closeInquiry"></inquiry-view>
     </v-dialog>
 
   </v-navigation-drawer>
 </template>
 
 <script>
-import InquiryForm from "./inquiry/InquiryForm";
+import InquiryView from "./inquiry/InquiryView";
 export default {
   name: "AppNavigator",
-  components: {InquiryForm},
+  components: {InquiryView},
   computed: {
     drawer() {
       return true;

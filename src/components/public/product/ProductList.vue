@@ -2,17 +2,17 @@
   <v-layout row>
 
     <v-flex class="col-4" v-for="item in dataList" v-bind:key="item.title" >
-      <product-list-item :title="item.title" :description="item.desc" :src="item.src" />
+      <product-item :title="item.title" :description="item.desc" :src="item.src" />
     </v-flex>
 
   </v-layout>
 </template>
 
 <script>
-import ProductListItem from "./ProductListItem";
+import ProductItem from "./ProductItem";
 export default {
   name: "ProductList",
-  components: {ProductListItem},
+  components: {ProductItem},
   props: {
     getData: Function
   },

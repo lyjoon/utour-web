@@ -36,7 +36,7 @@ export default new Router({
         },
         {
           path: 'hotel',
-          component: HotelPage
+          component: HotelPage,
         }
       ]
     },
