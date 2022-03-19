@@ -1,11 +1,9 @@
 <template>
-  <v-layout row>
-
-    <v-flex class="col-4" v-for="item in dataList" v-bind:key="item.title" >
+  <v-row dense >
+    <v-col class="col-4" v-for="item in dataList" v-bind:key="item.title">
       <product-item :title="item.title" :description="item.desc" :src="item.src" />
-    </v-flex>
-
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
