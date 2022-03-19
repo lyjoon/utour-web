@@ -3,7 +3,7 @@
     <v-layout row wrap>
 
       <v-flex class="admin-login mx-auto" >
-        <v-card class="pa-10" rounded elevation="1">
+        <v-card class="mx-auto pa-10" rounded elevation="1">
           <v-card-title>관리자 로그인</v-card-title>
           <v-card-subtitle>
             회원가입은 관리자에게 문의해주시기 바랍니다.
@@ -39,6 +39,7 @@
                    height="56px"
                    outlined
                    elevation="0"
+                   to="/admin/main"
                    color="white">
               <span class="text-h6">SIGN IN</span>
             </v-btn>

@@ -9,7 +9,6 @@
       <v-col class="col-6">
         <hotel-remark />
       </v-col>
-
     </v-row>
 
     <div class="mt-4 mb-4">

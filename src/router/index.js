@@ -3,14 +3,14 @@ import Router from 'vue-router'
 
 import AdminPage from "../pages/admin/AdminPage";
 
-import AdminLogin from "../components/admin/main/AdminLogin";
+import AdminLogin from "../components/admin/login/AdminLogin";
 import AdminProductList from "../components/admin/product/AdminProductList";
 import AdminHotelList from "../components/admin/hotel/AdminHotelList";
-import AdminMain from "../components/admin/main/AdminMain";
 import NotFound from "../pages/NotFound";
 import AppPage from "../pages/public/AppPage";
 import ProductsPage from "../pages/public/ProductsPage";
 import HotelPage from "../pages/public/HotelPage";
+import AdminMainPage from "../pages/admin/AdminMainPage";
 
 Vue.use(Router)
 
@@ -70,7 +70,7 @@ export default new Router({
           ]
         },{
           path: 'main',
-          component: AdminMain
+          component: AdminMainPage
         }
       ]
     },
