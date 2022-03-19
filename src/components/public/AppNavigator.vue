@@ -5,34 +5,36 @@
                        fixed
                        permanent
                        mini-variant
-                       mini-variant-width="56px"
                        disable-resize-watcher>
 
     <v-list nav dense>
 
-      <v-list-item link to="/">
-        <v-icon>mdi-home</v-icon>
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-menu</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>메뉴창</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mt-2 mb-2 mx-auto" />
 
-      <v-list-item link>
-        <v-list-item-icon @click="showInquiry">
+      <v-list-item link @click="showInquiry">
+        <v-list-item-icon>
           <v-icon>mdi-file-document-edit</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Starred</v-list-item-title>
+        <v-list-item-title>여행문의작성</v-list-item-title>
       </v-list-item>
       <v-list-item link disabled>
         <v-list-item-icon>
           <v-icon>mdi-airplane-alert</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>My Files</v-list-item-title>
+        <v-list-item-title>약관</v-list-item-title>
       </v-list-item>
       <v-list-item link disabled>
         <v-list-item-icon>
           <v-icon>mdi-help-circle-outline</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Shared with me</v-list-item-title>
+        <v-list-item-title>Q&A</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mt-2 mb-2 mx-auto" />
@@ -41,13 +43,13 @@
         <v-list-item-icon>
           <v-icon>mdi-arrow-up-bold</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Starred</v-list-item-title>
+        <v-list-item-title>위로</v-list-item-title>
       </v-list-item>
       <v-list-item link>
         <v-list-item-icon>
           <v-icon>mdi-arrow-down-bold</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>My Files</v-list-item-title>
+        <v-list-item-title>아래로</v-list-item-title>
       </v-list-item>
     </v-list>
 
