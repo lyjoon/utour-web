@@ -8,24 +8,16 @@
 </template>
 
 <script>
-import ProductItem from "./ProductItem";
+import ProductItem from "./../product/ProductItem";
 export default {
-  name: "ProductList",
+  name: "HomeProducts",
   components: {ProductItem},
-  props: {
-    getData: Function
-  },
   data : ()=>({
     dataList : [
       {
         title: '로빈슨클럽(CLUB)',
         desc: '카오락',
         src: 'http://www.honeymoonlove.co.kr/resort_images/x_khao-lak-resort-pool10.jpg',
-      },
-      {
-        title: '케이프판',
-        desc: '시무이',
-        src: 'http://www.honeymoonlove.co.kr/resort_images/cepafahn%20resort%202%20(30).png'
       },
       {
         title: '노쿠 아일랜드',

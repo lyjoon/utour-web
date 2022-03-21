@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app absolute dark class="secondary lighten-1" elevation="1" height="56px">
+  <v-app-bar app fixed absolute dark class="secondary lighten-1" elevation="1" height="56px">
     <v-container>
        <router-link to="/"><v-img :src="require('@/assets/images/logo.png')" width="100" class="mx-auto" /></router-link>
     </v-container>

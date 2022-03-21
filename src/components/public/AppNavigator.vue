@@ -1,19 +1,18 @@
 <template>
   <v-navigation-drawer color="grey"
-                       class="lighten-4"
-                       app
-                       fixed
+                       class="lighten-4 hidden-lg-and-down"
                        permanent
-                       mini-variant
-                       disable-resize-watcher>
+                       expand-on-hover
+                       fixed
+                       >
 
     <v-list nav dense>
 
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-menu</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>메뉴창</v-list-item-title>
+      <v-list-item link href="/home">
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>HOME</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mt-2 mb-2 mx-auto" />

@@ -1,0 +1,39 @@
+/* product */
+.product_search {
+  .v-text-field {
+    div.v-input__append-outer {
+      margin-top: 0px !important;
+    }
+  }
+
+  .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: none;
+    background-color: #e2e2e2;
+  }
+}
+
+
+
+/* inquiry-form */
+.inquiry_form {
+  padding: 20px 15px;
+  .v-text-field.v-input--dense:not(.v-text-field--outlined) input {
+    padding: 2px 0 6px;
+  }
+}
+
+/* admin */
+.admin-app {
+  .gnb{
+    margin: 0px;
+    padding: 0px 15px 0px 10px;
+    .v-toolbar__content{
+      padding: 0px;
+
+      .logo-text{font-size: 14pt}
+      .list-item{
+        padding: 0px 10px;
+      }
+    }
+  }
+}

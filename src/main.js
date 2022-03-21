@@ -8,6 +8,7 @@ import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loade
 Vue.config.productionTip = false
 
 require('@/assets/css/style.scss')
+require('@/assets/css/app.scss')
 
 
 new Vue({

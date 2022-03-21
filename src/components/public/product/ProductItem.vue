@@ -1,20 +1,22 @@
 <template>
-
-  <v-card link elevation="0" outlined to="/hotel">
+  <v-card ref="itemCard" link elevation="0" outlined to="/hotel" :height="height">
     <v-img
-        :height="imageHeight"
+        height="100%"
+        max-height="100%"
         dark
         class="white--text align-end"
         :src="src"
+        v-on:load="vv"
+        v-show="vv"
     >
       <template v-slot:default>
         <v-sheet dark translate="yes" color="rgba(0,0,0,0.41)">
 
-          <v-card-title class="pt-2 pb-1 text-h6">
+          <v-card-title class="text-sm-body-1 pb-0 pt-1 text-truncate">
             {{title || 'N/A'}}
           </v-card-title>
 
-          <v-card-text class="pt-1 pb-2 label">
+          <v-card-text class="text-sm-body-2 pb-2 pt-1 text-truncate">
             {{description || '-'}}
           </v-card-text>
         </v-sheet>
@@ -37,11 +39,27 @@
 export default {
   name: "ProductItem",
   computed: {
-    imageHeight() {
-      return 400 + 'px';
+    height() {
+      let v = 20;
+      switch (this.$vuetify.breakpoint.name) {
+        case "sm":
+        case "xs":
+          v = 30;
+          break;
+        case "md":
+          v = 35;
+          break;
+        default:
+          v= 37;
+          break;
+      }
+      return v + 'vh';
     }
   },
-
+  mounted() {
+    console.log('itemCard.height : ', this.$refs.itemCard.scrollHeight);
+    this.vv();
+  },
   props: {
     title: {
       default: null
@@ -51,6 +69,11 @@ export default {
       default: null
     }
   },
+  methods: {
+    vv : function(){
+      console.log('vv.itemCard.height : ', this.$refs.itemCard.scrollHeight);
+    }
+  }
 }
 </script>
 

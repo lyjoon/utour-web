@@ -1,7 +1,7 @@
 <template>
   <v-app class="app-main">
-    <app-header />
     <app-navigator />
+    <app-header />
     <v-main class="mt-2">
       <router-view />
     </v-main>
