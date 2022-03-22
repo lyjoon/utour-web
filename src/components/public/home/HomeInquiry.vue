@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-subtitle class="pl-2">
-      <span style="font-size: 18px">여행상품 문의하기</span>
+      <span style="font-size: 18px">여행견적 문의하기</span>
     </v-card-subtitle>
 
     <v-form ref="frm" lazy-validation>
@@ -67,8 +67,7 @@
 
 <script>
 export default {
-  methods : {
-  }
+  name: "HomeInquiry"
 }
 </script>
 

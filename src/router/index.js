@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import adminRoutes from "./adminRoutes";
 import appRoutes from "./appRoutes";
-import NotFound from "../pages/NotFound";
+import NotFound from "../views/NotFound";
 
 Vue.use(Router)
 

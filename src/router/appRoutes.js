@@ -1,27 +1,27 @@
-import AppPage from "../pages/public/AppPage";
-import ProductsPage from "../pages/public/ProductsPage";
-import HotelPage from "../pages/public/HotelPage";
-import HomePage from "../pages/public/HomePage";
+import App from "../views/public/App";
+import Products from "../views/public/Products";
+import Hotel from "../views/public/Hotel";
+import Home from "../views/public/Home";
 
 export default [{
   path: '/',
-  component: AppPage,
+  component: App,
   children: [
     {
       path: '',
-      component: ProductsPage
+      component: Home
     },
     {
       path: 'products',
-      component: ProductsPage
+      component: Products
     },
     {
       path: 'hotel',
-      component: HotelPage,
+      component: Hotel,
     },
     {
       path: 'home',
-      component: HomePage
+      component: Home
     }
   ]
 }]

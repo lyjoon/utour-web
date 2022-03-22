@@ -1,14 +1,14 @@
-import AdminPage from "../pages/admin/AdminPage";
+import AdminApp from "../views/admin/App";
 
 import AdminLogin from "../components/admin/login/AdminLogin";
 import AdminProductList from "../components/admin/product/AdminProductList";
 import AdminHotelList from "../components/admin/hotel/AdminHotelList";
-import AdminMainPage from "../pages/admin/AdminMainPage";
+import AdminHome from "../views/admin/Home";
 
 export default [
 {
   path: '/admin',
-  component: AdminPage,
+  component: AdminApp,
   children: [
     {
       path: '',
@@ -35,8 +35,8 @@ export default [
         },
       ]
     },{
-      path: 'main',
-      component: AdminMainPage
+      path: 'home',
+      component: AdminHome
     }
   ]
 },

@@ -50,7 +50,7 @@ export default {
           v = 35;
           break;
         default:
-          v= 37;
+          v= 33;
           break;
       }
       return v + 'vh';
