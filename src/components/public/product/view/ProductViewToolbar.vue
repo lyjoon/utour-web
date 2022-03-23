@@ -17,9 +17,7 @@
 </template>
 
 <script>
-export default {
-  name: "HotelToolbar"
-}
+export default {}
 </script>
 
 <style scoped>

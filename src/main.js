@@ -10,7 +10,6 @@ Vue.config.productionTip = false
 require('@/assets/css/style.scss')
 require('@/assets/css/app.scss')
 
-
 new Vue({
   router,
   render: h => h(App),

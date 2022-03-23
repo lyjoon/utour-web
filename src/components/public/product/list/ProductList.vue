@@ -2,16 +2,15 @@
   <v-row dense>
     <v-col class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
            v-for="item in dataList" v-bind:key="item.title">
-      <product-item :title="item.title" :description="item.desc" :src="item.src" />
+      <product-list-item :title="item.title" :description="item.desc" :src="item.src" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ProductItem from "./ProductItem";
+import ProductListItem from "./ProductListItem";
 export default {
-  name: "ProductList",
-  components: {ProductItem},
+  components: {ProductListItem},
   props: {
     getData: Function
   },

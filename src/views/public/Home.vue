@@ -15,7 +15,7 @@
 
 <script>
 import HomeCarousel from "../../components/public/home/HomeCarousel";
-import HomeProducts from "../../components/public/home/HomeProducts";
+import HomeProducts from "../../components/public/home/HomeProduct";
 import HomeQnA from "../../components/public/home/HomeQnA";
 import InquiryItem from "../../components/public/inquiry/InquiryItem";
 

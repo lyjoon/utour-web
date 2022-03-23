@@ -1,5 +1,5 @@
 <template>
-  <v-card ref="itemCard" link elevation="0" outlined to="/hotel" :height="height">
+  <v-card ref="itemCard" link elevation="0" outlined to="/product-view" :height="height">
     <v-img
         height="100%"
         max-height="100%"
@@ -37,7 +37,6 @@
 
 <script>
 export default {
-  name: "ProductItem",
   computed: {
     height() {
       let v = 20;

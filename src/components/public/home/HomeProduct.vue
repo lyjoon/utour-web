@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import ProductItem from "./../product/ProductItem";
+import ProductItem from "../product/list/ProductListItem";
 export default {
-  name: "HomeProducts",
+  name: "HomeProduct",
   components: {ProductItem},
   data : ()=>({
     dataList : [
