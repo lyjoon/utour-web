@@ -1,23 +1,25 @@
 <template>
   <v-layout row>
     <v-flex class="d-flex col-12 flex-fill justify-end">
-      <div>
-        <div class="title font-montserrat-300">로빈슨 클럽</div>
-        <div class="subtitle-2 grey--text">카오락 어디냐</div>
-      </div>
-      <v-toolbar-title>미노아</v-toolbar-title>
+
+      <page-title title="호텔_숙소_개요" description="인천광역시 강화 화도면 해안남로 2683" />
 
       <v-spacer />
-      <v-btn large elevation="0"  color="blue-grey" dark to="/products">
-        <v-icon>mdi-dots-grid</v-icon>
-        <span class="ml-1">목록으로</span>
-      </v-btn>
+
+      <div class="hidden-md-and-down">
+        <v-btn elevation="0" color="grey" class="lighten-2 grey--text text--darken-1" to="/products">
+          <v-icon class="ma-0">mdi-dots-grid</v-icon>
+        </v-btn>
+      </div>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-export default {}
+import PageTitle from "../../../common/PageTitle";
+export default {
+  components: {PageTitle}
+}
 </script>
 
 <style scoped>

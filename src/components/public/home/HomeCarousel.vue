@@ -24,10 +24,11 @@
           <v-overlay absolute opacity="0.15">
             <div class="text-center" style="opacity: 0.69">
               <v-card-title class="display-1 font-montserrat-300">제목인가</v-card-title>
-              <v-chip :small="$vuetify.breakpoint.xsOnly"
+              <v-chip :small="$vuetify.breakpoint.smAndDown"
                       color="white"
-                      class="font-montserrat-300 text--secondary body-2" link>
-                <span class="mt-2 mb-2">MORE</span>
+                      class="font-montserrat-300 text--secondary text-caption"
+                      link>
+                <span class="mt-2 mb-2 text-sm-caption text-caption">MORE</span>
               </v-chip>
             </div>
           </v-overlay>
@@ -44,10 +45,8 @@ export default {
       let v;
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          v = "35vh";
-          break;
         case "sm":
-          v = "40vh";
+          v = "50vh";
           break;
         case "md":
           v = "600px";

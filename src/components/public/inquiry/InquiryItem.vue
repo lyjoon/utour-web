@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-card-subtitle class="pl-2">
-      <span style="font-size: 18px">여행상품 문의하기</span>
-    </v-card-subtitle>
+
+    <scope-title title="견적문의"></scope-title>
 
     <v-form ref="frm" lazy-validation>
       <v-row dense>
@@ -66,7 +65,9 @@
 </template>
 
 <script>
+import ScopeTitle from "../../common/ScopeTitle";
 export default {
+  components: {ScopeTitle},
   methods : {
   }
 }

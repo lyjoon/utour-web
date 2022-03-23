@@ -1,7 +1,6 @@
 <template>
   <v-layout row class="product_search d-flex flex-fill justify-space-between">
     <v-flex class="d-flex pa-3">
-      d
       <!--      <v-autocomplete v-model="query1"
                             label="선택가능한 국가, 도시지역"
                             color="blue-grey lighten-2"

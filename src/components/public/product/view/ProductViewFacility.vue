@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-card-subtitle class="pl-2 pr-2">
-      <span style="font-size: 18px">호텔_숙소_주요시설</span>
-    </v-card-subtitle>
+    <scope-title title="호텔_숙소_주요시설" />
     <v-row>
       <v-col v-for="item in items" v-bind:key="item.icon" class="col-6 pl-4 pr-4">
         <v-avatar class="elevation-0 lighten-2 mr-4" color="grey" dark rounded>
@@ -15,7 +13,9 @@
 </template>
 
 <script>
+import ScopeTitle from "../../../common/ScopeTitle";
 export default {
+  components: {ScopeTitle},
   data: ()=>({
     items : [
       {

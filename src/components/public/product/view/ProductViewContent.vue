@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-card-subtitle class="pl-2 pr-2">
-      <span style="font-size: 18px">호텔_숙소_개요</span>
-    </v-card-subtitle>
+
+    <scope-title title="개요" />
+
     <v-card-text class="pl-2 pr-2">
       <div class="pb-4">
         <p>
@@ -19,7 +19,9 @@
 </template>
 
 <script>
+import ScopeTitle from "../../../common/ScopeTitle";
 export default {
+  components: {ScopeTitle}
 }
 </script>
 

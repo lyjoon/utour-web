@@ -1,6 +1,17 @@
 <template>
   <div>
-    <v-row dense>
+    <v-carousel class="hidden-lg-and-up"
+                hide-delimiters show-arrows-on-hover>
+      <v-carousel-item
+          v-for="item in images"
+          :key="item.id">
+        <template slot="default">
+          <v-img :src="item" dark height="100%" />
+        </template>
+      </v-carousel-item>
+    </v-carousel>
+
+    <v-row dense class="hidden-md-and-down">
       <v-col class="col-6">
         <v-img :src="images[0]"
                :height="mainImageHeight" />

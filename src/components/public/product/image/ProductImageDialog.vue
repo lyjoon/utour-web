@@ -1,53 +1,70 @@
 <template>
-  <v-dialog fullscreen v-model="dialog" class="white" eager hide-overlay>
-    <v-card elevation="0">
-      <v-card-title class="pb-0 pt-0">
-        <v-container class="mx-auto" fluid >
-          <div class="d-flex">
-            <div class="title d-flex" style="line-height: 36px">상품_이미지_제목</div>
+  <v-dialog fullscreen v-model="dialog" eager hide-overlay>
+    <div class="white fill-height">
+
+      <v-toolbar dense elevation="0" class="pa-0">
+        <v-container fluid>
+          <div class="d-flex flex-fill align-center">
+            <v-toolbar-title>상품_이미지_제목</v-toolbar-title>
             <v-spacer />
-            <v-btn class="d-flex rounded" v-on:click="close()" outlined tile icon >
+            <v-btn icon @click="close" color="#999999" outlined tile class="rounded toolbar-btn-outlined" small>
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </div>
         </v-container>
-      </v-card-title>
+      </v-toolbar>
 
       <v-divider />
 
-      <v-card-text class="mt-6 text">
-        <v-container>
-          <v-row dense>
-            <v-col class="col-8">
-              <v-layout column>
-                <v-flex>
-                  <v-img class="grey lighten-2 rounded" src="http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg" height="500px"></v-img>
-                </v-flex>
-                <v-flex class="mt-6">
-                  <v-row dense>
-                    <v-col v-for="item in items" v-bind:key="item.id" class="col-1">
-                      <v-img :src="item.src" height="66px" class="rounded" ></v-img>
-                    </v-col>
-                  </v-row>
-                </v-flex>
-              </v-layout>
+      <v-container>
+        <v-row dense>
 
-            </v-col>
+          <v-col class="col-12 hidden-lg-and-up">
+            <v-img src="http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg" height="50vh" />
+            <div class="mt-4">
+              <strong class="title">오션 프론트 풀빌라</strong>
+              <div>전통주 바지락-칼국수 유니짜장면 돈까스 석쇠갈비 마파두부 고기국수 녹차케이크 피자 햄버거</div>
+            </div>
+            <div class="mt-4">
+              <v-row dense>
+                <v-col v-for="item in items" v-bind:key="item.id" class="col-2">
+                  <v-img :src="item.src" height="50px" class="rounded" ></v-img>
+                </v-col>
+              </v-row>
+            </div>
+          </v-col>
 
-            <v-col class="col-4 pl-4">
-              <v-layout column>
-                <v-flex>
-                  <strong class="title">오션 프론트 풀빌라</strong>
-                </v-flex>
-                <v-flex class="mt-6">
-                  전통주 바지락-칼국수 유니짜장면 돈까스 석쇠갈비 마파두부 고기국수 녹차케이크 피자 햄버거
-                </v-flex>
-              </v-layout>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-    </v-card>
+          <v-col class="hidden-md-and-down col-8">
+            <v-layout column>
+              <v-flex>
+                <v-img class="grey lighten-2 rounded" src="http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg" height="500px"></v-img>
+              </v-flex>
+              <v-flex class="mt-6">
+                <v-row dense>
+                  <v-col v-for="item in items" v-bind:key="item.id" class="col-1">
+                    <v-img :src="item.src" height="66px" class="rounded" ></v-img>
+                  </v-col>
+                </v-row>
+              </v-flex>
+            </v-layout>
+
+          </v-col>
+
+          <v-col class="hidden-md-and-down col-4 pl-4">
+            <v-layout column>
+              <v-flex>
+                <strong class="title">오션 프론트 풀빌라</strong>
+              </v-flex>
+              <v-flex class="mt-6">
+                전통주 바지락-칼국수 유니짜장면 돈까스 석쇠갈비 마파두부 고기국수 녹차케이크 피자 햄버거
+              </v-flex>
+            </v-layout>
+          </v-col>
+        </v-row>
+
+      </v-container>
+
+    </div>
   </v-dialog>
 </template>
 
@@ -87,5 +104,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .toolbar-btn-outlined {
+    border: 1px solid #c8c8c8;
+  }
 </style>
