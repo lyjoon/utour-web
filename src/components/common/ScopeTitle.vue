@@ -23,8 +23,8 @@ export default {
 <style scoped>
   .scope_title{margin: 10px 0px 15px 0px;}
   .scope_title ._subtitle {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 500;
     padding: 0px;
   }
   .scope_title ._caption {

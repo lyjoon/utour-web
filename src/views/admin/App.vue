@@ -1,7 +1,7 @@
 <template>
   <v-app class="admin-app">
-    <admin-header />
-    <admin-navigator v-if="delegateNavigator" />
+    <admin-header ref="admin_header" @admin-navigator-open="showNavigator" />
+    <admin-navigator ref="admin_navigator" />
     <v-main class="admin-main">
       <router-view />
     </v-main>
@@ -18,10 +18,9 @@ import AdminNavigator from "../../components/admin/AdminNavigator";
 export default {
   name: "AdminPage",
   components: {AdminNavigator, AdminFooter, AdminHeader},
-  computed: {
-    delegateNavigator(){
-      // TODO : check token
-      return false;
+  methods: {
+    showNavigator: function (){
+      this.$refs.admin_navigator.showNavigator();
     }
   }
 }

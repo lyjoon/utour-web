@@ -1,14 +1,26 @@
 <template>
   <v-navigation-drawer app
                        fixed
-                       permanent
+                       right
+                       temporary
+                       v-model="navigatorDrawer"
+                       width="30vh"
+                       color="grey"
+                       class="lighten-3 elevation-0"
                        disable-resize-watcher>
-    a
   </v-navigation-drawer>
 </template>
 
 <script>
 export default {
+  data: () =>({
+    navigatorDrawer : false
+  }),
+  methods: {
+    showNavigator: function(){
+      this.navigatorDrawer = !this.navigatorDrawer;
+    }
+  }
 }
 </script>
 

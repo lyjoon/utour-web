@@ -3,7 +3,7 @@
   <v-card class="fill-height" elevation="0">
     <v-list>
       <v-subheader>
-        <scope-title title="여행관련"></scope-title>
+        <scope-title title="게시글"></scope-title>
       </v-subheader>
 
       <div class=" mt-2 mb-4 pr-4 pl-4"><v-divider class="mx-auto" /></div>
@@ -13,8 +13,7 @@
           <v-icon color="secondary">mdi-warehouse</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>여행 상품</v-list-item-title>
-          <v-list-item-subtitle>호텔, 패키지여행, 스쿠버</v-list-item-subtitle>
+          <v-list-item-title>질문과 답변</v-list-item-title>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
           <v-list-item-action-text><v-chip color="secondary" small dark link to="/admin/hotel" >관리</v-chip></v-list-item-action-text>
@@ -28,8 +27,8 @@
           <v-icon color="secondary">mdi-warehouse</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>컴포넌트 양식</v-list-item-title>
-          <v-list-item-subtitle>자주 사용하는 상품 컴포넌트</v-list-item-subtitle>
+          <v-list-item-title>견적문의</v-list-item-title>
+          <v-list-item-subtitle>ㅁㄴㅇ</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
           <v-list-item-action-text><v-chip color="secondary" small dark link to="/admin/hotel" >관리</v-chip></v-list-item-action-text>
