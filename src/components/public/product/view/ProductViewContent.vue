@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <scope-title title="개요" />
+    <sub-title title="개요" />
 
     <v-card-text class="pl-2 pr-2">
       <div class="pb-4">
@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import ScopeTitle from "../../../common/ScopeTitle";
+import SubTitle from "../../../common/SubTitle";
 export default {
-  components: {ScopeTitle}
+  components: {SubTitle}
 }
 </script>
 

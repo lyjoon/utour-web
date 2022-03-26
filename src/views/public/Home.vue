@@ -1,13 +1,13 @@
 <template>
   <v-container>
-    <home-carousel />
-    <home-products class="mt-2" />
+    <home-carousel/>
+    <home-products class="mt-4" />
     <v-row dense>
       <v-col :order="inquiryOrder" :cols="breakCols">
-        <inquiry-item />
+        <inquiry-item class="mt-4"  />
       </v-col>
       <v-col order="2" :cols="breakCols">
-        <home-qna />
+        <home-qna class="mt-4" />
       </v-col>
     </v-row>
   </v-container>

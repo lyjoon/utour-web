@@ -3,7 +3,7 @@
   <v-card class="fill-height" elevation="0">
     <v-list>
       <v-subheader>
-        <scope-title title="게시글"></scope-title>
+        <sub-title title="게시글"></sub-title>
       </v-subheader>
 
       <div class=" mt-2 mb-4 pr-4 pl-4"><v-divider class="mx-auto" /></div>
@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import ScopeTitle from "../../common/ScopeTitle";
+import SubTitle from "../../common/SubTitle";
 export default {
-  components: {ScopeTitle}
+  components: {SubTitle}
 }
 </script>
 

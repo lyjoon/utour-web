@@ -1,7 +1,7 @@
 <template>
-  <div class="page_title">
-    <v-card-title class="_title">{{title}}</v-card-title>
-    <v-card-text class="_caption" v-if="description != ''">{{description}}</v-card-text>
+  <div class="d-block">
+    <v-card-title class="pa-0 ma-0 font-weight-bold title">{{title}}</v-card-title>
+    <v-card-text class="pa-0 ma-0 grey--text" v-if="description != ''">{{description}}</v-card-text>
   </div>
 </template>
 
@@ -21,15 +21,4 @@ export default {
 </script>
 
 <style scoped>
-  .page_title{margin: 5px 0px 10px 0px;}
-  .page_title ._title {
-    font-size: 24px;
-    font-weight: 600;
-    padding: 0px;
-  }
-  .page_title ._caption {
-    margin-top: 5px;
-    padding: 0px;
-    color: grey;
-  }
 </style>

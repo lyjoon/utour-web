@@ -19,21 +19,31 @@
 
       <v-list-item link @click="showInquiry">
         <v-list-item-icon>
-          <v-icon>mdi-file-document-edit</v-icon>
+          <v-icon>mdi-file-document-edit-outline</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>여행문의작성</v-list-item-title>
+        <v-list-item-title>견적문의</v-list-item-title>
       </v-list-item>
       <v-list-item link disabled>
         <v-list-item-icon>
           <v-icon>mdi-airplane-alert</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>약관</v-list-item-title>
+        <v-list-item-title>여행약관</v-list-item-title>
       </v-list-item>
+
+      <v-divider class="mt-2 mb-2 mx-auto" />
+
       <v-list-item link disabled>
         <v-list-item-icon>
-          <v-icon>mdi-help-circle-outline</v-icon>
+          <v-icon>mdi-information-variant</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>Q&A</v-list-item-title>
+        <v-list-item-title>공지사항</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link disabled>
+        <v-list-item-icon>
+          <v-icon>mdi-comment-question-outline</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>질문과 답변</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mt-2 mb-2 mx-auto" />

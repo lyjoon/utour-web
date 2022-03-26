@@ -30,13 +30,15 @@ export default new Vuetify({
     theme: {
         themes: {
             light: {
-                primary: '#000000',
+                primary: '#3b3939',
                 secondary: '#ff7f00',
                 identity: '#ff7f00',
                 error: '#b71c1c',
             },
         },
     },
+    treeShake: true,
+    defaultAssets: false,
     icons: {
         iconfont: 'mdiSvg'
     }

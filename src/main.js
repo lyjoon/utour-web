@@ -7,6 +7,7 @@ import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loade
 
 Vue.config.productionTip = false
 
+require('@/assets/css/variable.scss')
 require('@/assets/css/style.scss')
 require('@/assets/css/app.scss')
 
@@ -14,4 +15,7 @@ new Vue({
   router,
   render: h => h(App),
   vuetify
+  /*vuetify:{
+    customVariables: ['~/assets/css/variable.scss']
+  }*/
 }).$mount('#app')
