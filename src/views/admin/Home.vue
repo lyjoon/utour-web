@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="col-6">
+      <v-col class="col-12 col-lg-6 col-xl-6">
         <admin-main-product />
       </v-col>
-      <v-col class="col-6">
+      <v-col class="col-12 col-lg-6 col-xl-6">
         <admin-main-board />
       </v-col>
     </v-row>

@@ -5,7 +5,7 @@
 
       <template v-for="(item, index) in items">
 
-        <v-list-item :key="index" class="" link to="/qna/123">
+        <v-list-item :key="index" class="pl-1 pr-1" link to="/qna/123">
 
           <v-list-item-avatar class="hidden-md-and-down">
             <v-avatar color="secondary"
@@ -15,7 +15,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{item.title}}</v-list-item-title>
+            <div class="subtitle-1">{{item.title}}</div>
             <v-list-item-subtitle class="caption">
               {{ item.writer }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
@@ -39,7 +39,7 @@
 
     <v-layout column class="hidden-lg-and-up board_list_search_field">
       <v-flex>
-        <div class="d-flex flex-fill justify-start mt-2 mb-4">
+        <div class="d-flex flex-fill justify-end mt-2 mb-4">
           <v-btn dark color="grey" class="darken-3" elevation="0">
             <v-icon class="mr-1">mdi-playlist-edit</v-icon>
             <span>글작성</span>
@@ -71,7 +71,7 @@
 
     <v-layout row wrap class="hidden-md-and-down board_list_search_field">
       <v-flex class="col-12">
-        <div class="d-flex flex-fill mt-3">
+        <div class="d-flex flex-fill">
           <v-spacer />
           <v-btn dark color="grey" class="darken-3" elevation="0">
             <v-icon class="mr-1">mdi-playlist-edit</v-icon>

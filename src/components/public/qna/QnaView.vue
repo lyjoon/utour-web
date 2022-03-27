@@ -25,9 +25,16 @@
     <v-col class="col-12">
       <qna-reply />
     </v-col>
-    <v-col class="col-12 ">
-      <v-btn dark color="grey" class="darken-2" elevation="0" link to="/qna/list">
-        <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span></v-btn>
+    <v-col class="col-12">
+      <div class="d-flex flex-fill">
+        <v-btn dark color="grey" class="darken-2" elevation="0" link to="/qna/list">
+          <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
+        </v-btn>
+        <v-spacer />
+        <v-btn dark color="grey" class="darken-2" elevation="0" link to="/qna/edit">
+          <v-icon class="mr-1" small>mdi-playlist-edit</v-icon><span>수정</span>
+        </v-btn>
+      </div>
     </v-col>
   </v-row>
 

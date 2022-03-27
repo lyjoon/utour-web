@@ -56,7 +56,7 @@
         </div>
       </div>-->
 
-      <div class="d-flex flex-fill justify-end">
+      <div class="d-flex flex-fill justify-end pa-1">
         <v-btn dark color="deep-orange" class="darken-2" elevation="0" >
           <template v-slot:default>
             <v-icon small class="mr-1">mdi-message-reply-text</v-icon> 저장

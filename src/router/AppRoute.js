@@ -5,6 +5,9 @@ import Home from "../views/public/Home";
 import QnaView from "../components/public/qna/QnaView";
 import Qna from "../views/public/Qna";
 import QnaList from "../components/public/qna/QnaList";
+import Notice from "../views/public/Notice";
+import NoticeList from "../components/public/notice/NoticeList";
+import NoticeView from "../components/public/notice/NoticeView";
 
 export default [{
   path: '/',
@@ -37,6 +40,21 @@ export default [{
         {
           path: ':id',
           component: QnaView,
+          props: true
+        }
+      ]
+    },
+    {
+      path: 'notice',
+      component: Notice,
+      children: [
+        {
+          path: 'list',
+          component: NoticeList
+        },
+        {
+          path: ':id',
+          component: NoticeView,
           props: true
         }
       ]

@@ -25,21 +25,21 @@
       </v-list-item>
       <v-list-item link disabled>
         <v-list-item-icon>
-          <v-icon>mdi-airplane-alert</v-icon>
+          <v-icon disabled>mdi-airplane-alert</v-icon>
         </v-list-item-icon>
         <v-list-item-title>여행약관</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mt-2 mb-2 mx-auto" />
 
-      <v-list-item link disabled>
+      <v-list-item link to="/notice/list">
         <v-list-item-icon>
           <v-icon>mdi-information-variant</v-icon>
         </v-list-item-icon>
         <v-list-item-title>공지사항</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link disabled>
+      <v-list-item link to="/qna/list">
         <v-list-item-icon>
           <v-icon>mdi-comment-question-outline</v-icon>
         </v-list-item-icon>

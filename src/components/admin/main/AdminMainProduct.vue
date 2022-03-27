@@ -13,8 +13,8 @@
           <v-icon color="secondary">mdi-warehouse</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>여행 상품</v-list-item-title>
-          <v-list-item-subtitle>호텔, 패키지여행, 스쿠버</v-list-item-subtitle>
+          <v-list-item-title class="body-1">여행 상품</v-list-item-title>
+          <v-list-item-subtitle class="caption mt-1">호텔, 패키지여행, 스쿠버</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
           <v-list-item-action-text><v-chip color="secondary" small dark link to="/admin/hotel" >관리</v-chip></v-list-item-action-text>
@@ -28,8 +28,8 @@
           <v-icon color="secondary">mdi-warehouse</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <v-list-item-title>컴포넌트 양식</v-list-item-title>
-          <v-list-item-subtitle>자주 사용하는 상품 컴포넌트</v-list-item-subtitle>
+          <v-list-item-title>공개관리</v-list-item-title>
+          <v-list-item-subtitle class="caption mt-1">여행상품노출</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
           <v-list-item-action-text><v-chip color="secondary" small dark link to="/admin/hotel" >관리</v-chip></v-list-item-action-text>
