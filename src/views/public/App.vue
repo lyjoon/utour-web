@@ -1,7 +1,7 @@
 <template>
   <v-app class="app-main">
-    <app-navigator />
-    <app-header />
+    <app-navigator ref="app_navigator" />
+    <app-header @app-navigator-open="showNavigator" />
     <v-main class="mt-2">
       <router-view />
     </v-main>
@@ -15,6 +15,11 @@ import AppNavigator from "../../components/public/AppNavigator";
 export default {
   name: "AppPage",
   components: {AppNavigator, AppHeader},
+  methods:{
+    showNavigator: function (){
+      this.$refs.app_navigator.showNavigator();
+    }
+  }
 }
 </script>
 

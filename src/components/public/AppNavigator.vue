@@ -1,9 +1,12 @@
 <template>
   <v-navigation-drawer color="grey"
-                       class="lighten-4 hidden-lg-and-down"
-                       permanent
-                       expand-on-hover
+                       class="lighten-4"
+                       :permanent="$vuetify.breakpoint.lgAndUp"
+                       :expand-on-hover="$vuetify.breakpoint.lgAndUp"
                        fixed
+                       v-model="navigatorDrawer"
+                       disable-resize-watcher
+                       disable-route-watcher
                        >
 
     <v-list nav dense>
@@ -62,7 +65,7 @@
       </v-list-item>
     </v-list>
 
-    <v-dialog v-model="model.inquiryDialog" width="1100px" eager persistent>
+    <v-dialog v-model="inquiryDialog" width="1100px" eager persistent>
       <inquiry-view @close="closeInquiry"></inquiry-view>
     </v-dialog>
 
@@ -74,23 +77,19 @@ import InquiryView from "./inquiry/InquiryView";
 export default {
   name: "AppNavigator",
   components: {InquiryView},
-  computed: {
-    drawer() {
-      return true;
-    }
-  },
   data: ()=>({
-    model : {
-      inquiryDialog: false
-    }
+    inquiryDialog: false,
+    navigatorDrawer: false
   }),
   methods: {
     showInquiry: function (){
-      this.model.inquiryDialog = true;
+      this.inquiryDialog = true;
     },
     closeInquiry: function () {
-      console.log('closeInquiryDialog');
-      this.model.inquiryDialog = false;
+      this.inquiryDialog = false;
+    },
+    showNavigator: function () {
+      this.navigatorDrawer = !this.navigatorDrawer;
     }
   }
 }

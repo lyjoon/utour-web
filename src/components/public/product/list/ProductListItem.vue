@@ -6,8 +6,6 @@
         dark
         class="white--text align-end"
         :src="src"
-        v-on:load="vv"
-        v-show="vv"
     >
       <template v-slot:default>
         <v-sheet dark translate="yes" color="rgba(0,0,0,0.41)">
@@ -55,10 +53,6 @@ export default {
       return v + 'vh';
     }
   },
-  mounted() {
-    console.log('itemCard.height : ', this.$refs.itemCard.scrollHeight);
-    this.vv();
-  },
   props: {
     title: {
       default: null
@@ -66,11 +60,6 @@ export default {
       default: null
     },src: {
       default: null
-    }
-  },
-  methods: {
-    vv : function(){
-      console.log('vv.itemCard.height : ', this.$refs.itemCard.scrollHeight);
     }
   }
 }
