@@ -1,5 +1,5 @@
 <template>
-  <v-row dense>
+  <v-row dense :no-gutters="$vuetify.breakpoint.smAndDown">
     <v-col class="col-12" >
       <v-carousel v-model="idx" :height="height"
                   class="rounded align-center"

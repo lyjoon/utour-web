@@ -52,7 +52,7 @@
 
         <v-col class="col-12" order="5">
           <v-textarea filled hide-details
-                      rounded rows="13" label="문의내용을 작성해주세요." no-resize dense class="rounded-lg"></v-textarea>
+                      rounded rows="13" label="문의내용을 작성해주세요." no-resize dense class="rounded-lg body-2"></v-textarea>
         </v-col>
 
         <v-col class="col-12" order="6">

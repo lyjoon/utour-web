@@ -4,16 +4,16 @@
       <v-col class="col-12" :order="toolbarOrder">
         <product-view-toolbar />
       </v-col>
-      <v-col class="col-12" :order="imageOrder">
-        <product-view-image />
+      <v-col class="col-12 pt-8" :order="imageOrder">
+        <product-view-image/>
       </v-col>
-      <v-col class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" :order="inquiryOrder">
-        <inquiry-item />
+      <v-col class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pt-8" :order="inquiryOrder">
+        <inquiry-item  />
       </v-col>
-      <v-col class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" :order="contentOrder">
+      <v-col class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 pt-8" :order="contentOrder">
         <product-view-content />
       </v-col>
-      <v-col class="col-12" :order="facilityOrder">
+      <v-col class="col-12 pt-8" :order="facilityOrder">
         <product-view-facility />
       </v-col>
     </v-row>

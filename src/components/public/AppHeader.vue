@@ -2,7 +2,7 @@
   <v-app-bar app fixed absolute dark class="secondary lighten-1 app-header" elevation="1" height="56px">
     <v-container fluid class="pa-0">
       <v-row no-gutters class="pa-0">
-        <v-col cols="2">
+        <v-col cols="2" class="pa-0">
           <div class="d-flex flex-fill align-center">
             <v-menu fixed absolute right v-if="$vuetify.breakpoint.mdAndDown" class="ma-0">
               <template v-slot:activator="{on, attrs}">

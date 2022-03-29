@@ -65,7 +65,7 @@
       </v-list-item>
     </v-list>
 
-    <v-dialog v-model="inquiryDialog" width="1100px" eager persistent>
+    <v-dialog v-model="inquiryDialog" width="1100px" eager persistent :fullscreen="$vuetify.breakpoint.smAndDown">
       <inquiry-view @close="closeInquiry"></inquiry-view>
     </v-dialog>
 

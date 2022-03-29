@@ -15,48 +15,73 @@
 
       <div class="inquiry_form">
         <v-row dense>
-          <v-col class="col-12">
+          <v-col class="col-12" order="1">
             <v-text-field
                 filled
                 rounded
+                hide-details
                 dense
-                class="rounded-lg"
-                label="여행문의 제목"
+                class="rounded body-2"
+                label="제목"
             />
           </v-col>
 
 
-          <v-col class="col-6">
+          <v-col class="col-6" order="2">
             <v-text-field
                 filled
                 rounded
+                hide-details
                 dense
-                class="rounded-lg"
-                label="회신받으실 연락처를 입력해주세요."
+                class="rounded body-2"
+                label="이름"
             />
           </v-col>
 
-          <v-col class="col-6">
+          <v-col class="col-6" order="3">
             <v-text-field
                 filled
                 rounded
+                hide-details
                 dense
-                class="rounded-lg"
-                label="회신받으실 e-mail를 입력해주세요."
+                class="rounded body-2"
+                label="연락처"
             />
           </v-col>
 
-
-          <v-col class="col-12">
-            <v-textarea filled rounded rows="10" label="문의내용을 작성해주세요." no-resize dense class="rounded-lg"></v-textarea>
+          <v-col class="col-12" order="4">
+            <v-text-field
+                filled
+                rounded
+                hide-details
+                dense
+                class="rounded body-2"
+                label="e-mail"
+            />
           </v-col>
-          <v-col class="col-12">
-              <v-checkbox color="secondary" class="mt-0 mb-1" label="개인정보수집동의" dense hide-details />
-              <v-checkbox color="secondary" class="mt-1 mb-0" label="제3자 개인정보활용 동의" dense hide-details />
+
+          <v-col class="col-12" order="5">
+            <v-textarea filled rounded rows="10" label="문의내용을 작성해주세요." no-resize dense class="rounded-lg body-2"></v-textarea>
+          </v-col>
+
+          <v-col class="col-12" order="6">
+            <div class="d-flex flex-fill fill-height align-end">
+              <div class="d-block">
+                <v-checkbox color="secondary" class="ma-0" dense hide-details >
+                  <template v-slot:label><span class="body-2">개인정보수집동의</span></template>
+                </v-checkbox>
+                <v-checkbox color="secondary" class="ma-0" dense hide-details >
+                  <template v-slot:label>
+                    <span class="body-2">제3자 개인정보활용 동의</span>
+                  </template>
+                </v-checkbox>
+              </div>
+              <v-spacer />
+            </div>
           </v-col>
         </v-row>
 
-        <div class="d-flex flex-fill align-center justify-center pb-4">
+        <div class="d-flex flex-fill align-center justify-center pt-4 mb-2">
           <v-btn large elevation="0" color="deep-orange" class="darken-2 mr-2" dark min-width="120px">문의하기</v-btn>
           <v-btn large elevation="0" color="grey" class="ml-2" dark min-width="120px" @click="close">닫기</v-btn>
         </div>

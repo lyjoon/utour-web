@@ -7,9 +7,9 @@
 
       <template v-for="(item, index) in items">
 
-        <v-list-item :key="index" class="" link to="/qna/123">
+        <v-list-item :key="index" class="pl-1 pr-1" link to="/qna/123">
 
-          <v-list-item-avatar >
+          <v-list-item-avatar class="hidden-sm-and-down">
             <v-avatar color="secondary"
                       class="white--text">
               <v-icon dark>mdi-card-text</v-icon>
