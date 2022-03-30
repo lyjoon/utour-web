@@ -1,6 +1,6 @@
 <template>
-  <v-dialog fullscreen v-model="dialog" eager hide-overlay>
-    <div class="white fill-height">
+  <v-dialog fullscreen v-model="dialog" scrollable persistent>
+    <v-card elevation="0" color="white" class="d-block">
 
       <v-toolbar dense elevation="0" class="pa-0">
         <v-container fluid>
@@ -16,33 +16,31 @@
 
       <v-divider />
 
-      <v-container>
-        <v-row dense>
+      <v-container >
 
-          <v-col class="col-12 hidden-lg-and-up">
-            <v-img src="http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg" height="50vh" />
-            <div class="mt-4">
-              <strong class="title">오션 프론트 풀빌라</strong>
-              <div>전통주 바지락-칼국수 유니짜장면 돈까스 석쇠갈비 마파두부 고기국수 녹차케이크 피자 햄버거</div>
-            </div>
-            <div class="mt-4">
-              <v-row dense>
-                <v-col v-for="item in items" v-bind:key="item.id" class="col-2">
-                  <v-img :src="item.src" height="50px" class="rounded" ></v-img>
-                </v-col>
-              </v-row>
-            </div>
+        <v-row no-gutters class="hidden-lg-and-up">
+          <v-col class="col-12">
+            <v-chip-group v-model="selectedItems">
+              <v-chip outlined filter value="1">숙소</v-chip>
+              <v-chip outlined filter value="2">객실</v-chip>
+              <v-chip outlined filter value="3">화장실</v-chip>
+            </v-chip-group>
           </v-col>
+          <v-col v-for="item in items" v-bind:key="item.id" class="col-4 pa-1">
+            <v-img :src="item.src" :height="imageHeight" class="rounded" light></v-img>
+          </v-col>
+        </v-row>
 
-          <v-col class="hidden-md-and-down col-8">
+        <v-row dense class="hidden-md-and-down">
+          <v-col class="col-8">
             <v-layout column>
               <v-flex>
                 <v-img class="grey lighten-2 rounded" src="http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg" height="500px"></v-img>
               </v-flex>
-              <v-flex class="mt-6">
+              <v-flex class="mt-1">
                 <v-row dense>
-                  <v-col v-for="item in items" v-bind:key="item.id" class="col-1">
-                    <v-img :src="item.src" height="66px" class="rounded" ></v-img>
+                  <v-col v-for="item in items" v-bind:key="item.id" class="col-2">
+                    <v-img :src="item.src" :height="imageHeight" class="rounded" ></v-img>
                   </v-col>
                 </v-row>
               </v-flex>
@@ -50,12 +48,19 @@
 
           </v-col>
 
-          <v-col class="hidden-md-and-down col-4 pl-4">
+          <v-col class="col-4 pl-4">
             <v-layout column>
+              <v-flex class="pb-2">
+                <v-chip-group column v-model="selectedItems">
+                  <v-chip outlined filter value="1">숙소</v-chip>
+                  <v-chip outlined filter value="2">객실</v-chip>
+                  <v-chip outlined filter value="3">화장실</v-chip>
+                </v-chip-group>
+              </v-flex>
               <v-flex>
                 <strong class="title">오션 프론트 풀빌라</strong>
               </v-flex>
-              <v-flex class="mt-6">
+              <v-flex class="mt-6 body-2">
                 전통주 바지락-칼국수 유니짜장면 돈까스 석쇠갈비 마파두부 고기국수 녹차케이크 피자 햄버거
               </v-flex>
             </v-layout>
@@ -63,15 +68,30 @@
         </v-row>
 
       </v-container>
-
-    </div>
+    </v-card>
   </v-dialog>
 </template>
 
 <script>
 export default {
+  computed:{
+    imageHeight() {
+      switch (this.$vuetify.breakpoint.name){
+        case "lg":
+        case "xl":
+          return '88px';
+        case "md":
+          return "22vh";
+        case "sm":
+          return "18vh";
+        default:
+          return "14vh";
+      }
+    }
+  },
   data: () => ({
     dialog: false,
+    selectedItems: [],
     items: [
         {id:1, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-35.jpg", title: '로빈슨클럽'},
         {id:2, src:"http://www.honeymoonlove.co.kr/resort_images/deluxe-suite-king.jpg", title: '디럭스'},
@@ -82,6 +102,12 @@ export default {
         {id:7, src:"http://www.honeymoonlove.co.kr/resort_images/oceanfront-pool-villa-1.jpg", title: '오션 프론트 풀빌라'},
         {id:8, src:"http://www.honeymoonlove.co.kr/resort_images/ocean-view-pool-villa-katiliya.jpg", title: '오션 프론트 풀빌라'},
         {id:9, src:"http://www.honeymoonlove.co.kr/resort_images/one-bedroom-oceanfront-pool-villa.jpg", title: '오션 프론트 풀빌라'},
+        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
+        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
+        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
+        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
+        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
+        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
         {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
         {id:11, src:"http://www.honeymoonlove.co.kr/resort_images/x_3319-54.jpg", title: '레스토랑'},
         {id:12, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-21.jpg", title: '레스토랑'},

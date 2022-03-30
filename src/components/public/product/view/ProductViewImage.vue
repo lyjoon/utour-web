@@ -1,15 +1,19 @@
 <template>
   <div>
-    <v-carousel class="hidden-lg-and-up"
-                hide-delimiters show-arrows-on-hover>
-      <v-carousel-item
-          v-for="item in images"
-          :key="item.id">
-        <template slot="default">
-          <v-img :src="item" dark height="100%" />
-        </template>
-      </v-carousel-item>
-    </v-carousel>
+    <div style="position: relative" class="hidden-lg-and-up">
+      <v-btn class="v-btn-more" elevation="0" style="position: absolute;right: 10px;bottom: 10px; width: 0px;z-index: 1;"
+             @click="openDialog">더보기</v-btn>
+      <v-carousel style="position: relative"
+                  hide-delimiters show-arrows-on-hover>
+        <v-carousel-item
+            v-for="item in images"
+            :key="item.id">
+          <template slot="default">
+            <v-img :src="item" dark height="100%" />
+          </template>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
 
     <v-row dense class="hidden-md-and-down">
       <v-col class="col-6">
@@ -73,7 +77,7 @@ export default {
 
 <style scoped>
   .v-btn-more {
-    opacity: 0.4;
+    opacity: 0.5;
     font-weight: 400;
   }
 </style>
