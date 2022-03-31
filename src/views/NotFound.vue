@@ -1,16 +1,25 @@
 <template>
   <v-app class="main-app">
-    <admin-header />
+    <v-toolbar dense elevation="0" app
+               fixed
+               outlined
+               color="inherit"
+               class="grey--text text--darken-1"
+               height="70px">
+      <v-container class="pa-2">
+        <v-toolbar-title class="font-size-24 font-montserrat-300">U-TOUR</v-toolbar-title>
+      </v-container>
+    </v-toolbar>
     <v-main>
       <v-container>
         <v-layout row wrap>
           <v-flex class="mx-auto justify-center">
             <v-card rounded elevation="1" class="mt-8 pa-5">
-              <v-card-title >Not Found</v-card-title>
+              <v-card-title class="font-montserrat-300">Not Found</v-card-title>
               <v-card-subtitle class="mt-5">
                 페이지를 찾을 수 없습니다.
               </v-card-subtitle>
-              <v-card-text>
+              <v-card-text class="body-2">
                 요청 페이지의 주소가 잘못 입력되었거나 URL 주소가 변경 혹은 삭제되어 요청하신 페이지를 찾을 수 없습니다.
               </v-card-text>
 
@@ -29,10 +38,8 @@
 <script>
 
 
-import AdminHeader from "@/components/admin/AdminHeader";
 export default {
   name: "NotFound",
-  components: {AdminHeader}
 }
 </script>
 

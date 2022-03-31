@@ -1,5 +1,6 @@
 <template>
-  <v-app-bar app fixed absolute dark class="secondary lighten-1 app-header" elevation="1" height="56px">
+  <!--
+  <v-app-bar app dense fixed absolute dark class="secondary lighten-1 app-header" elevation="1" >
     <v-container fluid class="pa-0">
       <v-row no-gutters class="pa-0">
         <v-col cols="2" class="pa-0">
@@ -23,6 +24,24 @@
       </v-row>
     </v-container>
   </v-app-bar>
+  -->
+  <v-app-bar app dense fixed dark class="secondary lighten-1 app-header" elevation="1" >
+    <v-app-bar-nav-icon class="hidden-lg-and-up"></v-app-bar-nav-icon>
+    <v-toolbar-title class="mx-auto">
+      <router-link to="/"><v-img :src="require('@/assets/images/logo.png')" width="100" class="mx-auto" /></router-link>
+    </v-toolbar-title>
+    <template v-slot:extension>
+      <v-tabs grow>
+        <v-tab>Tab 1</v-tab>
+        <v-tab>Tab 2</v-tab>
+        <v-tab>Tab 3</v-tab>
+        <v-tab>Tab 4</v-tab>
+        <v-tab>Tab 5</v-tab>
+        <v-tab>Tab 6</v-tab>
+      </v-tabs>
+    </template>
+  </v-app-bar>
+
 </template>
 
 <script>
