@@ -6,13 +6,6 @@ Vue.filter('mmss', function (value) {
     return moment.utc(moment.duration(value, "seconds").asMilliseconds()).format("mm:ss")
 })
 
-/*
-Vue.filter('birthdayFormat', function(value) {
-    if(!value) return '';
-    return  value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '-');
-})
-*/
-
 Vue.filter('YYYYMMDD', function(value) {
     if(!value) return '';
     return  moment(value).format('YYYY-MM-DD');

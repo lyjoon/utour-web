@@ -1,12 +1,15 @@
 <template>
   <div id="app" >
     <router-view/>
+    <loading />
   </div>
 </template>
 
 <script>
+  import Loading from "./components/common/Loading";
   export default {
     name: 'App',
+    components: {Loading},
     created() {
         console.log("app created", process.env.VUE_APP_MODE);
     }

@@ -25,20 +25,25 @@
     </v-container>
   </v-app-bar>
   -->
-  <v-app-bar app dense fixed dark class="secondary lighten-1 app-header" elevation="1" >
-    <v-app-bar-nav-icon class="hidden-lg-and-up"></v-app-bar-nav-icon>
-    <v-toolbar-title class="mx-auto">
+  <v-app-bar app dense absolute flat color="secondary" class="app-header" elevation="1" >
+    <v-app-bar-nav-icon class="hidden-lg-and-up white--text" @click="openNavigator"></v-app-bar-nav-icon>
+    <v-toolbar-title class="mx-auto pr-12 pr-lg-0 pr-xl-0 pt-4 pb-4">
       <router-link to="/"><v-img :src="require('@/assets/images/logo.png')" width="100" class="mx-auto" /></router-link>
     </v-toolbar-title>
+
     <template v-slot:extension>
-      <v-tabs grow>
-        <v-tab>Tab 1</v-tab>
-        <v-tab>Tab 2</v-tab>
-        <v-tab>Tab 3</v-tab>
-        <v-tab>Tab 4</v-tab>
-        <v-tab>Tab 5</v-tab>
-        <v-tab>Tab 6</v-tab>
-      </v-tabs>
+<!--      <v-row v-touch="{left: () => swipe('left'), right: ()=> swipe('right')}" class="align-center flex-fill">-->
+        <v-container class="pa-0">
+          <v-tabs dark align-with-title hide-slider show-arrows grow background-color="secondary">
+            <v-tab class="text-lg-subtitle-1 text-xl-subtitle-1">몰디브</v-tab>
+            <v-tab class="text-lg-subtitle-1 text-xl-subtitle-1">하와이</v-tab>
+            <v-tab class="text-lg-subtitle-1 text-xl-subtitle-1">칸쿤</v-tab>
+            <v-tab class="text-lg-subtitle-1 text-xl-subtitle-1">유럽</v-tab>
+            <v-tab class="text-lg-subtitle-1 text-xl-subtitle-1">베트남</v-tab>
+            <v-tab class="text-lg-subtitle-1 text-xl-subtitle-1">기타</v-tab>
+          </v-tabs>
+        </v-container>
+<!--      </v-row>-->
     </template>
   </v-app-bar>
 
@@ -50,7 +55,7 @@ export default {
   computed : {
     drawer() {
       return false;
-    }
+    },
   },
   data: () =>({
     showNavigator: false
@@ -58,6 +63,9 @@ export default {
   methods: {
     openNavigator: function () {
       this.$emit('app-navigator-open');
+    },
+    swipe: function(direction) {
+      console.log('direction : ', direction);
     }
   }
 }

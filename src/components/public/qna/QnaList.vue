@@ -1,11 +1,16 @@
 <template>
   <div>
+    <v-list class="flex-fill mt-0" min-height="550px">
 
-    <v-list class="flex-fill mt-0" >
+      <v-card v-if="items != null && items.length < 1" min-height="100px" elevation="0">
+        <v-card-text class="d-flex flex-fill fill-height align-center justify-center mt-12">
+          조회 결과가 없습니다.
+        </v-card-text>
+      </v-card>
 
       <template v-for="(item, index) in items">
 
-        <v-list-item :key="index" class="pl-1 pr-1" link to="/qna/123">
+        <v-list-item :key="index" class="pl-1 pr-1" link @click="view(item)">
 
           <v-list-item-avatar class="hidden-md-and-down">
             <v-avatar color="secondary"
@@ -19,13 +24,13 @@
             <v-list-item-subtitle class="caption">
               {{ item.writer }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
-              {{ item.createAt }}
+              {{ $moment(item['create_at']).format('YYYY.MM.DD') }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
               조회수 {{ item.pv }}
             </v-list-item-subtitle>
           </v-list-item-content>
 
-          <v-icon small color="grey" class="lighten-2">mdi-lock</v-icon>
+          <v-icon :small="$vuetify.breakpoint.smAndDown" color="grey" class="lighten-2">{{ item['private_yn'] == 'Y' ? 'mdi-lock' : 'mdi-lock-open-outline' }}</v-icon>
 
         </v-list-item>
 
@@ -40,7 +45,7 @@
     <v-layout column class="hidden-lg-and-up board_list_search_field">
       <v-flex>
         <div class="d-flex flex-fill justify-end mt-2 mb-4">
-          <v-btn dark color="grey" class="darken-3" elevation="0">
+          <v-btn dark color="grey" class="darken-3" elevation="0" @click="edit">
             <v-icon class="mr-1">mdi-playlist-edit</v-icon>
             <span>글작성</span>
           </v-btn>
@@ -70,29 +75,32 @@
     </v-layout>
 
     <v-layout row wrap class="hidden-md-and-down board_list_search_field">
+
       <v-flex class="col-12">
         <div class="d-flex flex-fill">
           <v-spacer />
-          <v-btn dark color="grey" class="darken-3" elevation="0">
+          <v-btn dark color="grey" class="darken-3" elevation="0" @click="edit">
             <v-icon class="mr-1">mdi-playlist-edit</v-icon>
             <span>글작성</span>
           </v-btn>
         </div>
       </v-flex>
+
       <v-flex class="col-12">
         <div class="d-flex flex-fill justify-center">
           <v-pagination class="elevation-0"
               v-model="pagination.page"
-              :length="10">
+              :length="pagination.pageCount">
           </v-pagination>
         </div>
       </v-flex>
+
       <v-flex class="col-3"></v-flex>
       <v-flex class="col-2">
         <v-select placeholder="검색항목" v-model="searchType" :items="searchTypes" hide-details dense outlined></v-select>
       </v-flex>
       <v-flex class="col-4 d-inline">
-        <v-text-field dense hide-details placeholder="검색키워드" outlined @keyup.enter="search">
+        <v-text-field dense hide-details placeholder="검색키워드" v-model="query" outlined @keyup.enter="search">
           <template v-slot:append>
             <v-icon @click="search">mdi-magnify</v-icon>
           </template>
@@ -107,6 +115,7 @@
 
 <script>
 import SecondaryDivider from "../../common/SecondaryDivider";
+import QnaApi from "../../../api/qna"
 export default {
   components: {SecondaryDivider},
   props:{
@@ -115,43 +124,41 @@ export default {
       default : 20
     }
   },
+
   data: ()=> ({
     pagination: {
-      page: 6,
-      startPage: 1,
-      endPage : 10
+      page: 1,
+      pageCount : null
     },
     searchTypes: ['제목+내용', '제목', '작성자', '내용'],
     searchType: '제목+내용',
-    items: [
-      {title:"견적문의 드립니다.", contents: "견적문의 드립니다.", writer:"홍길동", createAt:"12:20", pv:12},
-      {title:"몰디브 견적요청", contents: "견적문의 드립니다.", writer:"차인표", createAt:"1:33", pv:2},
-      {title:"몰디브 4박견적", contents: "견적문의 드립니다.", writer:"김효진", createAt:"2022-03-25", pv:66},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-22", pv:12},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-21", pv:44},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-20", pv:12},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-18", pv:88},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-17", pv:4},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-18", pv:0},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-18", pv:21},
-      {title:"견적문의 드립니다.", contents: "견적문의 드립니다.", writer:"홍길동", createAt:"12:20", pv:12},
-      {title:"몰디브 견적요청", contents: "견적문의 드립니다.", writer:"차인표", createAt:"1:33", pv:2},
-      {title:"몰디브 4박견적", contents: "견적문의 드립니다.", writer:"김효진", createAt:"2022-03-25", pv:66},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-22", pv:12},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-21", pv:44},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-20", pv:12},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-18", pv:88},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-17", pv:4},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-18", pv:0},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-18", pv:21},
-    ]
+    query:null,
+    items: []
   }),
   mounted() {
     console.log(`limit : ${this.limit}`);
+    this.search();
   },
   methods:{
     search: function (){
-      alert('준비중입니다.');
+      // alert('준비중입니다.');
+      QnaApi.getList(1, 20, this.searchType, this.query).then(res => {
+        this.items = res.data.result;
+        this.pagination.page = res.data.page;
+        this.pagination.pageCount = res.data['page_count'];
+      });
+    },
+    edit: function(){
+      this.$router.push("/qna/edit");
+    },
+    view: function(item) {
+      /*if(item.private_yn == 'Y') {
+        this.$router.push({name:'QnaView', params: item});
+      } else {
+        //this.$router.push({name:'QnaView', query: {qna_id: item.qna_id}});
+        this.$router.push(`/qna/view?qna_id=${this.qna_id}`);
+      }*/
+      this.$router.push(`/qna/view?qna_id=${item.qna_id}`);
     }
   }
 }

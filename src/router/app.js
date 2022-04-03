@@ -8,6 +8,7 @@ import QnaList from "../components/public/qna/QnaList";
 import Notice from "../views/public/Notice";
 import NoticeList from "../components/public/notice/NoticeList";
 import NoticeView from "../components/public/notice/NoticeView";
+import QnaEdit from "../components/public/qna/QnaEdit";
 
 export default [{
   path: '/',
@@ -36,10 +37,15 @@ export default [{
         {
           path: 'list',
           component: QnaList
+        },{
+          name: 'qna-edit',
+          path: 'edit',
+          component: QnaEdit
         },
         {
           path: ':id',
           component: QnaView,
+          name: 'qna-view',
           props: true
         }
       ]

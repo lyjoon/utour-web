@@ -43,3 +43,7 @@ a {text-decoration: none !important;}
   box-shadow: none;
   border: 1px solid #c8c8c8;
 }
+.v-toolbar--dense .v-toolbar__extension {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
