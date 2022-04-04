@@ -45,22 +45,22 @@
 </template>
 
 <script>
-import Qna from "../../../api/qna";
+import Qna from "../../../api/QnaApi";
 
 export default {
   data: () => ({
     command: {
-      qna_id:null,
-      qna_reply_id:null,
+      qnaId:null,
+      qnaReplyId:null,
       content:null,
       writer:null,
       password:null,
     }
   }),
   methods: {
-    init: function (qna_id) {
-      console.log('qna_reply_edit.init.qna_id', qna_id);
-      this.command.qna_id = qna_id;
+    init: function (qnaId) {
+      console.log('qna_reply_edit.init.qnaId', qnaId);
+      this.command.qnaId = qnaId;
     },
     save: function (){
       Qna.saveReply(this.command).then(res => {

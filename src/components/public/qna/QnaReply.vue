@@ -11,13 +11,13 @@ import QnaReplyList from "./QnaReplyList";
 export default {
   components: {QnaReplyList, QnaReplyEdit},
   data: ()=>({
-    qna_id: null
+    qnaId: null
   }),
   methods: {
-    init: function(qna_id){
-      this.qna_id = qna_id;
-      this.$refs.qna_reply_list.init(this.qna_id);
-      this.$refs.qna_reply_edit.init(this.qna_id);
+    init: function(qnaId){
+      this.qnaId = qnaId;
+      this.$refs.qna_reply_list.init(this.qnaId);
+      this.$refs.qna_reply_edit.init(this.qnaId);
     },
     updateRepliesCount: function(count){
       console.log('listCompleted', count);

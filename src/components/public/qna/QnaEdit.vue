@@ -25,7 +25,7 @@
             게시글 공개여부
           </div>
           <div class="d-flex">
-            <v-radio-group v-model="command.private_yn" row dense hide-details class="mt-0">
+            <v-radio-group v-model="command.privateYn" row dense hide-details class="mt-0">
               <v-radio value="N" >
                 <template v-slot:label><span class="body-2">공개</span></template>
               </v-radio>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import QnaApi from "../../../api/qna";
+import QnaApi from "../../../api/QnaApi";
 
 export default {
   computed: {
@@ -71,28 +71,28 @@ export default {
   },
   data: ()=>({
     command: {
-      qna_id : null,
+      qnaId : null,
       title : null,
       content : null,
-      private_yn : 'Y',
+      privateYn : 'Y',
       password : null,
       writer : null
     }
   }),
   mounted() {
-    let qna_id = this.$route.params['qna_id'];
-    if((qna_id || 0) > 0) this.search(qna_id);
+    let qnaId = this.$route.params['qnaId'];
+    if((qnaId || 0) > 0) this.search(qnaId);
   },
   methods: {
-    search: function(qna_id){
-      QnaApi.get(qna_id).then(res => {
+    search: function(qnaId){
+      QnaApi.get(qnaId).then(res => {
         let result = res.data.result;
         this.command.writer = result.writer;
         this.command.title = result.title;
         this.command.content = result.content;
-        this.command.private_yn = result.private_yn;
+        this.command.privateYn = result.privateYn;
         this.command.password = result.password;
-        this.command.qna_id = result.qna_id;
+        this.command.qnaId = result.qnaId;
       })
     },
     save: function (){
@@ -100,9 +100,8 @@ export default {
       this.$router.push("/qna/list");
     },
     back: function (){
-      if((this.command.qna_id || 0) > 0) {
-        //this.$router.push({name:'qna-edit', params:{qna_id: this.command.qna_id}});
-        this.$router.push({name:'qna-view', params:{qna_id: this.command.qna_id}});
+      if((this.command.qnaId || 0) > 0) {
+        this.$router.push({name:'qna-view', params:{qnaId: this.command.qnaId}});
       } else this.$router.push("/qna/list?page=1");
     }
   }

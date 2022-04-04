@@ -24,13 +24,13 @@
             <v-list-item-subtitle class="caption">
               {{ item.writer }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
-              {{ $moment(item['create_at']).format('YYYY.MM.DD') }}
+              {{ $monent(item['createAt']).format('YYYY.MM.DD') }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
               조회수 {{ item.pv }}
             </v-list-item-subtitle>
           </v-list-item-content>
 
-          <v-icon :small="$vuetify.breakpoint.smAndDown" color="grey" class="lighten-2">{{ item['private_yn'] == 'Y' ? 'mdi-lock' : 'mdi-lock-open-outline' }}</v-icon>
+          <v-icon :small="$vuetify.breakpoint.smAndDown" color="grey" class="lighten-2">{{ item['privateYn'] == 'Y' ? 'mdi-lock' : 'mdi-lock-open-outline' }}</v-icon>
 
         </v-list-item>
 
@@ -115,7 +115,7 @@
 
 <script>
 import SecondaryDivider from "../../common/SecondaryDivider";
-import QnaApi from "../../../api/qna"
+import QnaApi from "../../../api/QnaApi"
 export default {
   components: {SecondaryDivider},
   props:{
@@ -145,20 +145,14 @@ export default {
       QnaApi.getList(1, 20, this.searchType, this.query).then(res => {
         this.items = res.data.result;
         this.pagination.page = res.data.page;
-        this.pagination.pageCount = res.data['page_count'];
+        this.pagination.pageCount = res.data['pageCount'];
       });
     },
     edit: function(){
       this.$router.push("/qna/edit");
     },
     view: function(item) {
-      /*if(item.private_yn == 'Y') {
-        this.$router.push({name:'QnaView', params: item});
-      } else {
-        //this.$router.push({name:'QnaView', query: {qna_id: item.qna_id}});
-        this.$router.push(`/qna/view?qna_id=${this.qna_id}`);
-      }*/
-      this.$router.push(`/qna/view?qna_id=${item.qna_id}`);
+      this.$router.push(`/qna/view?qnaId=${item.qnaId}`);
     }
   }
 }

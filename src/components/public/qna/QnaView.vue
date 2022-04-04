@@ -7,7 +7,7 @@
         <div class="d-flex flex-fill">
           <div class="d-flex caption grey--text">{{command.writer || '-'}} <span class="mx-auto mr-1 ml-1 caption">|</span> {{ command.create_at ? $moment(command.create_at).format("YYYY.MM.DD") : '-' }}</div>
           <v-spacer />
-          <div class="d-flex caption grey--text">조회 {{ command.pv || 0 }} <span class="mx-auto mr-1 ml-1 caption">|</span> 댓글 {{ command.reply_cnt || 0 }}</div>
+          <div class="d-flex caption grey--text">조회 {{ command.pv || 0 }} <span class="mx-auto mr-1 ml-1 caption">|</span> 댓글 {{ command.replyCnt || 0 }}</div>
         </div>
       </div>
       <v-divider />
@@ -42,31 +42,31 @@
 
 <script>
 import QnaReply from "./QnaReply";
-import QnaApi from "./../../../api/qna"
+import QnaApi from "../../../api/QnaApi"
 
 export default {
   name: 'QnaView',
   components: {QnaReply},
   data: () => ({
     command: {
-      qna_id:null,
+      qnaId:null,
       title:null,
       content:null,
       create_at:null,
       writer:null,
       pv:null,
-      private_yn:null,
-      reply_cnt:null,
+      privateYn:null,
+      replyCnt:null,
     }
   }),
   mounted() {
-    let qId = this.$route.query.qna_id || this.$route.params.qna_id;
+    let qId = this.$route.query.qnaId || this.$route.params.qnaId;
     this.search(qId);
     this.$refs['qna_reply'].init(qId);
   },
   methods:{
-    search: function(qna_id) {
-      QnaApi.get(qna_id).then(res => {
+    search: function(qnaId) {
+      QnaApi.get(qnaId).then(res => {
         // console.log('qna_view.search.res', res);
         let result = res.data['result'];
         this.command.content = result['content'].split('\n').join('<br>').split(' ').join('&nbsp;');
@@ -74,25 +74,25 @@ export default {
         this.command.create_at = result['create_at'];
         this.command.writer = result['writer'];
         this.command.pv = result['pv'];
-        this.command.private_yn = result['private_yn'];
-        this.command.reply_cnt = result['reply_cnt'];
-        this.command.qna_id = result['qna_id'];
+        this.command.privateYn = result['privateYn'];
+        this.command.replyCnt = result['replyCnt'];
+        this.command.qnaId = result['qnaId'];
       })
     },
     list: function(){
       this.$router.push('/qna/list?page=1');
     },
     edit: function(){
-      this.$router.push({name:'qna-edit', params:{qna_id: this.command.qna_id}});
+      this.$router.push({name:'qna-edit', params:{qnaId: this.command.qnaId}});
     },
     deleteQna: function (){
-      QnaApi.delete(this.command.qna_id).then(res => {
+      QnaApi.delete(this.command.qnaId).then(res => {
         console.log('qna_view.delete.res', res);
         this.$router.push('/qna/list?page=1');
       });
     },
     updateRepliesCount: function(repliesCount){
-      this.command.reply_cnt = repliesCount;
+      this.command.replyCnt = repliesCount;
     }
   }
 }
