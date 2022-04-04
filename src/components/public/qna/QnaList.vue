@@ -24,7 +24,7 @@
             <v-list-item-subtitle class="caption">
               {{ item.writer }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
-              {{ $monent(item['createAt']).format('YYYY.MM.DD') }}
+              {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>
               조회수 {{ item.pv }}
             </v-list-item-subtitle>
@@ -44,7 +44,7 @@
 
     <v-layout column class="hidden-lg-and-up board_list_search_field">
       <v-flex>
-        <div class="d-flex flex-fill justify-end mt-2 mb-4">
+        <div class="d-flex flex-fill justify-end mt-4 mb-4">
           <v-btn dark color="grey" class="darken-3" elevation="0" @click="edit">
             <v-icon class="mr-1">mdi-playlist-edit</v-icon>
             <span>글작성</span>
@@ -77,7 +77,7 @@
     <v-layout row wrap class="hidden-md-and-down board_list_search_field">
 
       <v-flex class="col-12">
-        <div class="d-flex flex-fill">
+        <div class="d-flex flex-fill mt-4 mb-4">
           <v-spacer />
           <v-btn dark color="grey" class="darken-3" elevation="0" @click="edit">
             <v-icon class="mr-1">mdi-playlist-edit</v-icon>
