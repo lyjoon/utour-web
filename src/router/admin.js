@@ -1,8 +1,8 @@
 import AdminApp from "../views/admin/App";
 
 import AdminLogin from "../components/admin/login/AdminLogin";
-import AdminProductList from "../components/admin/product/AdminProductList";
 import AdminHome from "../views/admin/Home";
+import AdminProductList from "@/views/admin/product/AdminProductList";
 
 export default [
 {

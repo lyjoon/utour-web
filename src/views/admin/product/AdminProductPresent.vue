@@ -1,12 +1,10 @@
 <template>
-  <div>
-    상품
-  </div>
+  <div>진열</div>
 </template>
 
 <script>
 export default {
-  name: "AdminProductList"
+  name: "AdminProductPresent"
 }
 </script>
 
