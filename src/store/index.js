@@ -5,7 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state:{
-        loadingStatus: false
+        loadingStatus: false,
+        snackbar: {
+            flag: false,
+            statusCode: null,
+            message: null
+        }
     },
     mutations:{
         startLoading(state) {

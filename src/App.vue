@@ -2,14 +2,16 @@
   <div id="app" >
     <router-view/>
     <loading />
+    <snackbar />
   </div>
 </template>
 
 <script>
   import Loading from "./components/common/Loading";
+  import Snackbar from "@/components/common/Snackbar";
   export default {
     name: 'App',
-    components: {Loading},
+    components: {Snackbar, Loading},
     created() {
         console.log("app created", process.env.VUE_APP_MODE);
     }

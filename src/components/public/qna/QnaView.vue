@@ -3,11 +3,13 @@
     <!-- title -->
     <v-col class="col-12">
       <div class="d-block mt-4 mb-2">
-        <div class="subtitle-1 font-weight-light">{{command.title || '...'}}</div>
-        <div class="d-flex flex-fill">
-          <div class="d-flex caption grey--text">{{command.writer || '-'}} <span class="mx-auto mr-1 ml-1 caption">|</span> {{ command.create_at ? $moment(command.create_at).format("YYYY.MM.DD") : '-' }}</div>
-          <v-spacer />
-          <div class="d-flex caption grey--text">조회 {{ command.pv || 0 }} <span class="mx-auto mr-1 ml-1 caption">|</span> 댓글 {{ command.replyCnt || 0 }}</div>
+        <div class="pa-1">
+          <div class="subtitle-1 font-weight-light">{{command.title || '...'}}</div>
+          <div class="d-flex flex-fill">
+            <div class="d-flex caption grey--text">{{command.writer || '-'}} <span class="mx-auto mr-1 ml-1 caption">|</span> {{ command.createAt ? $moment(command.createAt).format("YYYY.MM.DD") : '-' }}</div>
+            <v-spacer />
+            <div class="d-flex caption grey--text">조회 {{ command.pv || 0 }} <span class="mx-auto mr-1 ml-1 caption">|</span> 댓글 {{ command.replyCnt || 0 }}</div>
+          </div>
         </div>
       </div>
       <v-divider />
@@ -52,7 +54,7 @@ export default {
       qnaId:null,
       title:null,
       content:null,
-      create_at:null,
+      createAt:null,
       writer:null,
       pv:null,
       privateYn:null,
@@ -71,7 +73,7 @@ export default {
         let result = res.data['result'];
         this.command.content = result['content'].split('\n').join('<br>').split(' ').join('&nbsp;');
         this.command.title = result['title'];
-        this.command.create_at = result['create_at'];
+        this.command.createAt = result['createAt'];
         this.command.writer = result['writer'];
         this.command.pv = result['pv'];
         this.command.privateYn = result['privateYn'];
