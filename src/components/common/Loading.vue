@@ -1,5 +1,6 @@
 <template>
-  <v-overlay opacity="0.5" color="#ffffff" absolute z-index="999" :value="$store.state.loadingStatus">
+  <v-overlay opacity="0.5"
+             color="#ffffff" z-index="999" :value="$store.state.loadingStatus" class="fill-height">
     <v-progress-circular
         indeterminate
         color="#ff7f00"

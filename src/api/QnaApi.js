@@ -17,12 +17,12 @@ class QnaApi extends Api {
         return await this.getAxios().get(`/api/v1/qna/list?${this.queryString(parameters)}`);
     }
 
-    async get(qnaId) {
-        return await this.getAxios().get(`/api/v1/qna/${qnaId}`);
+    async get(qnaId, password) {
+        return await this.getAxios().get(`/api/v1/qna/${qnaId}?password=${password}`);
     }
 
-    async delete(qnaId) {
-        return await this.getAxios().delete(`/api/v1/qna/${qnaId}`);
+    async delete(qnaId, password) {
+        return await this.getAxios().delete(`/api/v1/qna/${qnaId}?password=${password}`);
     }
 
     async getReplies(page, qnaId) {

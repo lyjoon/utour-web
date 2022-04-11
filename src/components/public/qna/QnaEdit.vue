@@ -8,15 +8,15 @@
     <v-row dense>
       <!-- title -->
       <v-col class="col-12">
-        <v-text-field placeholder="제목" hide-details dense filled rounded class="rounded" v-model="command.title"></v-text-field>
+        <v-text-field placeholder="제목" hide-details dense outlined class="rounded" v-model="command.title"></v-text-field>
       </v-col>
 
       <v-col class="col-6 col-lg-5 col-xl-5">
-        <v-text-field placeholder="작성자" hide-details dense filled rounded class="rounded" v-model="command.writer"></v-text-field>
+        <v-text-field placeholder="작성자" hide-details dense outlined class="rounded" v-model="command.writer"></v-text-field>
       </v-col>
 
       <v-col class="col-6 col-lg-4 col-xl-4">
-        <v-text-field type="password" placeholder="비밀번호" hide-details dense filled rounded class="rounded" v-model="command.password"></v-text-field>
+        <v-text-field type="password" placeholder="비밀번호" hide-details dense outlined class="rounded" v-model="command.password"></v-text-field>
       </v-col>
 
       <v-col class="col-12">
@@ -39,9 +39,9 @@
 
       <!-- content -->
       <v-col class="col-12">
-        <v-textarea filled rounded class="rounded" v-model="command.content"
-                    placeholder="내용" :rows="defaultTextRow" no-resize>
-        </v-textarea>
+        <v-sheet :height="editorHeight">
+          <toast-editor ref="editor" @onChange="onChangeEditor"></toast-editor>
+        </v-sheet>
       </v-col>
 
       <!-- button -->
@@ -62,11 +62,16 @@
 
 <script>
 import QnaApi from "../../../api/QnaApi";
+import ToastEditor from "@/components/common/ToastEditor";
 
 export default {
+  components: {ToastEditor},
   computed: {
     defaultTextRow(){
       return this.$vuetify.breakpoint.smAndDown ? 15 : 20;
+    },
+    editorHeight(){
+      return this.$vuetify.breakpoint.smAndDown ? 500 : 600;
     }
   },
   data: ()=>({
@@ -93,7 +98,9 @@ export default {
         this.command.privateYn = result.privateYn;
         this.command.password = result.password;
         this.command.qnaId = result.qnaId;
-      })
+
+        this.$refs.editor.setMarkdown(this.command.content);
+      });
     },
     save: function (){
       QnaApi.save(this.command);
@@ -103,11 +110,13 @@ export default {
       if((this.command.qnaId || 0) > 0) {
         this.$router.push({name:'qna-view', params:{qnaId: this.command.qnaId}});
       } else this.$router.push("/qna/list?page=1");
+    },
+    onChangeEditor: function (markdown) {
+      this.command.content = markdown;
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

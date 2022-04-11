@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import admin from "./admin";
 import app from "./app";
 import NotFound from "../views/NotFound";
+import Test from "../views/Test";
 import store from "../store"
 
 Vue.use(Router)
@@ -14,6 +15,9 @@ const router = new Router({
     {
       path: '*',
       component: NotFound
+    },{
+      path:'/test',
+      component: Test
     },
     ...admin,
     ...app
