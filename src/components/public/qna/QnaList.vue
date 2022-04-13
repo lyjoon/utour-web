@@ -149,7 +149,7 @@ export default {
       });
     },
     edit: function(){
-      this.$router.push("/qna/edit");
+      this.$router.push("/qna/form");
     },
     view: function(item) {
       this.$router.push(`/qna/view?qnaId=${item.qnaId}`);

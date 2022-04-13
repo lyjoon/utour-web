@@ -8,7 +8,8 @@ import QnaList from "../components/public/qna/QnaList";
 import Notice from "../views/public/Notice";
 import NoticeList from "../components/public/notice/NoticeList";
 import NoticeView from "../components/public/notice/NoticeView";
-import QnaEdit from "../components/public/qna/QnaEdit";
+import QnaEditForm from "../components/public/qna/QnaEditForm";
+import QnaForm from "@/components/public/qna/QnaForm";
 
 export default [{
   path: '/',
@@ -38,9 +39,12 @@ export default [{
           path: 'list',
           component: QnaList
         },{
-          name: 'qna-edit',
+          name: 'qna-edit-form',
           path: 'edit',
-          component: QnaEdit
+          component: QnaEditForm
+        },{
+          path: 'form',
+          component: QnaForm
         },
         {
           path: ':id',

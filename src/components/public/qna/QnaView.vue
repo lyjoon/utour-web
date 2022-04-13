@@ -33,58 +33,21 @@
       <v-col class="col-12">
         <div class="d-flex flex-fill">
 
-          <v-btn dark color="indigo" class="lighten-1" elevation="0" link @click="edit" v-if="notEmptyId">
+          <v-btn dark color="grey" class="darken-3" elevation="0" link @click="edit" v-if="notEmptyId">
             <v-icon class="mr-1" small>mdi-playlist-edit</v-icon><span>수정</span>
           </v-btn>
-          <v-btn dark color="orange" class="darken-2 ml-2" elevation="0" link @click="deleteQna"  v-if="notEmptyId">
+          <v-btn dark color="grey" class="darken-3 ml-2" elevation="0" link @click="deleteContent"  v-if="notEmptyId">
             <v-icon class="mr-1" small>mdi-delete</v-icon><span>삭제</span>
           </v-btn>
 
           <v-spacer />
-          <v-btn dark color="apple" class="darken-1" elevation="0" link @click="list">
+          <v-btn dark color="grey" class="darken-1" elevation="0" link @click="back">
             <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
           </v-btn>
         </div>
       </v-col>
     </v-row>
-    <v-dialog v-model="pwdDialog" width="420px" persistent >
-      <v-card elevation="1">
-
-        <v-alert
-            class="ma-0"
-            rounded="0"
-            dismissible
-            v-model="pwdAlert"
-            type="error"
-            title="Info">
-          <div class="caption">
-            비밀번호가 일치하지 않습니다.
-          </div>
-        </v-alert>
-
-        <v-card-title class="subtitle-1 pt-8">
-          비밀번호를 입력해주세요.
-        </v-card-title>
-        <v-card-subtitle class="pt-2">
-          해당 게시글은 비밀 게시글입니다:)
-        </v-card-subtitle>
-        <v-card-text class="pt-0">
-          <v-text-field prepend-inner-icon="mdi-lock" v-model="pwdVal"
-                        dense
-                        filled
-                        hide-details
-                        rounded class="rounded" type="password"
-                        @keyup.enter="checkPwd"
-                        label="비밀번호 입력"></v-text-field>
-        </v-card-text>
-        <v-card-actions class="align-center d-flex justify-center pb-8">
-          <v-btn elevation="0" color="secondary" dark @click="checkPwd">입력</v-btn>
-          <v-btn elevation="0" color="grey" class="darken-2" dark @click="list">취소</v-btn>
-        </v-card-actions>
-
-
-      </v-card>
-    </v-dialog>
+    <qna-password-dialog ref="passwordDialog" @success="passwordDialogSuccess" @cancel="passwordDialogCancel" />
   </div>
 
 </template>
@@ -93,10 +56,11 @@
 import QnaReply from "./QnaReply";
 import QnaApi from "../../../api/QnaApi"
 import ToastViewer from "@/components/common/ToastViewer";
+import QnaPasswordDialog from "@/components/public/qna/QnaPasswordDialog";
 
 export default {
   name: 'QnaView',
-  components: {ToastViewer, QnaReply},
+  components: {QnaPasswordDialog, ToastViewer, QnaReply},
   computed:{
     notEmptyId(){
       return (this.command.qnaId || -1) > -1;
@@ -113,65 +77,33 @@ export default {
       privateYn:null,
       replyCnt:null,
     },
-    pwdDialog:false,
-    pwdInvalid:false,
-    pwdVal:null,
-    pwdAlert:false
+    passwordSuccess: false,
+    password:null,
   }),
   mounted() {
     let qId = this.$route.query.qnaId || this.$route.params.qnaId;
-    this.search(qId);
+    let pwd = this.$route.params.password;
+    this.search(qId, pwd);
   },
   methods:{
-    search: function(qnaId) {
-      QnaApi.get(qnaId).then(res => {
-        console.log('qna_view.search.res', res);
+    search: function(qnaId, password) {
+      QnaApi.get(qnaId, password).then(res => {
         let result = res.data['result'];
-        //this.command.content = result['content'].split('\n').join('<br>').split(' ').join('&nbsp;');
         if((result.access || false) && (result.exists || false)) {
           let qnaDto = result['qnaDto'];
           this.bind(qnaDto);
+          if(password) {
+            this.password = password;
+          }
         } else {
           if(!result.access) {
-            this.pwdDialog = true;
+            this.$refs.passwordDialog.open(qnaId, 'get');
           }
         }
       })
     },
-    list: function(){
+    back: function(){
       this.$router.push('/qna/list?page=1');
-    },
-    edit: function(){
-      this.$router.push({name:'qna-edit', params:{qnaId: this.command.qnaId}});
-    },
-    deleteQna: function (){
-      QnaApi.delete(this.command.qnaId, this.pwdVal).then(res => {
-        console.log('qna_view.delete.res', res);
-        this.$router.push('/qna/list?page=1');
-      });
-    },
-    updateRepliesCount: function(repliesCount){
-      this.command.replyCnt = repliesCount;
-    },
-    checkPwd: function() {
-      let qId = this.$route.query.qnaId || this.$route.params.qnaId;
-      QnaApi.get(qId, this.pwdVal).then(res => {
-        let result = res.data['result'];
-        //this.command.content = result['content'].split('\n').join('<br>').split(' ').join('&nbsp;');
-        if(result.access) {
-          let qnaDto = result['qnaDto'];
-          this.bind(qnaDto);
-          this.pwdInvalid = false;
-          this.pwdDialog = false;
-        } else {
-          this.pwdAlert = true;
-          this.pwdInvalid = true;
-
-          setTimeout(() => {
-            this.pwdAlert = false;
-          }, 3000);
-        }
-      })
     },
     bind: function(dto) {
       this.command.content = dto['content'];//.split('\n').join('<br>').split(' ').join('&nbsp;');
@@ -184,6 +116,48 @@ export default {
       this.command.qnaId = dto['qnaId'];
       this.$refs.viewer.setMarkdown(this.command.content);
       this.$refs['qna_reply'].init(this.command.qnaId);
+    },
+    edit: function(){
+      if(this.passwordSuccess) {
+        let _password = this.password;
+        this.$router.push({name:'qna-edit-form', params:{qnaId: this.command.qnaId, password: _password}});
+      } else {
+        this.$refs.passwordDialog.open(this.command.qnaId, 'edit');
+      }
+    },
+    deleteContent: function () {
+      if(this.passwordSuccess) {
+        // eslint-disable-next-line no-unused-vars
+        QnaApi.delete(this.command.qnaId, this.password).then(res => {
+          this.back();
+        });
+      } else {
+        this.$refs.passwordDialog.open(this.command.qnaId, 'delete');
+      }
+    },
+    updateRepliesCount: function(repliesCount){
+      this.command.replyCnt = repliesCount;
+    },
+    passwordDialogSuccess: function(type) {
+      this.passwordSuccess = this.$refs.passwordDialog.isSuccess();
+
+      if(this.passwordSuccess) {
+        this.password = this.$refs.passwordDialog.getPassword();
+        if(type == 'get') {
+          let qId = this.$route.query.qnaId || this.$route.params.qnaId;
+          this.search(qId, this.password);
+        } else if (type == 'delete') {
+          this.back();
+        } else if (type == 'edit'){
+          let pwd = this.password;
+          this.$router.push({name:'qna-edit-form', params:{qnaId: this.command.qnaId, password: pwd}});
+        }
+      }
+    },
+    passwordDialogCancel: function(type){
+      if(type == 'get') {
+        this.back();
+      }
     }
   }
 }
