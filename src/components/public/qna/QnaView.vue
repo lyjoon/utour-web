@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-row dense>
+    <v-layout column>
       <!-- title -->
-      <v-col class="col-12">
+      <v-flex>
         <div class="d-block mt-4 mb-2">
           <div>
             <div class="subtitle-1 font-weight-light">{{command.title || '...'}}</div>
@@ -14,10 +14,10 @@
           </div>
         </div>
         <v-divider />
-      </v-col>
+      </v-flex>
 
       <!-- content -->
-      <v-col class="col-12">
+      <v-flex>
         <!--
         <div style="min-height: 600px;" class="body-2 pa-1" v-html="command.content">
         </div>
@@ -25,14 +25,15 @@
         <div style="min-height: 500px;margin-top: 15px;margin-bottom: 30px">
           <toast-viewer ref="viewer"></toast-viewer>
         </div>
-      </v-col>
-      <!-- content -->
-      <v-col class="col-12">
-        <qna-reply ref="qna_reply" @updateRepliesCount="updateRepliesCount" />
-      </v-col>
-      <v-col class="col-12">
-        <div class="d-flex flex-fill">
+      </v-flex>
 
+      <!-- content -->
+      <v-flex class="pb-2">
+        <qna-reply ref="qna_reply" @updateRepliesCount="updateRepliesCount" />
+      </v-flex>
+
+      <v-flex class="mt-4">
+        <div class="d-flex flex-fill">
           <v-btn dark color="grey" class="darken-3" elevation="0" link @click="edit" v-if="notEmptyId">
             <v-icon class="mr-1" small>mdi-playlist-edit</v-icon><span>수정</span>
           </v-btn>
@@ -45,8 +46,8 @@
             <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
           </v-btn>
         </div>
-      </v-col>
-    </v-row>
+      </v-flex>
+    </v-layout>
     <qna-password-dialog ref="passwordDialog" @success="passwordDialogSuccess" @cancel="passwordDialogCancel" />
   </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-layout column class="mt-4 mb-2">
       <v-flex class="caption">※ 비밀번호는 향후 수정 또는 삭제 시 필요하며, 쉬운 비밀번호를 입력하면 타인의 수정 또는 삭제가 될 수 있습니다.</v-flex>
       <v-flex class="caption">※ 욕설 및 혐오 등 게시물은 관리자에 의해 게시글이 삭제될 수 있습니다.</v-flex>
@@ -62,7 +62,7 @@
       </v-row>
     </v-form>
 
-  </div>
+  </v-container>
 
 </template>
 
@@ -91,14 +91,15 @@ export default {
     rules: {
       title: [
           v => !!v || '제목을 입력해주세요.',
-          v => (v && v.length < 50) || '제목은 50자를 넘길 수 없습니다.',
+          v => (v && v.length <= 50) || '제목은 50자를 넘길 수 없습니다.',
       ],
       password: [
         v => !!v || '비밀번호는 필수값입니다.',
+        v => (v && v.length <= 20) || '비밀번호는 20자를 넘길 수 없습니다.',
       ],
       writer: [
         v => !!v || '작성자명을 입력해주세요.',
-        v => (v && v.length < 10) || '작성자 길이는 10자를 넘길 수 없습니다.',
+        v => (v && v.length <= 10) || '작성자 길이는 10자를 넘길 수 없습니다.',
       ]
     },
   }),

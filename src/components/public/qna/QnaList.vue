@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-list class="flex-fill mt-0" min-height="550px">
 
       <v-card v-if="items != null && items.length < 1" min-height="100px" elevation="0">
@@ -110,7 +110,7 @@
     </v-layout>
 
 
-  </div>
+  </v-container>
 </template>
 
 <script>
