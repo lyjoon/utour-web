@@ -34,8 +34,8 @@ class QnaApi extends Api {
         return await this.getAxios().put(`/api/v1/qna/reply`, command);
     }
 
-    async deleteReply(qnaId, qnaReplyId) {
-        return await this.getAxios().delete(`/api/v1/qna/${qnaId}/reply/${qnaReplyId}`);
+    async deleteReply(qnaId, qnaReplyId, password) {
+        return await this.getAxios().delete(`/api/v1/qna/${qnaId}/reply/${qnaReplyId}?password=${password}`);
     }
 
     async isAccess(qnaId, password) {

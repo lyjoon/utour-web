@@ -10,7 +10,7 @@
 
       <template v-for="(item, index) in items">
 
-        <v-list-item :key="index" class="pl-1 pr-1" link @click="view(item)">
+        <v-list-item :key="index" class="pl-0 pr-0" link @click="view(item)">
 
           <v-list-item-avatar class="hidden-md-and-down">
             <v-avatar color="secondary"

@@ -2,6 +2,7 @@
   <v-snackbar color="#333333"
               dark multi-line
               vertical
+              right
               v-model="$store.state.snackbar.flag">
     {{$store.state.snackbar.message}}
     <template v-slot:action="{attrs}">

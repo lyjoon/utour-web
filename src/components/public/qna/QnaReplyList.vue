@@ -7,29 +7,29 @@
 
       <template v-for="(item, index) in items">
 
-        <v-list-item :key="`content-${index}`" class="hidden-md-and-down">
-          <v-list-item-avatar tile width="180" class="pa-1 ma-0 justify-start body-2">{{item.writer}}</v-list-item-avatar>
-          <v-list-item-content >
-            <div class="pl-2 pr-2 body-2">
-              {{item.content}}
-            </div>
-          </v-list-item-content>
-          <div class="d-inline caption align-center">
-            <span class="grey--text">{{ $moment(item.createAt).format("YYYY.MM.DD") }}</span>
-            <v-btn icon dark color="grey" @click="deleteReply(item)">
-              <v-icon small>mdi-close-circle</v-icon>
-            </v-btn>
-          </div>
-        </v-list-item>
-
-        <v-list-item :key="`small-content-${index}`" class="hidden-lg-and-up">
+        <v-list-item :key="`small-content-${index}`">
           <v-list-item-content>
-            <v-list-item-subtitle class="caption">{{item.writer}} | {{$moment(item.createAt).format("YYYY.MM.DD")}}</v-list-item-subtitle>
+            <v-list-item-subtitle><strong class="body-2">{{item.writer}}</strong> <span class="ml-1 mr-1 caption">|</span> <span class="caption">{{$moment(item.createAt).format("YYYY.MM.DD")}}</span></v-list-item-subtitle>
             <div class="mt-1 body-2">{{item.content}}</div>
           </v-list-item-content>
-          <v-btn icon dark color="grey" @click="deleteReply(item)">
-            <v-icon small>mdi-close-circle</v-icon>
-          </v-btn>
+
+          <v-menu offset-x top rounded v-model="item['password_menu']" :close-on-content-click="false" :close-on-click="false" class="elevation-0">
+            <template v-slot:activator="{on, attrs}">
+              <v-btn icon v-bind="attrs" @click="openPassword(item)" v-on="on">
+                <v-icon color="grey darken-1" :small="$vuetify.breakpoint.smAndDown">mdi-close</v-icon>
+              </v-btn>
+            </template>
+            <v-text-field type="password" dense outlined v-model="item.password" background-color="white"
+                          hide-details
+                          @keyup.enter="deleteReply(item)"
+                          placeholder="비밀번호">
+              <template v-slot:append>
+                <v-icon color="green" @click="deleteReply(item)">mdi-check</v-icon>
+                <v-icon color="deep-orange" class="darken-1 ml-1" @click="closePassword(item)">mdi-close</v-icon>
+              </template>
+            </v-text-field>
+          </v-menu>
+
         </v-list-item>
 
         <v-divider :key="`dvd-${index}`" class="grey lighten-3" v-if="index < (items.length -1)" />
@@ -42,7 +42,7 @@
 
 <script>
 import SecondaryDivider from "../../common/SecondaryDivider";
-import Qna from "../../../api/QnaApi";
+import QnaApi from "../../../api/QnaApi";
 
 export default {
   components: {SecondaryDivider},
@@ -59,7 +59,7 @@ export default {
       this.search();
     },
     search : function() {
-      Qna.getReplies(1, this.qnaId).then(res => {
+      QnaApi.getReplies(1, this.qnaId).then(res => {
         let result = res.data.result;
         this.count = res.data.count || 0;
         this.items = result;
@@ -67,11 +67,26 @@ export default {
         this.$emit('updateRepliesCount', this.count);
       });
     },
-    deleteReply: function(item){
-      Qna.deleteReply(item.qnaId, item.qnaReplyId).then(res => {
-        console.log('res', res);
+    openPassword: function(item){
+      if(item['password_menu']) {
+        this.closePassword(item);
+      }
+    },
+    closePassword: function(item){
+      item['password_menu'] = false;
+      if(item.password ) {
+        item.password = '';
+      }
+    },
+    deleteReply: function(item) {
+      QnaApi.deleteReply(item.qnaId, item.qnaReplyId, item.password || '-').then(res => {
+        console.log('delete.reply.response', res);
         this.search();
-      })
+      }).catch(error => {
+        this.$store.state.snackbar.message = error.response.data.message;
+        this.$store.state.snackbar.statusCode = error.response.status;
+        this.$store.state.snackbar.flag = true;
+      });
     }
   }
 }
