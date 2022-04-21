@@ -1,20 +1,29 @@
 <template>
   <v-container>
-    <page-title title="상품관리" />
+    <v-card width="100%" elevation="0" class="pa-4">
+      <div class="flex-fill d-flex">
+
+        <v-spacer />
+        <v-btn elevation="0" color="grey" class="darken-3" dark @click="onCreate">
+          <v-icon small class="mr-1">mdi-plus</v-icon>등록</v-btn>
+      </div>
+    </v-card>
+
     <admin-product-data-table class="mt-4 mb-4" />
-    <div class="d-flex flex-fill justify-end">
-      <v-btn elevation="0" color="grey" class="darken-3" dark>
-        <v-icon small class="mr-1">mdi-plus</v-icon>등록</v-btn>
-    </div>
+    <admin-product-create-dialog ref="product_create_dialog" />
   </v-container>
 </template>
 
 <script>
-import PageTitle from "@/components/common/PageTitle";
-import AdminProductDataTable from "@/components/admin/product/AdminProductDataTable";
+import AdminProductDataTable from "@/components/admin/product/AdminProductListTable";
+import AdminProductCreateDialog from "@/components/admin/product/AdminProductCreateDialog";
 export default {
-  name: "AdminProductList",
-  components: {AdminProductDataTable, PageTitle}
+  components: {AdminProductCreateDialog, AdminProductDataTable},
+  methods: {
+    onCreate: function(){
+      this.$refs.product_create_dialog.showDialog();
+    }
+  }
 }
 </script>
 

@@ -3,6 +3,7 @@ import AdminApp from "../views/admin/App";
 import AdminLogin from "../components/admin/login/AdminLogin";
 import AdminHome from "../views/admin/Home";
 import AdminProductList from "@/views/admin/product/AdminProductList";
+import AdminProductEdit from "@/views/admin/product/AdminProductEdit";
 
 export default [
 {
@@ -16,14 +17,11 @@ export default [
       path: 'login',
       component: AdminLogin
     },{
-      path: 'product',
-      component: AdminProductList,
-      children:[
-        {
-          path: 'list',
-          component: AdminProductList
-        },
-      ]
+      path: 'product/list',
+      component: AdminProductList
+    },{
+      path: 'product/edit',
+      component: AdminProductEdit
     },{
       path: 'home',
       component: AdminHome

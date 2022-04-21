@@ -60,7 +60,12 @@
       <v-flex>
         <div class="d-flex flex-fill mt-4 pa-2">
           <div class="d-flex mr-2" style="width: 18vh">
-            <v-select placeholder="검색항목" class="body-2" v-model="searchType" :items="searchTypes" hide-details dense outlined></v-select>
+            <v-select placeholder="검색항목" class="body-2" v-model="queryType" :items="queryTypeItems"
+                      hide-details
+                      item-value="val"
+                      item-text="txt"
+                      dense
+                      outlined></v-select>
           </div>
           <div class="d-flex flex-fill">
             <v-text-field hide-details dense class="body-2" placeholder="검색키워드" outlined @keyup.enter="search">
@@ -97,7 +102,14 @@
 
       <v-flex class="col-3"></v-flex>
       <v-flex class="col-2">
-        <v-select placeholder="검색항목" v-model="searchType" :items="searchTypes" hide-details dense outlined></v-select>
+        <v-select placeholder="검색항목"
+                  v-model="queryType"
+                  :items="queryTypeItems"
+                  item-value="val"
+                  item-text="txt"
+                  hide-details
+                  dense
+                  outlined></v-select>
       </v-flex>
       <v-flex class="col-4 d-inline">
         <v-text-field dense hide-details placeholder="검색키워드" v-model="query" outlined @keyup.enter="search">
@@ -130,8 +142,13 @@ export default {
       page: 1,
       pageCount : null
     },
-    searchTypes: ['제목+내용', '제목', '작성자', '내용'],
-    searchType: '제목+내용',
+    queryTypeItems: [
+        {val:'ALL', txt:'제목+내용'},
+        {val:'TITLE', txt:'제목'},
+        {val:'WRITER', txt:'작성자'},
+        {val:'CONTENT', txt:'내용'},
+    ],
+    queryType: {val:'ALL', txt:'제목+내용'},
     query:null,
     items: []
   }),
@@ -142,7 +159,7 @@ export default {
   methods:{
     search: function (){
       // alert('준비중입니다.');
-      QnaApi.getList(1, 20, this.searchType, this.query).then(res => {
+      QnaApi.getList(1, 20, this.queryType.val, this.query).then(res => {
         this.items = res.data.result;
         this.pagination.page = res.data.page;
         this.pagination.pageCount = res.data['pageCount'];

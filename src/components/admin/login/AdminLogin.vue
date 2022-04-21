@@ -39,7 +39,7 @@
                    height="56px"
                    outlined
                    elevation="0"
-                   to="/admin/main"
+                   to="/admin/home"
                    color="white">
               <span class="text-h6">SIGN IN</span>
             </v-btn>

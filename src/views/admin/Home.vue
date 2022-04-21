@@ -2,20 +2,23 @@
   <v-container>
     <v-row>
       <v-col class="col-12 col-lg-6 col-xl-6">
-        <admin-main-product />
+        <admin-home-product />
+        <br />
+        <admin-home-config />
       </v-col>
       <v-col class="col-12 col-lg-6 col-xl-6">
-        <admin-main-board />
+        <admin-home-board />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import AdminMainProduct from "../../components/admin/main/AdminMainProduct";
-import AdminMainBoard from "../../components/admin/main/AdminMainBoard";
+import AdminHomeProduct from "../../components/admin/home/AdminHomeProduct";
+import AdminHomeBoard from "../../components/admin/home/AdminHomeBoard";
+import AdminHomeConfig from "@/components/admin/home/AdminHomeConfig";
 export default {
-  components: {AdminMainBoard, AdminMainProduct}
+  components: {AdminHomeConfig, AdminHomeBoard, AdminHomeProduct}
 }
 </script>
 
