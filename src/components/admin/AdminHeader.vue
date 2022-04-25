@@ -2,7 +2,8 @@
   <v-app-bar app fixed absolute dark class="gnb pa-0" dense>
     <v-container fluid>
       <div class="d-flex flex-fill justify-space-between">
-        <v-toolbar-title class="font-montserrat-300 mt-2">U-TOUR ADMIN</v-toolbar-title>
+        <v-toolbar-title class="font-montserrat-300">U-TOUR ADMIN</v-toolbar-title>
+        <!--
         <v-spacer />
         <v-menu left >
           <template v-slot:activator="{on, attrs}">
@@ -11,6 +12,7 @@
             </v-btn>
           </template>
         </v-menu>
+        -->
       </div>
     </v-container>
   </v-app-bar>

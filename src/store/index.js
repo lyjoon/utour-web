@@ -10,7 +10,8 @@ export default new Vuex.Store({
             flag: false,
             statusCode: null,
             message: null
-        }
+        },
+        token: null
     },
     mutations:{
         startLoading(state) {
