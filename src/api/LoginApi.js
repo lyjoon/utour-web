@@ -8,8 +8,9 @@ class LoginApi extends Api {
         return await this.getAxios().post(`/api/v1/login`, formData);
     }
 
-    async get(qnaId, password) {
-        return await this.getAxios().get(`/api/v1/qna/${qnaId}?password=${password}`);
+    async expired(token) {
+        let header = {'Authorization': `Bearer ${token}`};
+        return await this.getAxios().get(`/api/v1/login`, {headers: header});
     }
 }
 export default new LoginApi()

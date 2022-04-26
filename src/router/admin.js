@@ -19,16 +19,20 @@ export default [
       component: AdminLogin
     },{
       path: 'product/list',
-      component: AdminProductList
+      component: AdminProductList,
+      meta: { authorization: true }
     },{
       path: 'product/edit',
-      component: AdminProductEdit
+      component: AdminProductEdit,
+      meta: { authorization: true }
     },{
       path: 'home',
-      component: AdminHome
+      component: AdminHome,
+      meta: { authorization: true }
     },{
       path: 'notice/list',
-      component: AdminNoticeList
+      component: AdminNoticeList,
+      meta: { authorization: true }
     }
   ]
 },

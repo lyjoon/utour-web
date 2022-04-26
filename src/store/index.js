@@ -1,30 +1,17 @@
 import Vue from "vue";
 import Vuex from "vuex"
+import createPersistedState from "vuex-persistedstate"
+import auth from "@/store/auth";
+import ui from "@/store/ui";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-    state:{
-        loadingStatus: false,
-        snackbar: {
-            flag: false,
-            statusCode: null,
-            message: null
-        },
-        token: null
+const store = new Vuex.Store({
+    plugins:[createPersistedState({paths:['auth']})],
+    modules: {
+        ui:ui,
+        auth:auth
     },
-    mutations:{
-        startLoading(state) {
-            state.loadingStatus = true;
-        },
-        endLoading(state) {
-            state.loadingStatus = false;
-        }
-    },
-    getters:{
-        getLoadingStatus: function (state) {
-            return state.loadingStatus;
-        }
-    },
-    actions:{}
 })
+
+export default store;

@@ -103,11 +103,9 @@ export default {
       if(valid) {
         // eslint-disable-next-line no-unused-vars
         LoginApi.login(this.loginId, this.password).then(res => {
-          //this.$store.commit('startLoading');
-          this.$store.state.token = res.data.result;
+          this.$store.state.auth.token = res.data.result;
           this.$router.push('/admin/home');
         }, error => {
-          //console.log('error.response', error.response);
           this.error.flag = true;
           this.error.code = error.response.status;
           this.error.message = error.response.data.message;
