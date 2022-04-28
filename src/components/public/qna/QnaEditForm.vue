@@ -48,10 +48,10 @@
         <!-- button -->
         <v-col class="col-12">
           <div class="d-flex flex-fill justify-end">
-            <v-btn large dark color="deep-orange" class="darken-1 mr-3" elevation="0" link @click="save">
+            <v-btn  dark color="deep-orange" class="darken-1 mr-3" elevation="0" link @click="save">
               <v-icon class="mr-1" small>mdi-content-save</v-icon><span>저장</span>
             </v-btn>
-            <v-btn large dark color="grey" class="darken-1" elevation="0" link @click="back">
+            <v-btn  dark color="grey" class="darken-1" elevation="0" link @click="back">
               <v-icon class="mr-1" small>mdi-cancel</v-icon><span>취소</span>
             </v-btn>
           </div>

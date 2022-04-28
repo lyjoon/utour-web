@@ -1,6 +1,6 @@
 <template>
   <v-dialog :fullscreen="$vuetify.breakpoint.mdAndDown"
-            width="1200px"
+            :width="$vuetify.breakpoint.mdAndDown ? '100%' : '1200px'"
             persistent
             v-model="dialog">
     <v-toolbar>
@@ -14,20 +14,26 @@
     </v-toolbar>
     <v-card tile>
       <v-card-text >
-        <v-row dense class="pt-4">
+        <v-form ref="frm" lazy-validation>
+          <v-row dense class="pt-4">
           <v-col cols="12">
-            <v-text-field v-model="command.title" dense outlined label="공지사항 제목" placeholder="제목을 입력하세요" />
+            <v-text-field v-model="command.title" dense outlined label="공지사항 제목" :rules="rules.title" placeholder="제목을 입력하세요" />
           </v-col>
           <v-col cols="12">
             <div class="d-flex flex-fill justify-start">
-              <div class="d-inline-flex mr-8">
-                <v-radio-group v-model="command.noticeYn" row class="mt-1">
+              <div class="d-inline-flex mr-4">
+                <v-select class="hidden-md-and-up" label="공지(상단고정)유무"
+                          outlined dense hide-details
+                          v-model="command.noticeYn" :items="noticeYnItems" item-text="text" item-value="value">
+                </v-select>
+
+                <v-radio-group v-model="command.noticeYn" row class="mt-1 hidden-sm-and-down" >
                   <template v-slot:label>
-                    <span class="mr-1">공지글</span>
+                    <span class="mr-1">공지(상단고정)유무</span>
                   </template>
                   <v-radio color="secondary" value="Y" label="공지사항" >
                     <template v-slot:label>
-                      <span class="body-2">고정</span>
+                      <span class="body-2">상단고정</span>
                     </template>
                   </v-radio>
                   <v-radio value="N" label="일반" >
@@ -46,33 +52,24 @@
           </v-col>
 
           <v-col cols="12">
-            <v-sheet :height="editorHeight">
+            <v-sheet width="100%" :height="editorHeight">
               <toast-editor ref="editor" @onChange="onChangeEditor"></toast-editor>
             </v-sheet>
           </v-col>
         </v-row>
 
-
+        </v-form>
         <div class="mt-4 mb-4">
-          <v-sheet height="150px" rounded class="pa-2 overflow-y-auto" outlined="1">
-            파일첨부
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-            파일첨부<br />
-          </v-sheet>
+          <div class="mb-2">
+            첨부파일 <v-btn color="primary" dark elevation="0" small class="ml-2 pl-1 pr-1"><v-icon small class="mdi-border-all">mdi-plus</v-icon> 등록</v-btn>
+          </div>
+          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" outlined="1"></v-sheet>
         </div>
 
       </v-card-text>
       <v-card-actions>
         <div class="d-flex flex-fill justify-end pa-2">
-          <v-btn dark elevation="0" color="grey darken-2"><v-icon small class="mr-1">mdi-content-save</v-icon>저장</v-btn>
+          <v-btn dark elevation="0" color="grey darken-2" @click="save"><v-icon small class="mr-1">mdi-content-save</v-icon>저장</v-btn>
           <v-btn elevation="0" color="grey lighten-1" @click="close" class="ml-2"><v-icon small class="mr-1">mdi-cancel</v-icon>닫기</v-btn>
         </div>
       </v-card-actions>
@@ -83,12 +80,16 @@
 
 <script>
 import ToastEditor from "@/components/common/ToastEditor";
+import NoticeApi from "../../../api/NoticeApi";
 export default {
   name: "AdminNoticeFormDialog",
   components: {ToastEditor},
   computed:{
     editorHeight(){
       return this.$vuetify.breakpoint.smAndDown ? 500 : 600;
+    },
+    noticeYnItems(){
+      return [{value:"Y", text:'상단고정'}, {value:"N", text:'일반'}]
     }
   },
   data: ()=>({
@@ -100,6 +101,12 @@ export default {
       noticeYn:'N',
       writer: '관리자',
       createAt:null,
+    },
+    rules: {
+      title: [
+          v => !!v || '제목을 입력해주세요.',
+        v => (v && v.length <= 50) || '제목은 50자를 넘길 수 없습니다.',
+      ]
     }
   }),
   methods:{
@@ -111,6 +118,19 @@ export default {
     },
     onChangeEditor: function(markdown){
       this.command.content = markdown;
+    },
+    save: function(){
+      let valid = this.$refs.frm.validate();
+      if(valid) {
+        let formData = new FormData();
+        formData.set("title", this.command.title);
+        formData.set("content", this.command.content);
+        formData.set("writer", this.command.writer);
+        formData.set("noticeYn", this.command.noticeYn);
+        formData.set("noticeId", this.command.noticeId);
+
+        NoticeApi.save(formData).then(res => console.log("ok", res));
+      }
     }
   }
 }
