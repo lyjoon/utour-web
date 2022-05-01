@@ -12,12 +12,14 @@
 
         <v-list-item :key="index" class="pl-0 pr-0" link @click="view(item)">
 
+          <!--
           <v-list-item-avatar class="hidden-md-and-down">
             <v-avatar color="secondary"
                       class="white--text">
               <v-icon dark>mdi-card-text</v-icon>
             </v-avatar>
           </v-list-item-avatar>
+          -->
 
           <v-list-item-content>
             <div class="subtitle-1">{{item.title}}</div>
@@ -34,7 +36,7 @@
 
         </v-list-item>
 
-        <v-divider :key="`dv-${index}`" :inset="!$vuetify.breakpoint.mdAndDown"  v-if="index < (items.length - 1)" />
+        <v-divider :key="`dv-${index}`" v-if="index < (items.length - 1)" />
 
       </template>
     </v-list>

@@ -61,9 +61,23 @@
         </v-form>
         <div class="mt-4 mb-4">
           <div class="mb-2">
-            첨부파일 <v-btn color="primary" dark elevation="0" small class="ml-2 pl-1 pr-1"><v-icon small class="mdi-border-all">mdi-plus</v-icon> 등록</v-btn>
+            첨부파일 <v-btn color="primary" dark elevation="0" @click="chooseFile" small class="ml-2 pl-1 pr-1"><v-icon small class="mdi-border-all">mdi-plus</v-icon> 등록</v-btn>
+            <v-file-input @change="onChangeFile"
+                          ref="fileUploadInput"
+                          multiple
+                          class="d-none"
+                          denseaccept="image/png, image/jpeg, image/bmp"/>
           </div>
-          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" outlined="1"></v-sheet>
+          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" outlined>
+            <ul>
+              <li v-for="item in attachments" :key="item.idx" class="body-2" :v-if="item.isModify">
+                <span>{{item.originName}}</span>
+                <v-btn class="ml-1" icon small color="deep-orange darken-2" @click="deleteFileItem(item)">
+                  <v-icon small>mdi-close</v-icon>
+                </v-btn>
+              </li>
+            </ul>
+          </v-sheet>
         </div>
 
       </v-card-text>
@@ -107,13 +121,25 @@ export default {
           v => !!v || '제목을 입력해주세요.',
         v => (v && v.length <= 50) || '제목은 50자를 넘길 수 없습니다.',
       ]
-    }
+    },
+    attachments: [
+      /*
+      {idx:0, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
+      {idx:1, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
+      {idx:2, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
+      {idx:3, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
+      {idx:4, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
+      */
+    ]
   }),
   methods:{
     showDialog: function () {
       this.dialog = !this.dialog;
     },
     close: function() {
+      this.$refs.frm.reset();
+      this.$refs.editor.reset();
+      this.$refs.frm.resetValidation();
       this.dialog = false;
     },
     onChangeEditor: function(markdown){
@@ -122,15 +148,49 @@ export default {
     save: function(){
       let valid = this.$refs.frm.validate();
       if(valid) {
-        let formData = new FormData();
-        formData.set("title", this.command.title);
-        formData.set("content", this.command.content);
-        formData.set("writer", this.command.writer);
-        formData.set("noticeYn", this.command.noticeYn);
-        formData.set("noticeId", this.command.noticeId);
-
-        NoticeApi.save(formData).then(res => console.log("ok", res));
+        let fileItems = this.attachments.filter(item => !!item.file).map(value => value['file']);
+        // eslint-disable-next-line no-unused-vars
+        NoticeApi.save(this.command, fileItems).then(res => {
+          //this.$store.state.
+          this.close();
+        });
       }
+    },
+    chooseFile: function (){
+      this.isSelecting = true;
+      window.addEventListener('focus', () => {
+        this.isSelecting = false
+      }, { once: true });
+      //this.$refs.uploader.click();
+      this.$refs.fileUploadInput.$refs.input.click();
+    },
+    onChangeFile: function(files){
+      // console.log(files);
+      // eslint-disable-next-line no-unused-vars
+      files.forEach((value, index) => {
+        // console.log("["+index+"]", value);
+        let fileItem = {
+          idx: this.attachments.length,
+          isModify: true,
+          attachId:null,
+          cmdType : 'C',
+          originName: value.name,
+          file: value,
+        };
+        this.attachments.push(fileItem);
+      })
+    },
+    deleteFileItem: function(item) {
+      this.attachments.forEach((value, index) => {
+        if(item.idx == value.idx) {
+          if((value.attachId || 0) > 0) {
+            value.isModify = false;
+            value.cmdType = 'D';
+          } else {
+            this.attachments.splice(index, 1);
+          }
+        }
+      })
     }
   }
 }
