@@ -1,49 +1,64 @@
 <template>
-  <v-data-table
-      :headers="headers"
-      :items="results"
-      item-key="productId"
-      class="elevation-0"
-      disable-pagination
-      disable-filtering
-      disable-sort
-      fixed-header
-      hide-default-footer
-      :footer-props="{'itemsPerPageText':'노출건수'}"
-      :item-class="rowStyle"
-  >
-    <template v-slot:item.file_attachment="{ item }">
-      <v-icon small v-if="item.attachment">mdi-file-check</v-icon>
-      <span v-if="!item.attachment">-</span>
-    </template>
+  <div>
 
-    <template v-slot:item.noticeId="{ item }">
-      <v-chip v-if="item.noticeYn == 'Y'" small class="pa-1 rounded" outlined color="deep-orange">공지</v-chip>
-      <span v-if="item.noticeYn != 'Y'">{{item.noticeId}}</span>
-    </template>
 
-    <template v-slot:item.createAt="{ item }">
-      {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
-    </template>
-    <template v-slot:item.actions="{ item }">
-      <v-icon
-          small
-          class="mr-2"
-          @click="editItem(item)">
-        mdi-pencil
-      </v-icon>
+    <v-card elevation="0" class="pt-2 pb-2">
 
-      <v-icon
-          small
-          @click="deleteItem(item)">
-        mdi-delete
-      </v-icon>
 
-    </template>
+      <v-data-table
+          :headers="headers"
+          :items="results"
+          item-key="productId"
+          class="elevation-0"
+          disable-pagination
+          disable-filtering
+          disable-sort
+          fixed-header
+          hide-default-footer
+          :footer-props="{'itemsPerPageText':'노출건수'}"
+          :item-class="rowStyle"
+      >
+        <template v-slot:item.file_attachment="{ item }">
+          <v-icon small v-if="item.attachment">mdi-file-check</v-icon>
+          <span v-if="!item.attachment">-</span>
+        </template>
 
-    <template v-slot:footer.page-text="items">{{items.pageStart}}/{{items.pageStop }}</template>
+        <template v-slot:item.noticeId="{ item }">
+          <v-chip v-if="item.noticeYn == 'Y'" small class="pa-1 rounded" outlined color="deep-orange">공지</v-chip>
+          <span v-if="item.noticeYn != 'Y'">{{item.noticeId}}</span>
+        </template>
 
-  </v-data-table>
+        <template v-slot:item.createAt="{ item }">
+          {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-icon
+              small
+              class="mr-2"
+              @click="editItem(item)">
+            mdi-pencil
+          </v-icon>
+
+          <v-icon
+              small
+              @click="deleteItem(item)">
+            mdi-delete
+          </v-icon>
+
+        </template>
+
+        <template v-slot:footer.page-text="items">{{items.pageStart}}/{{items.pageStop }}</template>
+
+      </v-data-table>
+
+      <v-divider />
+
+      <v-pagination class="elevation-0 mt-6 mb-4"
+                    v-model="pagination.page"
+                    :length="pagination.pageCount">
+      </v-pagination>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -80,7 +95,8 @@ export default {
   data: () =>({
     pagination: {
       page: 1,
-      pageCount : null
+      pageCount : null,
+      limit: 20
     },
     query:null,
     results:[{
@@ -106,16 +122,15 @@ export default {
       console.log('delete.item', item);
     },
     search: function(){
-      noticeApi.getList().then(res => {
+      noticeApi.getList(this.pagination.page, this.pagination.limit, 'ALL', this.query).then(res => {
         console.log('notice-admin-list', res.data);
         this.results = res.data.result;
         this.pagination.page = res.data.page;
-        this.pagination.pageCount = res.data.count;
+        this.pagination.pageCount = res.data.pageCount;
         console.log('this.results', this.results);
       })
     },
     rowStyle: function(item) {
-      console.info('rowStyle', item);
       return item.noticeYn == 'Y' ? 'notice_list_row_active' : '';
     }
   }

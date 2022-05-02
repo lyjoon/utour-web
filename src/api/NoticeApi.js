@@ -20,7 +20,7 @@ class NoticeApi extends Api {
         let parameters = {
             page: page,
             limit: limit,
-            queryType: 'ALL',
+            queryType: queryType,
             query: query,
         };
 
