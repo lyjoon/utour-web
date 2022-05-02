@@ -10,16 +10,21 @@
       fixed-header
       hide-default-footer
       :footer-props="{'itemsPerPageText':'노출건수'}"
+      :item-class="rowStyle"
   >
     <template v-slot:item.file_attachment="{ item }">
       <v-icon small v-if="item.attachment">mdi-file-check</v-icon>
       <span v-if="!item.attachment">-</span>
     </template>
 
-    <template v-slot:item.noticeYn="{ item }">
-      <span>{{ item.noticeYn == 'Y' ? 'Yes' : 'No' }}</span>
+    <template v-slot:item.noticeId="{ item }">
+      <v-chip v-if="item.noticeYn == 'Y'" small class="pa-1 rounded" outlined color="deep-orange">공지</v-chip>
+      <span v-if="item.noticeYn != 'Y'">{{item.noticeId}}</span>
     </template>
 
+    <template v-slot:item.createAt="{ item }">
+      {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
+    </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
           small
@@ -42,7 +47,13 @@
 </template>
 
 <script>
+
+import noticeApi from "@/api/NoticeApi";
+
 export default {
+  mounted() {
+    this.search();
+  },
   computed:{
     headers(){
       return [
@@ -50,6 +61,7 @@ export default {
           text: 'No',
           sortable: false,
           align: 'center',
+          width: '100px',
           value: 'noticeId',
         },
         {
@@ -59,7 +71,6 @@ export default {
           sortable: false,
           align:'start',
         },
-        {text: '고정여부', value: 'noticeYn', sortable: false, align:'center'},
         {text: '등록일', value: 'createAt', sortable: false, align:'center'},
         {text: '파일유무', align:'center', width:'80px', value: 'file_attachment' },
         {text: 'Actions', align:'center', value: 'actions' },
@@ -95,12 +106,21 @@ export default {
       console.log('delete.item', item);
     },
     search: function(){
-
+      noticeApi.getList().then(res => {
+        console.log('notice-admin-list', res.data);
+        this.results = res.data.result;
+        this.pagination.page = res.data.page;
+        this.pagination.pageCount = res.data.count;
+        console.log('this.results', this.results);
+      })
+    },
+    rowStyle: function(item) {
+      console.info('rowStyle', item);
+      return item.noticeYn == 'Y' ? 'notice_list_row_active' : '';
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

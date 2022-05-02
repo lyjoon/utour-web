@@ -15,6 +15,17 @@ class NoticeApi extends Api {
                 "Content-Type": `multipart/form-data`,
             }});
     }
+
+    async getList(page, limit, queryType, query){
+        let parameters = {
+            page: page,
+            limit: limit,
+            queryType: 'ALL',
+            query: query,
+        };
+
+        return await this.getAxios().get(`/api/v1/notice/list?${this.queryString(parameters)}`);
+    }
 }
 
 export default new NoticeApi()
