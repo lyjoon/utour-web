@@ -118,8 +118,13 @@ export default {
       this.$emit('edit', item);
     },
     deleteItem : function(item){
-      //this.$emit('edit', item);
       console.log('delete.item', item);
+      // eslint-disable-next-line no-unused-vars
+      noticeApi.delete(item.noticeId).then(res => {
+        //this.$store.state.snackbar.message
+        this.$store.commit('snackMessage', {message : '정상적으로 삭제되었습니다.'});
+        this.search();
+      });
     },
     search: function(){
       noticeApi.getList(this.pagination.page, this.pagination.limit, 'ALL', this.query).then(res => {

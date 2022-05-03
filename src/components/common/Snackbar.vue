@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar color="#333333"
+  <v-snackbar color="secondary"
               dark multi-line
               vertical
               right

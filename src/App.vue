@@ -12,9 +12,6 @@
   export default {
     name: 'App',
     components: {Snackbar, Loading},
-    created() {
-        console.log("app created", process.env.VUE_APP_MODE);
-    }
   }
 </script>
 
