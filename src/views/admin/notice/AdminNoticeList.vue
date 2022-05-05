@@ -15,7 +15,7 @@
       </v-layout>
     </v-card>
 
-    <admin-notice-list-table ref="admin_notice_list_table" class="mt-4 mb-4" />
+    <admin-notice-list-table ref="admin_notice_list_table" class="mt-4 mb-4" @edit="edit" />
 
     <admin-notice-form-dialog ref="admin_notice_form_dialog" />
   </v-container>
@@ -37,7 +37,19 @@ export default {
   }),
   methods:{
     onCreate: function(){
-      this.$refs.admin_notice_form_dialog.showDialog()
+      this.$refs.admin_notice_form_dialog.showDialog();
+    },
+    edit: function(item){
+      //console.log('edit ', item);
+      let frmData = {
+        noticeId:  item.noticeId,
+        noticeYn: item.noticeYn,
+        title : item.title,
+        pv:item.pv,
+        attachment: item.attachment,
+        writer: item.writer
+      };
+      this.$refs.admin_notice_form_dialog.edit(frmData);
     }
   }
 }

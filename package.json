@@ -18,6 +18,7 @@
     "@vue/babel-sugar-v-on": "^1.2.3",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "js-file-download": "^0.4.12",
     "moment": "^2.29.1",
     "node-pre-gyp": "^0.17.0",
     "sass-migrator": "^1.5.4",

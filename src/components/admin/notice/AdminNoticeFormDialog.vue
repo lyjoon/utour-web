@@ -122,19 +122,31 @@ export default {
         v => (v && v.length <= 50) || '제목은 50자를 넘길 수 없습니다.',
       ]
     },
-    attachments: [
-      /*
-      {idx:0, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
-      {idx:1, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
-      {idx:2, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
-      {idx:3, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
-      {idx:4, fileId:null, name:'한글증명서.zip', file:null, cmdType:'C'},
-      */
-    ]
+    attachments: []
   }),
   methods:{
     showDialog: function () {
       this.dialog = !this.dialog;
+    },
+    edit: function(notice){
+      this.dialog = true;
+      NoticeApi.get(notice.noticeId).then(res => {
+        let result = res.data.result;
+        this.command.noticeId = result.noticeId;
+        this.command.title = result.title;
+        this.command.content = result.content;
+        this.command.noticeYn = result.noticeYn;
+        this.command.writer = result.writer;
+        this.command.createAt = result.createAt;
+
+        if(this.$refs.editor) {
+          this.$refs.editor.setMarkdown(this.command.content);
+        }
+        // eslint-disable-next-line no-unused-vars
+      }).catch(error => {
+        this.$store.commit("snackMessage", {message : '공지 게시글을 정상적으로 불러오지 못했습니다.'});
+        this.close();
+      })
     },
     close: function() {
       this.$refs.frm.reset();

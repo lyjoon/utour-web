@@ -30,6 +30,11 @@ class NoticeApi extends Api {
     async delete(noticeId) {
         return await this.getAxios().delete(`/api/v1/notice/${noticeId}`);
     }
+
+    async get(noticeId) {
+        return await this.getAxios().get(`/api/v1/notice/${noticeId}`);
+    }
+
 }
 
 export default new NoticeApi()
