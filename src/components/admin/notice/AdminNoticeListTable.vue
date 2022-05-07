@@ -18,6 +18,10 @@
           :footer-props="{'itemsPerPageText':'노출건수'}"
           :item-class="rowStyle"
       >
+        <template v-slot:item.title="{item}">
+          <router-link class="text-decoration-underline" :to="`/admin/notice/${item.noticeId}`">{{ item.title }} </router-link>
+        </template>
+
         <template v-slot:item.file_attachment="{ item }">
           <v-icon small v-if="item.attachment">mdi-file-check</v-icon>
           <span v-if="!item.attachment">-</span>
@@ -31,6 +35,7 @@
         <template v-slot:item.createAt="{ item }">
           {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
         </template>
+
         <template v-slot:item.actions="{ item }">
           <v-icon
               small
@@ -118,7 +123,6 @@ export default {
       this.$emit('edit', item);
     },
     deleteItem : function(item){
-      console.log('delete.item', item);
       // eslint-disable-next-line no-unused-vars
       noticeApi.delete(item.noticeId).then(res => {
         //this.$store.state.snackbar.message
@@ -126,17 +130,27 @@ export default {
         this.search();
       });
     },
-    search: function(){
+    searchQuery: function(query){
+      this.query = query;
+      this.pagination.page = 1;
       noticeApi.getList(this.pagination.page, this.pagination.limit, 'ALL', this.query).then(res => {
-        console.log('notice-admin-list', res.data);
         this.results = res.data.result;
         this.pagination.page = res.data.page;
         this.pagination.pageCount = res.data.pageCount;
-        console.log('this.results', this.results);
+      })
+    },
+    search: function(){
+      noticeApi.getList(this.pagination.page, this.pagination.limit, 'ALL', this.query).then(res => {
+        this.results = res.data.result;
+        this.pagination.page = res.data.page;
+        this.pagination.pageCount = res.data.pageCount;
       })
     },
     rowStyle: function(item) {
       return item.noticeYn == 'Y' ? 'notice_list_row_active' : '';
+    },
+    get: function(item) {
+      this.$router.push(`/admin/notice/${item.noticeId}`);
     }
   }
 }

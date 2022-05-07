@@ -17,31 +17,18 @@
         <v-form ref="frm" lazy-validation>
           <v-row dense class="pt-4">
           <v-col cols="12">
-            <v-text-field v-model="command.title" dense outlined label="공지사항 제목" :rules="rules.title" placeholder="제목을 입력하세요" />
+            <v-text-field v-model="command.title" dense outlined label="공지사항 제목" class="ime-mode-active" :rules="rules.title" placeholder="제목을 입력하세요" />
           </v-col>
           <v-col cols="12">
             <div class="d-flex flex-fill justify-start">
               <div class="d-inline-flex mr-4">
-                <v-select class="hidden-md-and-up" label="공지(상단고정)유무"
-                          outlined dense hide-details
+                <v-select label="공지(상단고정)유무"
+                          outlined
+                          dense
+                          hide-details
+                          placeholder="일반공지"
                           v-model="command.noticeYn" :items="noticeYnItems" item-text="text" item-value="value">
                 </v-select>
-
-                <v-radio-group v-model="command.noticeYn" row class="mt-1 hidden-sm-and-down" >
-                  <template v-slot:label>
-                    <span class="mr-1">공지(상단고정)유무</span>
-                  </template>
-                  <v-radio color="secondary" value="Y" label="공지사항" >
-                    <template v-slot:label>
-                      <span class="body-2">상단고정</span>
-                    </template>
-                  </v-radio>
-                  <v-radio value="N" label="일반" >
-                    <template v-slot:label>
-                      <span class="body-2">일반</span>
-                    </template>
-                  </v-radio>
-                </v-radio-group>
               </div>
               <div class="d-inline-flex">
                 <div style="min-width: 220px">
@@ -103,7 +90,10 @@ export default {
       return this.$vuetify.breakpoint.smAndDown ? 500 : 600;
     },
     noticeYnItems(){
-      return [{value:"Y", text:'상단고정'}, {value:"N", text:'일반'}]
+      return [{value:"Y", text:'상단고정'}, {value:"N", text:'일반공지'}]
+    },
+    getNoticeYn(){
+      return this.command.noticeYn || 'N';
     }
   },
   data: ()=>({
@@ -112,7 +102,7 @@ export default {
       noticeId:null,
       title:null,
       content:null,
-      noticeYn:'N',
+      noticeYn:null,
       writer: '관리자',
       createAt:null,
     },
@@ -165,6 +155,7 @@ export default {
         NoticeApi.save(this.command, fileItems).then(res => {
           //this.$store.state.
           this.close();
+          this.$emit("complete");
         });
       }
     },

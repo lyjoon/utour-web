@@ -5,6 +5,7 @@ import AdminHome from "../views/admin/Home";
 import AdminProductList from "@/views/admin/product/AdminProductList";
 import AdminProductEdit from "@/views/admin/product/AdminProductEdit";
 import AdminNoticeList from "@/views/admin/notice/AdminNoticeList";
+import AdminNoticeView from "@/views/admin/notice/AdminNoticeView";
 
 export default [
 {
@@ -32,6 +33,11 @@ export default [
     },{
       path: 'notice/list',
       component: AdminNoticeList,
+      meta: { authorization: true }
+    },
+    {
+      path: 'notice/:noticeId',
+      component: AdminNoticeView,
       meta: { authorization: true }
     }
   ]

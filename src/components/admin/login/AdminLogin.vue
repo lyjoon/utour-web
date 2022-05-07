@@ -47,7 +47,7 @@
                               outlined />
               </div>
               <div>
-                <v-checkbox class="mt-0" hide-details dense label="로그인유지" />
+                <v-checkbox class="mt-0" v-model="storeLocalStorage" hide-details dense label="로그인유지" />
               </div>
             </v-form>
           </v-card-text>
@@ -81,6 +81,7 @@ export default {
     loginId: null,
     password: null,
     token: null,
+    storeLocalStorage: false,
     error: {
       code: null,
       message: null,
@@ -97,12 +98,24 @@ export default {
       ]
     }
   }),
+  mounted() {
+    let loginInfoString = localStorage.getItem("loginInfo");
+    // console.log('loginInfoString', loginInfoString);
+    let loginInfo = JSON.parse(loginInfoString);
+    this.loginId = loginInfo.loginId;
+    this.password = loginInfo.password;
+    this.storeLocalStorage = loginInfo.storeLocalStorage;
+  },
   methods:{
     doSubmit: function(){
       let valid = this.$refs.frm.validate();
       if(valid) {
         // eslint-disable-next-line no-unused-vars
         LoginApi.login(this.loginId, this.password).then(res => {
+          if(this.storeLocalStorage) {
+            let loginInfo = {loginId : this.loginId, password : this.password, storeLocalStorage: true};
+            localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
+          }
           this.$store.state.auth.token = res.data.result;
           this.$router.push('/admin/home');
         }, error => {

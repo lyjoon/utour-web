@@ -1,4 +1,5 @@
 import axios from "../utils/axios";
+import fileDownload from "js-file-download";
 export default class Api {
     resource;
 
@@ -9,5 +10,15 @@ export default class Api {
 
     getAxios() {
        return axios;
+    }
+
+    getFileDownload() {
+        return fileDownload;
+    }
+
+    fileDownloadResponse(response, originName) {
+        let contentDisposition = response.headers['content-disposition'];
+        let fileName = decodeURI(contentDisposition.split('filename=')[1].split(';')[0].replace(/['"]/g, ''));
+        this.getFileDownload()(response.data, originName || fileName);
     }
 }

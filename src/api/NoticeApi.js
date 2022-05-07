@@ -35,6 +35,15 @@ class NoticeApi extends Api {
         return await this.getAxios().get(`/api/v1/notice/${noticeId}`);
     }
 
+    async download(noticeId, attachId, originName) {
+        await this.getAxios().get(`/api/v1/notice/${noticeId}/attach/${attachId}`, {responseType: 'arraybuffer'})
+            .then(res => {
+                this.fileDownloadResponse(res, originName)
+            }).catch(error => {
+                // console.log('download-error', error.response);
+                store.commit("snackMessage", {message: `[${error.response.status}] 리소스를 찾을 수 없습니다.`})
+            });
+    }
 }
 
 export default new NoticeApi()

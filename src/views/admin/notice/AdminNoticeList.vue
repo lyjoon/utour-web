@@ -4,8 +4,12 @@
     <v-card width="100%" elevation="0" class="pa-4">
       <v-layout column>
         <v-flex class="d-flex flex-fill">
-          <v-text-field type="text" class="ml-2" outlined dense hide-details placeholder="검색 키워드를 입력해주세요."></v-text-field>
-          <v-btn elevation="0" color="grey" class="darken-3 ml-4"  @click="onCreate" icon>
+          <v-text-field type="text" class="ime-mode-active ml-2"
+                        v-model="query"
+                        outlined
+                        dense
+                        hide-details placeholder="검색 키워드를 입력해주세요."></v-text-field>
+          <v-btn elevation="0" color="grey" class="darken-3 ml-4"  @click="search" icon>
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
           <v-btn elevation="0" color="grey" class="ml-2 darken-3"  @click="onCreate" icon>
@@ -17,7 +21,7 @@
 
     <admin-notice-list-table ref="admin_notice_list_table" class="mt-4 mb-4" @edit="edit" />
 
-    <admin-notice-form-dialog ref="admin_notice_form_dialog" />
+    <admin-notice-form-dialog ref="admin_notice_form_dialog" @complete="search" />
   </v-container>
 </template>
 
@@ -38,6 +42,9 @@ export default {
   methods:{
     onCreate: function(){
       this.$refs.admin_notice_form_dialog.showDialog();
+    },
+    search: function (){
+      this.$refs.admin_notice_list_table.searchQuery(this.query);
     },
     edit: function(item){
       //console.log('edit ', item);

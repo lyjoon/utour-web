@@ -52,3 +52,12 @@ a {text-decoration: none !important;}
   border-color: #dadde6;
 }
 
+.ime-mode-active{
+  -ms-ime-mode: active;
+}
+
+tbody {
+  tr:hover {
+    background-color: transparent !important;
+  }
+}
