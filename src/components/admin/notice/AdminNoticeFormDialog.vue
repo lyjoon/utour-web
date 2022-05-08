@@ -55,12 +55,12 @@
                           class="d-none"
                           denseaccept="image/png, image/jpeg, image/bmp"/>
           </div>
-          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" outlined>
+          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" color="grey lighten-4" v-if="attachments.length > 0">
             <ul>
               <li v-for="item in attachments" :key="item.idx" class="body-2" :v-if="item.isModify">
-                <span>{{item.originName}}</span>
-                <v-btn class="ml-1" icon small color="deep-orange darken-2" @click="deleteFileItem(item)">
-                  <v-icon small>mdi-close</v-icon>
+                <span :style="{'text-decoration': (!item.isModify ? 'line-through' : 'none')}">{{item.originName}}</span>
+                <v-btn class="ml-1" icon small :color="`${item.isModify ? 'deep-orange':'primary'}`" @click="deleteFileItem(item)">
+                  <v-icon small>{{item.isModify ? 'mdi-close':'mdi-check'}}</v-icon>
                 </v-btn>
               </li>
             </ul>
@@ -71,7 +71,7 @@
       <v-card-actions>
         <div class="d-flex flex-fill justify-end pa-2">
           <v-btn dark elevation="0" color="grey darken-2" @click="save"><v-icon small class="mr-1">mdi-content-save</v-icon>저장</v-btn>
-          <v-btn elevation="0" color="grey lighten-1" @click="close" class="ml-2"><v-icon small class="mr-1">mdi-cancel</v-icon>닫기</v-btn>
+          <v-btn dark elevation="0" color="grey lighten-1" @click="close" class="ml-2"><v-icon small class="mr-1">mdi-cancel</v-icon>닫기</v-btn>
         </div>
       </v-card-actions>
     </v-card>
@@ -115,10 +115,29 @@ export default {
     attachments: []
   }),
   methods:{
+    clear: function(){
+      this.command.noticeId = null;
+      this.command.title = null;
+      this.command.content = null;
+      this.command.noticeYn = null;
+      this.command.writer = '관리자';
+      this.command.createAt = null;
+      this.attachments = [];
+      if(this.$refs.frm) {
+        this.$refs.frm.reset();
+        this.$refs.frm.resetValidation();
+      }
+      if(this.$refs.editor) {
+        this.$refs.editor.reset();
+      }
+    },
     showDialog: function () {
+      this.clear();
       this.dialog = !this.dialog;
+      if(this.$refs.editor) this.$refs.editor.setMarkdown(this.command.content);
     },
     edit: function(notice){
+      this.clear();
       this.dialog = true;
       NoticeApi.get(notice.noticeId).then(res => {
         let result = res.data.result;
@@ -128,6 +147,20 @@ export default {
         this.command.noticeYn = result.noticeYn;
         this.command.writer = result.writer;
         this.command.createAt = result.createAt;
+
+        // this.attachments = result.attachments;
+        result.attachments.forEach(attach => {
+          let item = {
+            idx: this.attachments.length,
+            attachId: attach.attachId,
+            isModify: true,
+            originName: attach.originName,
+            size: attach.size,
+            cmdType : 'R',
+            file: null
+          };
+          this.attachments.push(item);
+        })
 
         if(this.$refs.editor) {
           this.$refs.editor.setMarkdown(this.command.content);
@@ -139,9 +172,7 @@ export default {
       })
     },
     close: function() {
-      this.$refs.frm.reset();
-      this.$refs.editor.reset();
-      this.$refs.frm.resetValidation();
+      this.clear();
       this.dialog = false;
     },
     onChangeEditor: function(markdown){
@@ -150,9 +181,18 @@ export default {
     save: function(){
       let valid = this.$refs.frm.validate();
       if(valid) {
-        let fileItems = this.attachments.filter(item => !!item.file).map(value => value['file']);
+        let fileItems = [];// = this.attachments.filter(item => !!item.file).map(value => value['file']);
+        let deleteAttachIdList = [];//this.attachments.
+        this.attachments.forEach(item => {
+          if(item.file) {
+            fileItems.push(item.file);
+          }
+          if((item.attachId || 0) > 0 && !item.isModify ) {
+            deleteAttachIdList.push(item.attachId);
+          }
+        })
         // eslint-disable-next-line no-unused-vars
-        NoticeApi.save(this.command, fileItems).then(res => {
+        NoticeApi.save({command : this.command, deleteAttachId : deleteAttachIdList}, fileItems).then(res => {
           //this.$store.state.
           this.close();
           this.$emit("complete");
@@ -171,7 +211,6 @@ export default {
       // console.log(files);
       // eslint-disable-next-line no-unused-vars
       files.forEach((value, index) => {
-        // console.log("["+index+"]", value);
         let fileItem = {
           idx: this.attachments.length,
           isModify: true,
@@ -186,11 +225,16 @@ export default {
     deleteFileItem: function(item) {
       this.attachments.forEach((value, index) => {
         if(item.idx == value.idx) {
-          if((value.attachId || 0) > 0) {
-            value.isModify = false;
-            value.cmdType = 'D';
+          if(item.isModify) {
+            if((value.attachId || 0) > 0) {
+              item.isModify = false;
+              item.cmdType = 'D';
+            } else {
+              this.attachments.splice(index, 1);
+            }
           } else {
-            this.attachments.splice(index, 1);
+            item.isModify = true;
+            item.cmdType = 'R';
           }
         }
       })

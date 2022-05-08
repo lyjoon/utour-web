@@ -20,11 +20,11 @@
         <div style="min-height: 500px;">
           <toast-viewer ref="viewer"></toast-viewer>
         </div>
+        <v-divider />
       </v-card-text>
 
-      <v-card-text >
+      <v-card-text v-if="attachments.length > 0">
 
-        <v-divider />
         <div class="mt-4 mb-4">
           <div class="mb-2">첨부파일</div>
           <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" color="grey lighten-4">

@@ -1,8 +1,7 @@
 <template>
   <v-snackbar color="secondary"
-              dark multi-line
-              vertical
-              right
+              dark
+              multi-line
               v-model="$store.state.ui.snackbar.flag">
     {{$store.state.ui.snackbar.message}}
     <template v-slot:action="{attrs}">

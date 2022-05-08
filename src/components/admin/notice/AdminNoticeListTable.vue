@@ -60,6 +60,7 @@
 
       <v-pagination class="elevation-0 mt-6 mb-4"
                     v-model="pagination.page"
+                    @input="setPage"
                     :length="pagination.pageCount">
       </v-pagination>
     </v-card>
@@ -119,6 +120,10 @@ export default {
     }]
   }),
   methods: {
+    setPage: function(p){
+      this.pagination.page = p;
+      this.search();
+    },
     editItem : function(item){
       this.$emit('edit', item);
     },

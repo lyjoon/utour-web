@@ -4,11 +4,14 @@ import store from "@/store";
 class NoticeApi extends Api {
     async save(notice, attachments) {
         const formData = new FormData();
-        formData.append('notice', new Blob([JSON.stringify(notice)], {type: 'application/json'}))
-        // formData.append('attachments', attachments)
-        attachments.forEach(v => {
-            formData.append('attachments', v);
-        });
+        formData.append('notice', new Blob([JSON.stringify(notice)], {type: 'application/json'}));
+
+        // 신규파일
+        if(Array.isArray(attachments) && attachments.length > 0) {
+            attachments.forEach(v => {
+                formData.append('attachments', v);
+            });
+        }
 
         return await this.getAxios().post(`/api/v1/notice/save`, formData, {headers :{
                 "Authorization" :`Bearer ${store.state.auth.token}`,
