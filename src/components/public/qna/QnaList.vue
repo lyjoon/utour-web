@@ -111,11 +111,11 @@
       </template>
     </v-list>
 
-    <secondary-divider />
+    <v-divider class="grey" />
 
     <div>
       <div class="d-flex flex-fill justify-end mt-4">
-        <v-btn dark color="grey" class="darken-1" elevation="0" @click="edit">
+        <v-btn color="grey" class="lighten-2" elevation="0" @click="edit">
           <v-icon class="mr-1">mdi-playlist-edit</v-icon>
           <span>작성</span>
         </v-btn>
@@ -130,15 +130,12 @@
       </v-pagination>
     </div>
 
-
   </div>
 </template>
 
 <script>
-import SecondaryDivider from "../../common/SecondaryDivider";
 import QnaApi from "../../../api/QnaApi"
 export default {
-  components: {SecondaryDivider},
   props:{
     limit: {
       type: Number,

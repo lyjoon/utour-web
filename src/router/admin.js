@@ -4,8 +4,10 @@ import AdminLogin from "../components/admin/login/AdminLogin";
 import AdminHome from "../views/admin/Home";
 import AdminProductList from "@/views/admin/product/AdminProductList";
 import AdminProductEdit from "@/views/admin/product/AdminProductEdit";
-import AdminNoticeList from "@/views/admin/notice/AdminNoticeList";
-import AdminNoticeView from "@/views/admin/notice/AdminNoticeView";
+import AdminNoticeView from "@/components/admin/notice/AdminNoticeView";
+import AdminNoticeList from "@/components/admin/notice/AdminNoticeList";
+import AdminNotice from "@/views/admin/board/AdminNotice";
+import AdminNoticeForm from "@/components/admin/notice/AdminNoticeForm";
 
 export default [
 {
@@ -31,13 +33,22 @@ export default [
       component: AdminHome,
       meta: { authorization: true }
     },{
-      path: 'notice/list',
-      component: AdminNoticeList,
-      meta: { authorization: true }
-    },
-    {
-      path: 'notice/:noticeId',
-      component: AdminNoticeView,
+      path: 'notice',
+      component: AdminNotice,
+      children:[
+        {
+          path: 'list',
+          component: AdminNoticeList
+        },
+        {
+          path: 'edit',
+          component: AdminNoticeForm
+        },
+        {
+          path: ':noticeId',
+          component: AdminNoticeView
+        }
+      ],
       meta: { authorization: true }
     }
   ]
