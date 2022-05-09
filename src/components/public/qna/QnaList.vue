@@ -1,6 +1,83 @@
 <template>
-  <v-container>
-    <v-list class="flex-fill mt-0" min-height="550px">
+  <div>
+
+    <div class="pt-12 pb-4">
+      <v-row no-gutters class="align-end">
+        <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 5" :class="`mb-${$vuetify.breakpoint.smAndDown ? '2' : '0'}`">
+          <div class="d-flex body-2 font-weight-medium text--black align-center">
+            전체 {{ pagination.count || 0 }}건 / {{ pagination.pageCount || 0 }}페이지
+          </div>
+        </v-col>
+        <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 7">
+          <div :class="`d-flex flex-fill ${$vuetify.breakpoint.smAndDown ? 'justify-start' : 'justify-end'}`">
+            <div class="d-flex justify-end" style="width: 140px">
+              <v-select placeholder="검색항목" class="body-2" v-model="queryType" :items="queryTypeItems" item-value="value" item-text="text" hide-details dense outlined></v-select>
+            </div>
+            <div class="d-flex ml-1 justify-end" style="width: 300px">
+              <v-text-field placeholder="검색어" v-model="query" dense outlined hide-details label="검색어" />
+            </div>
+            <div class="d-flex ml-1 justify-end">
+              <v-btn color="deep-orange darken-2" @click="search" dark height="39px" elevation="0">검색</v-btn>
+            </div>
+
+          </div>
+        </v-col>
+      </v-row>
+    </div>
+
+    <v-divider class="grey" />
+
+    <v-simple-table fixed-header class="hidden-md-and-down">
+      <template v-slot:default>
+        <colgroup>
+          <col style="width: 80px" />
+          <col />
+          <col style="width: 200px" />
+          <col style="width: 150px" />
+          <col style="width: 100px" />
+        </colgroup>
+        <thead>
+        <tr>
+          <th class="text-center body-1 font-weight-bold">
+            No
+          </th>
+          <th class="text-left body-1 font-weight-bold">
+            제목
+          </th>
+          <th class="text-center body-1 font-weight-bold">
+            작성자
+          </th>
+          <th class="text-center body-1 font-weight-bold">
+            작성일
+          </th>
+          <th class="text-center body-1 font-weight-bold">
+            조회수
+          </th>
+        </tr>
+        </thead>
+
+        <tbody class="body-2">
+        <tr v-if="items != null && items.length < 1">
+          <td colspan="5" class="text-center">
+            조회 결과가 없습니다.
+          </td>
+        </tr>
+        <tr v-for="(item, index) in items" :key="index" >
+          <td class="text-center">{{item.qnaId}}</td>
+          <td class="text-left cursor-pointer" @click="view(item)">
+            {{ item.title }}
+            <v-icon color="blue-grey lighten-1" small v-if="item['privateYn'] == 'Y'">mdi-lock</v-icon>
+          </td>
+          <td class="text-center">{{ item.writer }}</td>
+          <td class="text-center">{{ $moment(item.createAt).format('YYYY.MM.DD') }}</td>
+          <td class="text-center body-2">{{ item.pv }}</td>
+        </tr>
+        </tbody>
+
+      </template>
+    </v-simple-table>
+
+    <v-list class="flex-fill mt-0 hidden-lg-and-up" min-height="550px">
 
       <v-card v-if="items != null && items.length < 1" min-height="100px" elevation="0">
         <v-card-text class="d-flex flex-fill fill-height align-center justify-center mt-12">
@@ -43,88 +120,25 @@
 
     <secondary-divider />
 
+    <div>
+      <div class="d-flex flex-fill justify-end mt-4">
+        <v-btn dark color="grey" class="darken-1" elevation="0" @click="edit">
+          <v-icon class="mr-1">mdi-playlist-edit</v-icon>
+          <span>작성</span>
+        </v-btn>
+      </div>
+    </div>
 
-    <v-layout column class="hidden-lg-and-up board_list_search_field">
-      <v-flex>
-        <div class="d-flex flex-fill justify-end mt-4 mb-4">
-          <v-btn dark color="grey" class="darken-3" elevation="0" @click="edit">
-            <v-icon class="mr-1">mdi-playlist-edit</v-icon>
-            <span>글작성</span>
-          </v-btn>
-        </div>
-      </v-flex>
-      <v-flex>
-        <v-pagination class="elevation-0"
-                      v-model="pagination.page"
-                      :length="10">
-        </v-pagination>
-      </v-flex>
-      <v-flex>
-        <div class="d-flex flex-fill mt-4 pa-2">
-          <div class="d-flex mr-2" style="width: 18vh">
-            <v-select placeholder="검색항목" class="body-2" v-model="queryType" :items="queryTypeItems"
-                      hide-details
-                      item-value="val"
-                      item-text="txt"
-                      dense
-                      outlined></v-select>
-          </div>
-          <div class="d-flex flex-fill">
-            <v-text-field hide-details dense class="body-2" placeholder="검색키워드" outlined @keyup.enter="search">
-              <template v-slot:append>
-                <v-icon @click="search">mdi-magnify</v-icon>
-              </template>
-            </v-text-field>
-          </div>
-        </div>
-      </v-flex>
-
-    </v-layout>
-
-    <v-layout row wrap class="hidden-md-and-down board_list_search_field">
-
-      <v-flex class="col-12">
-        <div class="d-flex flex-fill mt-4 mb-4">
-          <v-spacer />
-          <v-btn dark color="grey" class="darken-3" elevation="0" @click="edit">
-            <v-icon class="mr-1">mdi-playlist-edit</v-icon>
-            <span>글작성</span>
-          </v-btn>
-        </div>
-      </v-flex>
-
-      <v-flex class="col-12">
-        <div class="d-flex flex-fill justify-center">
-          <v-pagination class="elevation-0"
-              v-model="pagination.page"
-              :length="pagination.pageCount">
-          </v-pagination>
-        </div>
-      </v-flex>
-
-      <v-flex class="col-3"></v-flex>
-      <v-flex class="col-2">
-        <v-select placeholder="검색항목"
-                  v-model="queryType"
-                  :items="queryTypeItems"
-                  item-value="val"
-                  item-text="txt"
-                  hide-details
-                  dense
-                  outlined></v-select>
-      </v-flex>
-      <v-flex class="col-4 d-inline">
-        <v-text-field dense hide-details placeholder="검색키워드" v-model="query" outlined @keyup.enter="search">
-          <template v-slot:append>
-            <v-icon @click="search">mdi-magnify</v-icon>
-          </template>
-        </v-text-field>
-      </v-flex>
-      <v-flex class="col-3"></v-flex>
-    </v-layout>
+    <div class="pt-6 pb-6">
+      <v-pagination class="elevation-0"
+                    color="secondary"
+                    v-model="pagination.page"
+                    :length="pagination.pageCount">
+      </v-pagination>
+    </div>
 
 
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -142,15 +156,17 @@ export default {
   data: ()=> ({
     pagination: {
       page: 1,
-      pageCount : null
+      pageCount : 0,
+      limit: 20,
+      count: 0,
     },
     queryTypeItems: [
-        {val:'ALL', txt:'제목+내용'},
-        {val:'TITLE', txt:'제목'},
-        {val:'WRITER', txt:'작성자'},
-        {val:'CONTENT', txt:'내용'},
+        {value:'ALL', text:'제목+내용'},
+        {value:'TITLE', text:'제목'},
+        {value:'WRITER', text:'작성자'},
+        {value:'CONTENT', text:'내용'},
     ],
-    queryType: {val:'ALL', txt:'제목+내용'},
+    queryType: {value:'ALL', text:'제목+내용'},
     query:null,
     items: []
   }),
@@ -161,10 +177,11 @@ export default {
   methods:{
     search: function (){
       // alert('준비중입니다.');
-      QnaApi.getList(1, 20, this.queryType.val, this.query).then(res => {
+      QnaApi.getList(1, this.pagination.limit, this.queryType.val, this.query).then(res => {
         this.items = res.data.result;
         this.pagination.page = res.data.page;
         this.pagination.pageCount = res.data['pageCount'];
+        this.pagination.count = res.data['count'];
       });
     },
     edit: function(){

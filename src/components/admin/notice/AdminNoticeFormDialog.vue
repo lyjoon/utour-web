@@ -55,7 +55,7 @@
                           class="d-none"
                           denseaccept="image/png, image/jpeg, image/bmp"/>
           </div>
-          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" color="grey lighten-4" v-if="attachments.length > 0">
+          <v-sheet rounded class="pa-2 ma-0" color="grey lighten-4" v-if="attachments.length > 0">
             <ul>
               <li v-for="item in attachments" :key="item.idx" class="body-2" :v-if="item.isModify">
                 <span :style="{'text-decoration': (!item.isModify ? 'line-through' : 'none')}">{{item.originName}}</span>

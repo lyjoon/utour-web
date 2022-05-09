@@ -27,7 +27,7 @@
 
         <div class="mt-4 mb-4">
           <div class="mb-2">첨부파일</div>
-          <v-sheet height="100px" rounded class="pa-2 overflow-y-auto ma-0" color="grey lighten-4">
+          <v-sheet min-height="100px" rounded class="pa-2 ma-0" color="grey lighten-4">
             <ul>
               <li style="list-style: disc" v-for="item in attachments" :key="item.idx" class="body-2">
                 <a @click="downloadFile(item)">{{item.originName}}</a>

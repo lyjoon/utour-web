@@ -1,48 +1,56 @@
 <template>
   <div>
 
-    <v-row dense>
-      <!-- title -->
-      <v-col class="col-12">
-        <div class="d-block mt-4 mb-2">
-          <div class="subtitle-1 font-weight-light">견적문의 답변점 ㅋㅋㅋ</div>
-          <div class="d-flex flex-fill">
-            <div class="d-flex caption grey--text">홍길동 <span class="mx-auto mr-1 ml-1 caption">|</span> 2022-03-21</div>
-            <v-spacer />
-            <div class="d-flex caption grey--text">조회 21 <span class="mx-auto mr-1 ml-1 caption">|</span> 댓글 0</div>
-          </div>
+    <div class="pt-6 pb-4">
+      <div class="title text-h5">제목</div>
+      <div class="mt-2 mb-6 body-2 grey--text">
+        <div class="d-flex flex-fill">
+          <div>작성자 : 홍길동 </div>
+          <div><span class="mx-auto mr-2 ml-2">|</span> 등록일 : 2022-03-21</div>
+          <div><span class="mx-auto mr-2 ml-2">|</span> 조회 : 21</div>
         </div>
-        <v-divider />
-      </v-col>
+      </div>
+      <v-divider class="grey" />
+    </div>
 
-      <!-- content -->
-      <v-col class="col-12">
-        <div style="min-height: 600px;" class="body-2 pa-1">
-          <p>고객님의 입장에서 서서 최대한 빠른조치를 해드리며, 고객님과 상의 후 일정 변경등을 결정하게 됩니다.</p>
-          <p>여행일정에 대해 최대한 차질없이 진행할 수 있게 노력하겠습니다.</p>
-          <p>단, 기상상태의 변경으로 인한 부분은 자연재해이기 때문에 보상이나 배상부분은 없습니다.</p>
-        </div>
-      </v-col>
+    <div>
+      <v-sheet min-height="550px">
+        <toast-viewer ref="viewer" />
+      </v-sheet>
+    </div>
 
-      <!-- bottom -->
-      <v-col class="col-12">
-        <secondary-divider  />
-        <div class="mt-2 d-flex flex-fill justify-end">
-          <v-btn dark color="grey" class="darken-2" elevation="0" link to="/notice/list">
-            <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
-          </v-btn>
-        </div>
-      </v-col>
+    <!-- 첨부파일 -->
+    <div>
+      <v-divider />
+      <v-sheet color="grey lighten-4" class="pa-4">
+        <ul>
+          <li>
+            <div class="pt-2 pb-2">제11회 KNDA 학술 논문상 공모_포스터.pdf <v-icon>mdi-download</v-icon></div>
+          </li>
+          <li>
+            <div class="pt-2 pb-2">제출 서류양식.pdf <v-icon>mdi-download</v-icon></div>
+          </li>
+        </ul>
+      </v-sheet>
+      <v-divider />
+    </div>
 
-    </v-row>
+
+    <div class="pt-8 pb-8">
+      <div class="d-flex flex-fill justify-end">
+        <v-btn large outlined elevation="0" link to="/notice/list">
+          <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
+        </v-btn>
+      </div>
+    </div>
 
   </div>
 </template>
 
 <script>
-import SecondaryDivider from "../../common/SecondaryDivider";
+import ToastViewer from "@/components/common/ToastViewer";
 export default {
-  components: {SecondaryDivider}
+  components: {ToastViewer}
 }
 </script>
 

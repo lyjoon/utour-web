@@ -1,8 +1,24 @@
 <template>
-  <div class="d-block">
-    <v-card-title class="pa-0 ma-0 font-weight-regular title">{{title}}</v-card-title>
-    <v-card-text class="pa-0 ma-0 grey--text caption" v-if="description != ''">{{description}}</v-card-text>
+
+  <div>
+    <div :class="`d-flex flex-fill ${$vuetify.breakpoint.smAndDown ? 'pt-4 pb-4':'pt-6 pb-6'}`">
+      <div class="d-flex">
+        <h1 :class="`${$vuetify.breakpoint.smAndDown ? 'font-weight-regular text-h6' : 'font-weight-bold text-h5'}`">{{ title }}</h1>
+      </div>
+      <v-spacer />
+      <div class="d-flex align-end">
+        <v-icon color="grey lighten-1" @click="$router.push('/home')" >mdi-home</v-icon>
+        <template v-for="(item, index) in siteMap">
+          <span :key="index" class="align-end">
+            <v-icon color="grey lighten-1">mdi-chevron-right</v-icon>
+            <span class="grey--text body-2">{{ item }}</span>
+          </span>
+        </template>
+      </div>
+    </div>
+    <v-divider />
   </div>
+
 </template>
 
 <script>
@@ -10,12 +26,11 @@ export default {
   props:{
     title: {
       type: String,
-      default: "N/A"
+      default: "-"
     },
-    description: {
-      type: String,
-      default: ""
-    }
+    siteMap :{
+      type: Array,
+    },
   }
 }
 </script>
