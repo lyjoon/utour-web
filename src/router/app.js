@@ -63,7 +63,7 @@ export default [{
           component: NoticeList
         },
         {
-          path: ':id',
+          path: ':noticeId',
           component: NoticeView,
           props: true
         }

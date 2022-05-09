@@ -1,9 +1,33 @@
 <template>
   <div>
-
-
     <v-card elevation="0" class="pt-2 pb-2">
 
+      <div class="pa-4">
+        <v-row no-gutters class="align-end">
+          <v-col :cols="$vuetify.breakpoint.smAndDown ? '12':'4'" >
+            <div class="body-1">전체 1건 / 1 페이지</div>
+          </v-col>
+
+          <v-col :cols="$vuetify.breakpoint.smAndDown ? '12':'8'" >
+            <div class="d-flex flex-fill justify-end">
+              <div class="d-flex" style="width: 150px">
+                <v-select placeholder="검색항목" class="body-2"
+                          v-model="queryType"
+                          :items="queryTypeItems"
+                          item-text="text"
+                          item-value="value"
+                          hide-details dense outlined></v-select>
+              </div>
+              <div class="d-flex ml-1" style="width: 250px;">
+                <v-text-field placeholder="검색어" label="검색어" outlined hide-details dense />
+              </div>
+              <div class="d-flex ml-1">
+                <v-btn color="deep-orange darken-2" height="39px" elevation="0" dark>검색</v-btn>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+      </div>
 
       <v-data-table
           :headers="headers"
@@ -58,10 +82,17 @@
 
       <v-divider />
 
+      <div class="pa-4">
+        <div class="justify-end flex-fill d-flex">
+          <v-btn color="grey darken-2" @click="$emit('create')" dark elevation="0">등록</v-btn>
+        </div>
+      </div>
+
       <v-pagination class="elevation-0 mt-6 mb-4"
                     v-model="pagination.page"
                     @input="setPage"
-                    :length="pagination.pageCount">
+                    color="deep-orange darken-2"
+                    :length="paginationLimit">
       </v-pagination>
     </v-card>
   </div>
@@ -76,6 +107,10 @@ export default {
     this.search();
   },
   computed:{
+
+    paginationLimit (){
+      return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
+    },
     headers(){
       return [
         {

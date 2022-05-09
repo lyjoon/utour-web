@@ -1,10 +1,9 @@
 <template>
-  <div class="d-block">
-    <div class="caption">전체댓글 : {{ count || '0' }}개</div>
-    <secondary-divider />
+  <div class="d-block" v-if="items && items.length > 0">
+    <div class="mt-1 mb-2 body-2">전체댓글 : {{ count || '0' }}개</div>
+    <v-divider />
 
     <v-list>
-
       <template v-for="(item, index) in items">
 
         <v-list-item :key="`small-content-${index}`">
@@ -41,11 +40,9 @@
 </template>
 
 <script>
-import SecondaryDivider from "../../common/SecondaryDivider";
 import QnaApi from "../../../api/QnaApi";
 
 export default {
-  components: {SecondaryDivider},
   data: () => ({
     qnaId:null,
     count: null,

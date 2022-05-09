@@ -16,7 +16,7 @@
         </template>
       </div>
     </div>
-    <v-divider />
+    <v-divider v-if="showDiv" />
   </div>
 
 </template>
@@ -31,6 +31,10 @@ export default {
     siteMap :{
       type: Array,
     },
+    showDiv: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>

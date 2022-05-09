@@ -1,8 +1,10 @@
 <template>
   <div class="d-block">
+
     <qna-reply-list ref="qna_reply_list" @updateRepliesCount="updateRepliesCount" />
 
     <qna-reply-edit ref="qna_reply_edit" @reloadReplies="reloadReplies" />
+
   </div>
 </template>
 

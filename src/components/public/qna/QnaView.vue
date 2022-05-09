@@ -1,53 +1,51 @@
 <template>
   <div>
-    <v-layout column>
-      <!-- title -->
-      <v-flex>
-        <div class="d-block mt-4 mb-2">
-          <div>
-            <div class="subtitle-1 font-weight-light">{{command.title || '...'}}</div>
-            <div class="d-flex flex-fill">
-              <div class="d-flex caption grey--text">{{command.writer || '-'}} <span class="mx-auto mr-1 ml-1 caption">|</span> {{ command.createAt ? $moment(command.createAt).format("YYYY.MM.DD") : '-' }}</div>
-              <v-spacer />
-              <div class="d-flex caption grey--text">조회 {{ command.pv || 0 }} <span class="mx-auto mr-1 ml-1 caption">|</span> 댓글 {{ command.replyCnt || 0 }}</div>
-            </div>
-          </div>
-        </div>
-        <v-divider />
-      </v-flex>
 
-      <!-- content -->
-      <v-flex>
-        <!--
-        <div style="min-height: 600px;" class="body-2 pa-1" v-html="command.content">
-        </div>
-        -->
-        <div style="min-height: 500px;margin-top: 15px;margin-bottom: 30px">
-          <toast-viewer ref="viewer"></toast-viewer>
-        </div>
-      </v-flex>
-
-      <!-- content -->
-      <v-flex class="pb-2">
-        <qna-reply ref="qna_reply" @updateRepliesCount="updateRepliesCount" />
-      </v-flex>
-
-      <v-flex class="mt-4">
+    <div class="pt-6 pb-4">
+      <div class="title text-h6">{{ command.title || '-' }}</div>
+      <div class="mt-2 mb-6 body-2 grey--text">
         <div class="d-flex flex-fill">
-          <v-btn dark color="grey" class="darken-3" elevation="0" link @click="edit" v-if="notEmptyId">
+          <div>작성자 : {{ command.writer || '-' }} </div>
+          <div><span class="mx-auto mr-2 ml-2">|</span> 등록일 : {{ $moment(command.createAt).format('YYYY.MM.DD') || '-' }}</div>
+          <div><span class="mx-auto mr-2 ml-2">|</span> 조회 : {{ command.pv || '-' }}</div>
+        </div>
+      </div>
+      <v-divider class="grey" />
+    </div>
+
+    <div>
+      <v-sheet min-height="550px">
+        <toast-viewer ref="viewer" />
+      </v-sheet>
+    </div>
+
+    <div>
+      <qna-reply ref="qna_reply" @updateRepliesCount="updateRepliesCount" />
+    </div>
+
+    <div class="mt-4 mb-4">
+
+      <div class="d-flex flex-fill">
+        <div class="d-flex">
+
+          <v-btn color="grey lighten-3" elevation="0" link @click="edit" v-if="notEmptyId">
             <v-icon class="mr-1" small>mdi-playlist-edit</v-icon><span>수정</span>
           </v-btn>
-          <v-btn dark color="grey" class="darken-3 ml-2" elevation="0" link @click="deleteContent"  v-if="notEmptyId">
+
+          <v-btn color="grey lighten-3" class="ml-2" elevation="0" link @click="deleteContent" v-if="notEmptyId">
             <v-icon class="mr-1" small>mdi-delete</v-icon><span>삭제</span>
           </v-btn>
 
-          <v-spacer />
-          <v-btn dark color="grey" class="darken-1" elevation="0" link @click="back">
+        </div>
+        <v-spacer />
+        <div class="d-flex justify-end">
+          <v-btn outlined elevation="0" link @click="back">
             <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
           </v-btn>
         </div>
-      </v-flex>
-    </v-layout>
+      </div>
+    </div>
+
     <qna-password-dialog ref="passwordDialog" @success="passwordDialogSuccess" @cancel="passwordDialogCancel" />
   </div>
 

@@ -65,7 +65,7 @@
         <tr v-for="(item, index) in items" :key="index" >
           <td class="text-center">{{item.qnaId}}</td>
           <td class="text-left cursor-pointer" @click="view(item)">
-            {{ item.title }}
+            {{ item.title + ((item.replyCnt || 0) > 0 ? ` [${item.replyCnt}]`:'') }}
             <v-icon color="blue-grey lighten-1" small v-if="item['privateYn'] == 'Y'">mdi-lock</v-icon>
           </td>
           <td class="text-center">{{ item.writer }}</td>
@@ -89,17 +89,10 @@
 
         <v-list-item :key="index" class="pl-0 pr-0" link @click="view(item)">
 
-          <!--
-          <v-list-item-avatar class="hidden-md-and-down">
-            <v-avatar color="secondary"
-                      class="white--text">
-              <v-icon dark>mdi-card-text</v-icon>
-            </v-avatar>
-          </v-list-item-avatar>
-          -->
-
           <v-list-item-content>
-            <div class="subtitle-1">{{item.title}}</div>
+            <div class="subtitle-1">
+              {{ item.title + ((item.replyCnt || 0) > 0 ? ` [${item.replyCnt}]`:'') }}
+            </div>
             <v-list-item-subtitle class="caption">
               {{ item.writer }}
               <span class="mx-auto mr-1 ml-1 caption">|</span>

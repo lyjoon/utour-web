@@ -11,13 +11,15 @@
         <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 7">
           <div :class="`d-flex flex-fill ${$vuetify.breakpoint.smAndDown ? 'justify-start' : 'justify-end'}`">
             <div class="d-flex justify-end" style="width: 140px">
-              <v-select placeholder="검색항목" class="body-2" v-model="searchType" :items="searchTypes" hide-details dense outlined></v-select>
+              <v-select placeholder="검색항목" class="body-2" v-model="queryType" :items="queryTypeItems"
+                        item-text="text" item-value="value"
+                        hide-details dense outlined></v-select>
             </div>
             <div class="d-flex ml-1 justify-end" style="width: 300px">
-              <v-text-field placeholder="검색어" dense outlined hide-details label="검색어" />
+              <v-text-field placeholder="검색어" v-model="query" dense outlined hide-details label="검색어" @keyup.enter="search" />
             </div>
             <div class="d-flex ml-1 justify-end">
-              <v-btn color="deep-orange darken-2" dark height="39px" elevation="0">검색</v-btn>
+              <v-btn color="deep-orange darken-2" dark height="39px" elevation="0" @click="search">검색</v-btn>
             </div>
 
           </div>
@@ -79,9 +81,14 @@
         </tr>
         </thead>
         <tbody>
+        <tr v-if="items.length < 1">
+          <td colspan="5" class="text-center">
+            <div class="pa-8">검색결과가 없습니다.</div>
+          </td>
+        </tr>
         <tr v-for="(item, index) in items" :key="index" :class="item.noticeYn == 'Y' ? `grey lighten-4 `:``" @click="$router.push(`/notice/${item.noticeId}`)">
           <td class="text-center">
-            <span v-if="item.noticeYn != 'Y'" >{{ index }}</span>
+            <span v-if="item.noticeYn != 'Y'" >{{ item.noticeId }}</span>
             <v-chip v-if="item.noticeYn == 'Y'" dark outlined color="secondary" small class="caption rounded pl-1 pr-1">공지</v-chip>
           </td>
           <td>{{ item.title }}</td>
@@ -130,8 +137,13 @@ export default {
       count:0,
     },
     query:null,
-    searchTypes: ['제목+내용', '제목', '작성자', '내용'],
-    searchType: '제목+내용',
+    queryTypeItems: [
+      {value:'ALL', text:'제목+내용'},
+      {value:'TITLE', text:'제목'},
+      {value:'WRITER', text:'작성자'},
+      {value:'CONTENT', text:'내용'},
+    ],
+    queryType: {value:'ALL', text:'제목+내용'},
     items: []
   }),
   mounted() {
@@ -140,7 +152,7 @@ export default {
   },
   methods:{
     search: function (){
-      NoticeApi.getList(this.pagination.page, this.pagination.limit, 'ALL', this.query)
+      NoticeApi.getList(this.pagination.page, this.pagination.limit, this.queryType.value, this.query)
           .then(res => {
             this.items = res.data.result;
             this.pagination.page = res.data.page;

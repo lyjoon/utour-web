@@ -1,50 +1,48 @@
 <template>
   <div>
-    <div class="grey lighten-4 rounded-lg d-block pt-4 pb-2">
-      <v-form lazy-validation ref="frm">
+    <v-divider />
+    <v-sheet color="grey lighten-4" class="pr-2 pl-2 pt-2 pb-2">
+      <div class="rounded-lg d-block pt-1 pb-1">
+        <v-form lazy-validation ref="frm">
+          <div>
+            <v-textarea rows="3" v-model="command.content" :rules="rules.content"
+                        outlined no-resize
+                        dense
+                        hide-details
+                        background-color="white" label="댓글" placeholder="댓글" class="font-size-14" />
+          </div>
 
-        <v-container>
-          <v-layout row class="hidden-md-and-down pt-2">
-            <v-flex class="d-flex flex-fill">
-              <div class="d-inline-block pr-2 pl-4">
-                <div class="d-block" style="width: 200px;">
-                  <v-text-field outlined dense placeholder="작성자명 또는 닉네임" v-model="command.writer" label="닉네임" :rules="rules.writer" background-color="white" class="font-size-14" />
-                </div>
-                <div class="d-block">
-                  <v-text-field type="password" outlined dense label="비밀번호" v-model="command.password" :rules="rules.password" placeholder="댓글 비밀번호" background-color="white" class="font-size-14" />
-                </div>
-              </div>
+          <div class="d-flex flex-fill pt-2">
+            <div class="d-flex" style="width: 200px">
+              <v-text-field hide-details
+                            outlined
+                            dense label="작성자" v-model="command.writer" :rules="rules.writer"
+                            placeholder="작성자명"
+                            background-color="white" class="font-size-14" />
+            </div>
+            <div class="d-flex ml-2" style="width: 150px">
+              <v-text-field type="password" v-model="command.password" :rules="rules.password"
+                            outlined
+                            dense
+                            hide-details
+                            label="댓글 비밀번호" placeholder="댓글 비밀번호" background-color="white" class="body-2" />
+            </div>
 
-              <div class="flex-fill pr-4 pl-2">
-                <v-textarea rows="5" dense :rules="rules.content" outlined no-resize background-color="white" v-model="command.content" label="댓글" placeholder="댓글" class="font-size-14" />
-              </div>
-            </v-flex>
-          </v-layout>
+            <v-spacer />
 
-          <v-row dense class="hidden-lg-and-up">
-            <v-col class="col-6">
-              <v-text-field outlined dense label="작성자" v-model="command.writer" :rules="rules.writer" placeholder="작성자명 또는 닉네임" background-color="white" class="font-size-14" />
-            </v-col>
-            <v-col class="col-6">
-              <v-text-field type="password" v-model="command.password" :rules="rules.password" outlined dense label="댓글 비밀번호" placeholder="댓글 비밀번호" background-color="white" class="font-size-14" />
-            </v-col>
-            <v-col class="col-12">
-              <v-textarea rows="5" v-model="command.content" dense :rules="rules.content" outlined no-resize background-color="white" label="댓글" placeholder="댓글" class="font-size-14" />
-            </v-col>
+            <div class="d-flex justify-end">
+              <v-btn color="blue-grey lighten-1" dark small height="39px" elevation="0" @click="save">
+                <template v-slot:default>
+                  <v-icon small class="mr-1">mdi-message-reply-text</v-icon> 코멘트
+                </template>
+              </v-btn>
+            </div>
+          </div>
 
-          </v-row>
-        </v-container>
-
-        <div class="d-flex flex-fill justify-end pb-2 pl-2 pr-4">
-          <v-btn dark color="deep-orange" class="darken-2" elevation="0" @click="save">
-            <template v-slot:default>
-              <v-icon small class="mr-1">mdi-message-reply-text</v-icon> 저장
-            </template>
-          </v-btn>
-        </div>
-
-      </v-form>
-    </div>
+        </v-form>
+      </div>
+    </v-sheet>
+    <v-divider />
   </div>
 </template>
 

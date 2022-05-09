@@ -1,25 +1,13 @@
 <template>
   <v-container>
 
-    <v-card width="100%" elevation="0" class="pa-4">
-      <v-layout column>
-        <v-flex class="d-flex flex-fill">
-          <v-text-field type="text" class="ime-mode-active ml-2"
-                        v-model="query"
-                        outlined
-                        dense
-                        hide-details placeholder="검색 키워드를 입력해주세요."></v-text-field>
-          <v-btn elevation="0" color="grey" class="darken-3 ml-4"  @click="search" icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-          <v-btn elevation="0" color="grey" class="ml-2 darken-3"  @click="onCreate" icon>
-            <v-icon>mdi-file-document-edit</v-icon>
-          </v-btn>
-        </v-flex>
-      </v-layout>
-    </v-card>
+    <v-card width="100%" elevation="0">
 
-    <admin-notice-list-table ref="admin_notice_list_table" class="mt-4 mb-4" @edit="edit" />
+      <div class="pa-4">
+        <page-title title="공지사항 관리" :site-map="['게시판', '공지사항']" :show-div="false"/>
+      </div>
+      <admin-notice-list-table ref="admin_notice_list_table" class="mt-4 mb-4" @edit="edit" @create="onCreate" />
+    </v-card>
 
     <admin-notice-form-dialog ref="admin_notice_form_dialog" @complete="search" />
   </v-container>
@@ -28,16 +16,24 @@
 <script>
 import AdminNoticeFormDialog from "@/components/admin/notice/AdminNoticeFormDialog";
 import AdminNoticeListTable from "@/components/admin/notice/AdminNoticeListTable";
+import PageTitle from "@/components/common/PageTitle";
 export default {
   name: "AdminNoticeList",
-  components: {AdminNoticeListTable, AdminNoticeFormDialog},
+  components: {PageTitle, AdminNoticeListTable, AdminNoticeFormDialog},
   data:() =>({
-    query:null,
     items: [],
     pagination: {
       page: 1,
       pageCount : null
-    }
+    },
+    query:null,
+    queryTypeItems: [
+      {value:'ALL', text:'제목+내용'},
+      {value:'TITLE', text:'제목'},
+      {value:'WRITER', text:'작성자'},
+      {value:'CONTENT', text:'내용'},
+    ],
+    queryType: {value:'ALL', text:'제목+내용'},
   }),
   methods:{
     onCreate: function(){
