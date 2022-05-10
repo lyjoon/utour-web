@@ -49,6 +49,8 @@
         <v-list-item-title>질문과 답변</v-list-item-title>
       </v-list-item>
 
+
+      <!--
       <v-divider class="mt-2 mb-2 mx-auto" />
 
       <v-list-item link>
@@ -63,30 +65,21 @@
         </v-list-item-icon>
         <v-list-item-title>아래로</v-list-item-title>
       </v-list-item>
+      -->
     </v-list>
-
-    <v-dialog v-model="inquiryDialog" width="1100px" eager persistent :fullscreen="$vuetify.breakpoint.smAndDown">
-      <inquiry-view @close="closeInquiry"></inquiry-view>
-    </v-dialog>
-
   </v-navigation-drawer>
 </template>
 
 <script>
-import InquiryView from "./inquiry/InquiryView";
+
 export default {
   name: "AppNavigator",
-  components: {InquiryView},
   data: ()=>({
-    inquiryDialog: false,
     navigatorDrawer: false
   }),
   methods: {
     showInquiry: function (){
-      this.inquiryDialog = true;
-    },
-    closeInquiry: function () {
-      this.inquiryDialog = false;
+      this.$emit('open-inquiry-dialog');
     },
     showNavigator: function () {
       this.navigatorDrawer = !this.navigatorDrawer;

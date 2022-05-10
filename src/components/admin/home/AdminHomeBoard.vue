@@ -15,7 +15,7 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>공지사항</v-list-item-title>
-          <v-list-item-subtitle class="caption mt-1">대국민 사과문</v-list-item-subtitle>
+          <v-list-item-subtitle class="caption mt-1">대국민 공지사항</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
           <v-list-item-action-text><v-chip :color="color" small dark link to="/admin/notice/list" >관리</v-chip></v-list-item-action-text>

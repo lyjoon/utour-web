@@ -65,3 +65,7 @@ tbody {
 .v-btn--outlined {
   border-color: #a4a4a4 !important;
 }
+
+.v-expansion-panel::before {
+  box-shadow: none;
+}

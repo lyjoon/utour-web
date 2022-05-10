@@ -15,7 +15,7 @@
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title class="body-1">사용자 관리</v-list-item-title>
-          <v-list-item-subtitle class="caption mt-1">우리회사 직원</v-list-item-subtitle>
+          <v-list-item-subtitle class="caption mt-1">나의 직원</v-list-item-subtitle>
         </v-list-item-content>
 
         <v-list-item-action class="pr-4">
