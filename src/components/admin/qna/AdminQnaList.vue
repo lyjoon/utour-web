@@ -45,52 +45,51 @@
           </colgroup>
           <thead>
           <tr>
-
             <th class="text-center body-1 font-weight-bold">no</th>
             <th class="text-left body-1 font-weight-bold">제목</th>
-            <th class="text-center body-1 font-weight-bold">첨부</th>
+            <th class="text-center body-1 font-weight-bold">비밀글</th>
             <th class="text-center body-1 font-weight-bold">등록일</th>
             <th class="text-center body-1 font-weight-bold">actions</th>
           </tr>
           </thead>
           <tbody>
 
-            <tr v-if="results != null && results.length < 1">
-              <td colspan="5" class="text-center">
-                조회 결과가 없습니다.
-              </td>
-            </tr>
+          <tr v-if="results != null && results.length < 1">
+            <td colspan="5" class="text-center">
+              조회 결과가 없습니다.
+            </td>
+          </tr>
 
-            <tr v-for="(item, index) in results" :key="index" :class="item.noticeYn == 'Y' ? `grey lighten-4 `:``" >
-              <td class="text-center body-2">
-                <v-chip v-if="item.noticeYn == 'Y'" small class="pa-1 rounded" outlined color="deep-orange">공지</v-chip>
-                <span v-if="item.noticeYn != 'Y'">{{item.noticeId}}</span>
-              </td>
-              <td class="text-left body-2">
-                <router-link class="text-decoration-underline" :to="`/admin/notice/${item.noticeId}`">{{ item.title }} </router-link>
-              </td>
-              <td class="text-center body-2">
-                <v-icon small v-if="item.attachment">mdi-file-check</v-icon>
-                <span v-if="!item.attachment">-</span>
-              </td>
-              <td class="text-center body-2">
-                {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
-              </td>
-              <td class="text-center body-2">
-                <v-icon
-                    small
-                    class="mr-2"
-                    @click="editItem(item)">
-                  mdi-pencil
-                </v-icon>
+          <tr v-for="(item, index) in results" :key="index">
+            <td class="text-center body-2">
+              {{item.qnaId}}
+            </td>
+            <td class="text-left body-2">
+              <router-link class="text-decoration-underline" :to="`/admin/qna/${item.qnaId}`">
+                {{ item.title + (item.replyCnt > 0 ? ` [${item.replyCnt}]` : '')}}
+              </router-link>
+            </td>
+            <td class="text-center body-2">
+              <v-icon small v-if="item.privateYn == 'Y'">mdi-lock</v-icon>
+            </td>
+            <td class="text-center body-2">
+              {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
+            </td>
+            <td class="text-center body-2">
+              <v-icon
+                  small
+                  class="mr-2"
+                  @click="editItem(item)">
+                mdi-pencil
+              </v-icon>
 
-                <v-icon
-                    small
-                    @click="deleteItem(item)">
-                  mdi-delete
-                </v-icon>
-              </td>
-            </tr>
+              <v-icon
+                  small
+                  @click="deleteItem(item)">
+                mdi-delete
+              </v-icon>
+            </td>
+          </tr>
           </tbody>
         </template>
       </v-simple-table>
@@ -104,12 +103,11 @@
 
         <template v-for="(item, index) in results">
 
-          <v-list-item :key="index" link :to="`/admin/notice/${item.noticeId}`" :class="`pl-1 pr-1 ${item.noticeYn == 'Y' ? `grey lighten-4 `:``}`" >
+          <v-list-item :key="index" class="pl-0 pr-0" link :to="`/admin/qna/${item.qnaId}`">
 
             <v-list-item-content>
               <div class="subtitle-1">
-                <v-chip v-if="item.noticeYn == 'Y'" dark color="secondary" small class="rounded caption pa-1">공지</v-chip>
-                {{ item.title }}
+                {{ item.title + (item.replyCnt > 0 ? ` [${item.replyCnt}]` : '')}}
               </div>
               <v-list-item-subtitle class="caption">
                 {{ item.writer || '관리자'}}
@@ -128,20 +126,12 @@
 
         </template>
 
+
       </v-list>
 
       <v-divider />
     </div>
 
-
-    <!-- 하단 actions -->
-    <div class="pt-4 pb-4">
-      <div class="justify-end flex-fill d-flex">
-        <v-btn color="blue-grey lighten-2" dark elevation="0" @click="$router.push('/admin/notice/edit')">
-          <v-icon small class="mr-1">mdi-content-save</v-icon> 등록
-        </v-btn>
-      </div>
-    </div>
 
     <!-- 페이징 -->
     <div class="pt-6 pb-12">
@@ -157,7 +147,7 @@
 
 <script>
 
-import noticeApi from "@/api/NoticeApi";
+import qnaApi from "@/api/QnaApi";
 
 export default {
   mounted() {
@@ -191,33 +181,30 @@ export default {
       this.search();
     },
     editItem : function(item){
-      // this.$emit('edit', item);
-      // console.log('edit', item)
-      this.$router.push(`/admin/notice/edit?noticeId=${item.noticeId}`);
+      this.$router.push(`/admin/qna/edit?qnaId=${item.qnaId}`);
     },
     deleteItem : function(item){
       // eslint-disable-next-line no-unused-vars
-      noticeApi.delete(item.noticeId).then(res => {
-        //this.$store.state.snackbar.message
+      qnaApi.delete(item.qnaId).then(res => {
         this.$store.commit('snackMessage', {message : '정상적으로 삭제되었습니다.'});
         this.search();
-      });
+      })
     },
     searchQuery: function(){
       this.pagination.page = 1;
       this.search();
     },
     search: function(){
-      noticeApi.getList(this.pagination.page, this.pagination.limit, this.queryType.value, this.query)
+      qnaApi.getList(this.pagination.page, this.pagination.limit, this.queryType.value, this.query)
           .then(res => {
-        this.results = res.data.result;
-        this.pagination.page = res.data.page;
-        this.pagination.count = res.data.count;
-        this.pagination.pageCount = res.data.pageCount;
-      })
+            this.results = res.data.result;
+            this.pagination.page = res.data.page;
+            this.pagination.count = res.data.count;
+            this.pagination.pageCount = res.data.pageCount;
+          })
     },
     get: function(item) {
-      this.$router.push(`/admin/notice/${item.noticeId}`);
+      this.$router.push(`/admin/qna/${item.qnaId}`);
     }
   }
 }

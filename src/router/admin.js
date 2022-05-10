@@ -8,6 +8,9 @@ import AdminNoticeView from "@/components/admin/notice/AdminNoticeView";
 import AdminNoticeList from "@/components/admin/notice/AdminNoticeList";
 import AdminNotice from "@/views/admin/board/AdminNotice";
 import AdminNoticeForm from "@/components/admin/notice/AdminNoticeForm";
+import AdminQna from "@/views/admin/board/AdminQna";
+import AdminQnaList from "@/components/admin/qna/AdminQnaList";
+import AdminQnaView from "@/components/admin/qna/AdminQnaView";
 
 export default [
 {
@@ -38,15 +41,34 @@ export default [
       children:[
         {
           path: 'list',
-          component: AdminNoticeList
+          component: AdminNoticeList,
+          meta: { authorization: true }
         },
         {
           path: 'edit',
-          component: AdminNoticeForm
+          component: AdminNoticeForm,
+          meta: { authorization: true }
         },
         {
           path: ':noticeId',
-          component: AdminNoticeView
+          component: AdminNoticeView,
+          meta: { authorization: true }
+        }
+      ],
+    },
+    {
+      path: 'qna',
+      component: AdminQna,
+      children: [
+        {
+          path: 'list',
+          component: AdminQnaList,
+          meta: { authorization: true }
+        },
+        {
+          path: ':qnaId',
+          component: AdminQnaView,
+          meta: { authorization: true }
         }
       ],
       meta: { authorization: true }

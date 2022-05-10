@@ -7,6 +7,15 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     config => {
         store.commit('startLoading');
+        let token = store.state.auth.token;
+        if((token || '') != '') {
+            let headers = config.headers;
+            let authorToken = headers['Authorization'];
+            if((authorToken || '') == '') {
+                config.headers['Authorization'] = `Bearer ${token}`;
+            }
+        }
+
         return config;
     },
     error => {

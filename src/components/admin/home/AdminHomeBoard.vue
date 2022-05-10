@@ -33,7 +33,7 @@
           <v-list-item-subtitle class="caption mt-1">공개여부 상관없이~ 마음대로~ 볼 수 있는 Q&A</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
-          <v-list-item-action-text><v-chip :color="color" small dark link disabled>관리</v-chip></v-list-item-action-text>
+          <v-list-item-action-text><v-chip :color="color" small dark link to="/admin/qna/list">관리</v-chip></v-list-item-action-text>
         </v-list-item-action>
       </v-list-item>
 

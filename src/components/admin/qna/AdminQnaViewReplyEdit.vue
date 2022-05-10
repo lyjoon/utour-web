@@ -1,7 +1,6 @@
 <template>
   <div>
-    <v-divider />
-    <v-sheet color="grey lighten-4" class="pr-2 pl-2 pt-2 pb-2">
+    <v-sheet color="grey lighten-4" outlined class="pr-2 pl-2 pt-2 pb-2">
       <div class="rounded-lg d-block pt-1 pb-1">
         <v-form lazy-validation ref="frm">
           <div>
@@ -17,16 +16,10 @@
               <v-text-field hide-details
                             outlined
                             dense label="작성자" v-model="command.writer" :rules="rules.writer"
-                            placeholder="작성자명"
+                            placeholder="관리자"
                             background-color="white" class="font-size-14" />
             </div>
-            <div class="d-flex ml-2" style="width: 150px">
-              <v-text-field type="password" v-model="command.password" :rules="rules.password"
-                            outlined
-                            dense
-                            hide-details
-                            label="댓글 비밀번호" placeholder="댓글 비밀번호" background-color="white" class="body-2" />
-            </div>
+
 
             <v-spacer />
 
@@ -42,7 +35,6 @@
         </v-form>
       </div>
     </v-sheet>
-    <v-divider />
   </div>
 </template>
 
@@ -55,8 +47,9 @@ export default {
       qnaId:null,
       qnaReplyId:null,
       content:null,
-      writer:null,
+      writer:'관리자',
       password:null,
+      adminYn: 'Y',
     },
     rules:{
       password: [
@@ -74,7 +67,6 @@ export default {
   }),
   methods: {
     init: function (qnaId) {
-      console.log('qna_reply_edit.init.qnaId', qnaId);
       this.command.qnaId = qnaId;
     },
     save: function (){
@@ -83,7 +75,7 @@ export default {
         Qna.saveReply(this.command).then(res => {
           if(res.status == 200) {
             this.$refs.frm.reset();
-            this.$emit('reloadReplies');
+            this.$emit("updateQnaReply");
           }
         });
       }

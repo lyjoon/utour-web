@@ -56,7 +56,7 @@
       <div class="pa-2">
         <div class="d-flex flex-fill justify-end">
           <v-btn dark elevation="0" large color="deep-orange darken-2" @click="save"><v-icon small class="mr-1">mdi-content-save</v-icon>저장</v-btn>
-          <v-btn elevation="0" outlined large @click="$router.back()" class="ml-2"><v-icon small class="mr-1">mdi-cancel</v-icon>목록으로</v-btn>
+          <v-btn elevation="0" outlined large @click="$router.back()" class="ml-2"><v-icon small class="mr-1">mdi-format-list-bulleted</v-icon>목록으로</v-btn>
         </div>
       </div>
 

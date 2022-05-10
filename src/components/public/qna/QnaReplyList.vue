@@ -8,7 +8,10 @@
 
         <v-list-item :key="`small-content-${index}`">
           <v-list-item-content>
-            <v-list-item-subtitle><strong class="body-2">{{item.writer}}</strong> <span class="ml-1 mr-1 caption">|</span> <span class="caption">{{$moment(item.createAt).format("YYYY.MM.DD")}}</span></v-list-item-subtitle>
+            <v-list-item-subtitle>
+              <strong :class="`body-2 ${item.adminYn == 'Y' ? 'font-weight-black blue-grey--text':''}`">{{item.writer}}</strong>
+              <span class="ml-1 mr-1 caption">|</span> <span class="caption">{{$moment(item.createAt).format("YYYY.MM.DD")}}</span>
+            </v-list-item-subtitle>
             <div class="mt-1 body-2">{{item.content}}</div>
           </v-list-item-content>
 

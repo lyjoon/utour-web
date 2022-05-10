@@ -18,11 +18,11 @@ class QnaApi extends Api {
     }
 
     async get(qnaId, password) {
-        return await this.getAxios().get(`/api/v1/qna/${qnaId}?password=${password}`);
+        return await this.getAxios().get(`/api/v1/qna/${qnaId}${password ? `?password=${password}` : ''}`);
     }
 
     async delete(qnaId, password) {
-        return await this.getAxios().delete(`/api/v1/qna/${qnaId}?password=${password}`);
+        return await this.getAxios().delete(`/api/v1/qna/${qnaId}${password ? `?password=${password}` : ''}`);
     }
 
     async getReplies(page, qnaId) {
@@ -35,7 +35,7 @@ class QnaApi extends Api {
     }
 
     async deleteReply(qnaId, qnaReplyId, password) {
-        return await this.getAxios().delete(`/api/v1/qna/${qnaId}/reply/${qnaReplyId}?password=${password}`);
+        return await this.getAxios().delete(`/api/v1/qna/${qnaId}/reply/${qnaReplyId}${password ? `?password=${password}` : ''}`);
     }
 
     async isAccess(qnaId, password) {

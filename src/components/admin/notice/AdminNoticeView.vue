@@ -40,7 +40,10 @@
         <v-btn large color="blue-grey lighten-2" dark elevation="0" link :to="`/admin/notice/edit?noticeId=${command.noticeId}`">
           <v-icon class="mr-1" small>mdi-pencil</v-icon> 수정
         </v-btn>
-        <v-btn class="ml-2" large outlined elevation="0" link to="/admin/notice/list">
+        <v-btn large color="ml-2 deep-orange darken-2" dark elevation="0" link @click="deleteNotice">
+          <v-icon class="mr-1" small>mdi-delete</v-icon> 삭제
+        </v-btn>
+        <v-btn class="ml-6" large outlined elevation="0" link to="/admin/notice/list">
           <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
         </v-btn>
       </div>
@@ -72,6 +75,15 @@ export default {
     this.search();
   },
   methods:{
+    deleteNotice: function(){
+      if(confirm('확인을 누르면 해당 게시글은 삭제됩니다.')) {
+        noticeApi.delete(this.command.noticeId)
+            .then(res => {
+              console.info('res', res);
+              this.$router.push('/admin/notice/list?page=1');
+            });
+      }
+    },
     search : function(){
       noticeApi.get(this.searchNoticeId).then(res => {
         console.log('res', res);
