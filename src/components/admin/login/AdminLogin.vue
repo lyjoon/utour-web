@@ -116,7 +116,7 @@ export default {
             let loginInfo = {loginId : this.loginId, password : this.password, storeLocalStorage: true};
             localStorage.setItem("loginInfo", JSON.stringify(loginInfo));
           }
-          this.$store.state.auth.token = res.data.result;
+          this.$store.commit("setToken", {token: res.data.result});
           this.$router.push('/admin/home');
         }, error => {
           this.error.flag = true;

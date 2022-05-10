@@ -11,6 +11,9 @@ import AdminNoticeForm from "@/components/admin/notice/AdminNoticeForm";
 import AdminQna from "@/views/admin/board/AdminQna";
 import AdminQnaList from "@/components/admin/qna/AdminQnaList";
 import AdminQnaView from "@/components/admin/qna/AdminQnaView";
+import AdminInquiry from "@/views/admin/board/AdminInquiry";
+import AdminInquiryList from "@/components/admin/inquiry/AdminInquiryList";
+import AdminInquiryView from "@/components/admin/inquiry/AdminInquiryView";
 
 export default [
 {
@@ -60,18 +63,18 @@ export default [
       path: 'qna',
       component: AdminQna,
       children: [
-        {
-          path: 'list',
-          component: AdminQnaList,
-          meta: { authorization: true }
-        },
-        {
-          path: ':qnaId',
-          component: AdminQnaView,
-          meta: { authorization: true }
-        }
+        {path: 'list', component: AdminQnaList, meta: { authorization: true }},
+        {path: ':qnaId',component: AdminQnaView,meta: { authorization: true }}
       ],
       meta: { authorization: true }
+    },
+    {
+      path: 'inquiry',
+      component: AdminInquiry,
+      children: [
+        { path: 'list', component: AdminInquiryList, meta: { authorization: true }},
+        { path: ':inquiryId', component: AdminInquiryView, meta: { authorization: true }},
+      ]
     }
   ]
 },

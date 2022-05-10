@@ -3,7 +3,7 @@
     <v-card width="100%" elevation="0">
 
       <div class="pa-4">
-        <admin-view-header title="질문과 답변" :site-map="['게시판', 'Q&A']" :show-div="false"/>
+        <admin-view-header title="여행 및 견적문의" :site-map="['게시판', '여행/견적문의']" :show-div="false"/>
       </div>
 
       <router-view />

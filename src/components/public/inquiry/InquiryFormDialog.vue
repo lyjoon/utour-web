@@ -5,29 +5,13 @@
 
 
       <v-card>
-        <v-toolbar elevation="0" v-if="!showAlert">
+        <v-toolbar elevation="0">
           <v-toolbar-title class="title"><strong>여행견적 문의하기</strong></v-toolbar-title>
           <v-spacer />
-          <v-btn v-on:click="close()" icon >
+          <v-btn v-on:click="closeDialog()" icon >
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-toolbar>
-
-        <v-alert
-            class="ma-0"
-            rounded="0"
-            dismissible
-            prominent
-            v-model="showAlert"
-            type="success"
-            title="info">
-          <div class="caption">
-            문의가 정상적으로 저장되었습니다.
-          </div>
-          <template v-slot:close>
-            닫기
-          </template>
-        </v-alert>
 
         <v-divider />
 
@@ -133,7 +117,7 @@
         <div>
           <div class="d-flex flex-fill align-center justify-center pt-4 pb-4">
             <v-btn large elevation="0" color="deep-orange" class="darken-2 mr-2" dark min-width="120px" @click="store">문의하기</v-btn>
-            <v-btn large elevation="0" color="grey" class="ml-2" dark min-width="120px" @click="close">닫기</v-btn>
+            <v-btn large elevation="0" color="grey" class="ml-2" dark min-width="120px" @click="closeDialog">닫기</v-btn>
           </div>
         </div>
 
@@ -147,13 +131,12 @@
 <script>
 import PrivacyTerms from "@/components/public/inquiry/PrivacyTerms";
 import ThirdPartyTerms from "@/components/public/inquiry/ThirdPartyTerms";
-//import inquiryApi from "@/api/InquiryApi";
+import inquiryApi from "@/api/InquiryApi";
 export default {
   components: {ThirdPartyTerms, PrivacyTerms},
   data:() =>({
     inquiryDialog: false,
     checkTermsMessage: false,
-    showAlert: false,
     command: {
       inquiryId:null,
       contact:null,
@@ -192,7 +175,7 @@ export default {
       this.clear();
       this.inquiryDialog = true;
     },
-    close : function (){
+    closeDialog : function (){
       this.inquiryDialog = false;
       this.clear();
     },
@@ -211,22 +194,28 @@ export default {
       }
     },
     store: function() {
-      this.showAlert = true;
-      console.log('store', this.showAlert);
-      /**
       let valid = this.$refs.frm.validate();
+      let selfObject = this;
       if(valid) {
         // this.command.thirdPartyAgreedAt =
         if(!this.isCheckTerms) {
           this.checkTermsMessage = true;
         } else {
           inquiryApi.save(this.command).then( res => {
-            console.log('res');
+            console.log('res', res);
+            this.$store.commit('alert', {
+              title: '문의가 정상적으로 저장되었습니다.',
+              message: '빠른시간 내 확인 후 답변드리겠습니다.',
+              callback: function(){
+                //this.close();
+                console.log('close-self-dialog');
+                // close();
+                selfObject.closeDialog();
+              }
+            });
           });
         }
       }
-      */
-
     }
   },
 }

@@ -19,8 +19,8 @@ axiosInstance.interceptors.request.use(
         return config;
     },
     error => {
-        store.state.snackbar.message = "잘못된 요청입니다.";
-        store.state.snackbar.flag = true;
+
+        this.$store.commit("snackMessage", {message : '잘못된 요청입니다.'});
 
         return Promise.reject(error);
     }

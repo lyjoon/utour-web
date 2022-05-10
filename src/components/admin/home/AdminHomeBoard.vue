@@ -48,7 +48,7 @@
           <v-list-item-subtitle  class="caption mt-1">얼마에요?</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action class="pr-4">
-          <v-list-item-action-text><v-chip :color="color" small dark link disabled >관리</v-chip></v-list-item-action-text>
+          <v-list-item-action-text><v-chip :color="color" small dark link to="/admin/inquiry/list">관리</v-chip></v-list-item-action-text>
         </v-list-item-action>
       </v-list-item>
     </v-list>

@@ -3,15 +3,17 @@
     <router-view/>
     <loading />
     <snackbar />
+    <alert />
   </div>
 </template>
 
 <script>
   import Loading from "./components/common/Loading";
   import Snackbar from "@/components/common/Snackbar";
+  import Alert from "@/components/common/Alert";
   export default {
     name: 'App',
-    components: {Snackbar, Loading},
+    components: {Alert, Snackbar, Loading},
   }
 </script>
 

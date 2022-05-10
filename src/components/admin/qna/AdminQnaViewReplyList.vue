@@ -56,9 +56,7 @@ export default {
       QnaApi.deleteReply(item.qnaId, item.qnaReplyId).then(res => {
         this.search();
       }).catch(error => {
-        this.$store.state.snackbar.message = error.response.data.message;
-        this.$store.state.snackbar.statusCode = error.response.status;
-        this.$store.state.snackbar.flag = true;
+        this.$store.commit("snackMessage", {message : error.response.data.message});
       });
     }
   }

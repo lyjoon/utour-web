@@ -3,10 +3,14 @@ export default {
         token: null
     },
     mutations: {
-        updateToken(token) {
-            this.state.token = token;
+        setToken(state, {token}) {
+            state.token = token;
         }
     },
-    getters: {},
+    getters: {
+        isAuthor: function(state){
+            return !!state.token;
+        }
+    },
     actions: {}
 }

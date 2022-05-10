@@ -1,8 +1,13 @@
 <template>
   <v-app-bar app fixed absolute dark class="gnb pa-0" dense>
     <v-container fluid>
-      <div class="d-flex flex-fill justify-space-between">
-        <v-toolbar-title class="font-montserrat-300">U-TOUR ADMIN</v-toolbar-title>
+      <div :class="`d-flex flex-fill ${ $store.getters.isAuthor ? 'justify-start':'justify-center' }`">
+        <v-toolbar-title class="font-montserrat-300">
+          <v-btn v-if="$store.getters.isAuthor" @click="moveHome">
+            <v-icon large>mdi-home</v-icon>
+          </v-btn>
+          <v-img :src="require('@/assets/images/logo.png')" width="100" v-if="!$store.getters.isAuthor" />
+        </v-toolbar-title>
         <!--
         <v-spacer />
         <v-menu left >
@@ -23,6 +28,9 @@ export default {
   methods: {
     showNavigator: function () {
       this.$emit('admin-navigator-open');
+    },
+    moveHome : function(){
+      this.$router.push('/admin/home');
     }
   }
 }

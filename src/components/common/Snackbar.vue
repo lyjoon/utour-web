@@ -1,17 +1,16 @@
 <template>
-  <v-snackbar color="secondary"
-              dark
+  <v-snackbar color="#43A047"
               multi-line
               v-model="$store.state.ui.snackbar.flag">
-    {{$store.state.ui.snackbar.message}}
+    <v-card-text >{{$store.state.ui.snackbar.message}}</v-card-text>
     <template v-slot:action="{attrs}">
-      <div class="pa-4">
+      <div style="margin: 0px 10px;">
         <v-btn
-            color="#e59609"
+            v-bind="attrs" color="#F4FF81"
             text
-            v-bind="attrs"
+            elevation="0"
             @click="$store.state.ui.snackbar.flag = false">
-          닫기
+          CLOSE
         </v-btn>
       </div>
     </template>
@@ -25,5 +24,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .grey--text {
+    color: #313131;
+  }
 </style>
