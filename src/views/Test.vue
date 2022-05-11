@@ -36,7 +36,9 @@ export default {
       this.$refs.alert.open();
     },
     confirm: function (){
-      this.$store.commit("confirm", {message : '삭제할까'});
+      this.$store.commit("confirm", {message : '삭제할까', callback: function(){
+        console.log("confirm-success");
+        }});
     },
     openSnack: function(){
       //this.$store.state.snackbar.message = 'snack';
