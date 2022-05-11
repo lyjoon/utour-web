@@ -14,68 +14,35 @@ import AdminQnaView from "@/components/admin/qna/AdminQnaView";
 import AdminInquiry from "@/views/admin/board/AdminInquiry";
 import AdminInquiryList from "@/components/admin/inquiry/AdminInquiryList";
 import AdminInquiryView from "@/components/admin/inquiry/AdminInquiryView";
+import AdminUser from "@/views/admin/config/AdminUser";
+import AdminUserList from "@/components/admin/user/AdminUserList";
 
 export default [
 {
   path: '/admin',
   component: AdminApp,
   children: [
-    {
-      path: '',
-      component: AdminLogin
-    },{
-      path: 'login',
-      component: AdminLogin
-    },{
-      path: 'product/list',
-      component: AdminProductList,
-      meta: { authorization: true }
-    },{
-      path: 'product/edit',
-      component: AdminProductEdit,
-      meta: { authorization: true }
-    },{
-      path: 'home',
-      component: AdminHome,
-      meta: { authorization: true }
-    },{
-      path: 'notice',
-      component: AdminNotice,
-      children:[
-        {
-          path: 'list',
-          component: AdminNoticeList,
-          meta: { authorization: true }
-        },
-        {
-          path: 'edit',
-          component: AdminNoticeForm,
-          meta: { authorization: true }
-        },
-        {
-          path: ':noticeId',
-          component: AdminNoticeView,
-          meta: { authorization: true }
-        }
-      ],
-    },
-    {
-      path: 'qna',
-      component: AdminQna,
-      children: [
+    {path: '',component: AdminHome, meta: { authorization: true }},
+    {path: 'login',component: AdminLogin},
+    {path: 'home',component: AdminHome, meta: { authorization: true }},
+    {path: 'product/list', component: AdminProductList,meta: { authorization: true }},
+    {path: 'product/edit',component: AdminProductEdit,meta: { authorization: true }},
+    {path: 'notice', component: AdminNotice,children:[
+        {path: 'list',component: AdminNoticeList,meta: { authorization: true }},
+        {path: 'edit',component: AdminNoticeForm,meta: { authorization: true }},
+        {path: ':noticeId',component: AdminNoticeView,meta: { authorization: true }}
+      ]},
+    {path: 'qna', component: AdminQna, children: [
         {path: 'list', component: AdminQnaList, meta: { authorization: true }},
         {path: ':qnaId',component: AdminQnaView,meta: { authorization: true }}
-      ],
-      meta: { authorization: true }
-    },
-    {
-      path: 'inquiry',
-      component: AdminInquiry,
-      children: [
+      ]},
+    {path: 'inquiry', component: AdminInquiry, children: [
         { path: 'list', component: AdminInquiryList, meta: { authorization: true }},
         { path: ':inquiryId', component: AdminInquiryView, meta: { authorization: true }},
-      ]
-    }
+      ]},
+    {path: 'config', component: AdminUser, children: [
+        { path: 'user', component: AdminUserList, meta: { authorization: true }},
+      ]}
   ]
 },
 ]

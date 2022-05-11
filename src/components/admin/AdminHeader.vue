@@ -1,15 +1,18 @@
 <template>
   <v-app-bar app fixed absolute dark class="gnb pa-0" dense>
     <v-container fluid>
-      <div :class="`d-flex flex-fill ${ $store.getters.isAuthor ? 'justify-start':'justify-center' }`">
-        <v-toolbar-title class="font-montserrat-300">
-          <v-btn v-if="$store.getters.isAuthor" @click="moveHome">
-            <v-icon large>mdi-home</v-icon>
-          </v-btn>
-          <v-img :src="require('@/assets/images/logo.png')" width="100" v-if="!$store.getters.isAuthor" />
-        </v-toolbar-title>
-        <!--
+      <div class="d-flex flex-fill align-center">
+        <div class="d-flex">
+          <v-img :src="require('@/assets/images/logo.png')" width="100px" />
+        </div>
+        <v-btn v-if="$store.getters.isAuthor" @click="moveHome">
+          <v-icon large>mdi-home</v-icon>
+        </v-btn>
         <v-spacer />
+        <v-btn  v-if="$store.getters.isAuthor" icon @click="logout">
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
+        <!--
         <v-menu left >
           <template v-slot:activator="{on, attrs}">
             <v-btn v-bind="attrs" v-on="on" dark icon large @click="showNavigator">
@@ -18,6 +21,11 @@
           </template>
         </v-menu>
         -->
+      </div>
+      <div class="d-flex flex-fill justify-center" v-if="!$store.getters.isAuthor" >
+        <div class="d-flex">
+          <v-img :src="require('@/assets/images/logo.png')" width="100px" />
+        </div>
       </div>
     </v-container>
   </v-app-bar>
@@ -31,6 +39,10 @@ export default {
     },
     moveHome : function(){
       this.$router.push('/admin/home');
+    },
+    logout: function(){
+      this.$store.commit('logout');
+      this.$router.replace('/admin/login');
     }
   }
 }

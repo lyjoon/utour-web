@@ -7,7 +7,7 @@
         <strong class="title font-weight-regular">여행상품</strong>
       </v-subheader>
 
-      <div class=" mt-2 mb-4 pr-4 pl-4"><v-divider class="mx-auto" /></div>
+      <v-divider :class="`mt-2 ml-4 mr-4 lighten-2 ${color}`" />
 
       <v-list-item>
         <v-list-item-icon>
@@ -22,7 +22,7 @@
         </v-list-item-action>
       </v-list-item>
 
-      <div class=" mt-2 mb-4 pr-4 pl-4"><v-divider class="mx-auto" /></div>
+      <v-divider class="mt-2 ml-4 mr-4" />
 
       <v-list-item>
         <v-list-item-icon>

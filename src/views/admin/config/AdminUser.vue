@@ -3,7 +3,7 @@
     <v-card width="100%" elevation="0">
 
       <div class="pa-4">
-        <admin-view-header title="여행 및 견적문의" :site-map="['게시판', '여행/견적문의']" :show-div="false"/>
+        <admin-view-header title="사용자 관리" :site-map="['설정', '사용자']" :show-div="false"/>
       </div>
 
       <router-view />
@@ -14,7 +14,6 @@
 <script>
 import AdminViewHeader from "@/components/common/title/AdminTItle";
 export default {
-  name: "AdminInquiry",
   components: {AdminViewHeader},
 }
 </script>
