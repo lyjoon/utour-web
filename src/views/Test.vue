@@ -9,9 +9,11 @@
     <div>
       <v-btn @click="openAlert">SHOW</v-btn>
       <v-btn @click="openSnack">SNACK</v-btn>
+      <v-btn @click="confirm">SNACK</v-btn>
     </div>
     <alert ref="alert" />
     <snackbar ref="snackbar" />
+    <confirm ref="confirm" />
   </v-container>
 </template>
 
@@ -21,8 +23,9 @@ import ToastEditor from "@/components/common/ToastEditor";
 import ToastViewer from "@/components/common/ToastViewer";
 import Alert from "@/components/common/Alert";
 import Snackbar from "@/components/common/Snackbar";
+import Confirm from "@/components/common/Confirm";
 export default {
-  components: {Snackbar, Alert, ToastViewer, ToastEditor},
+  components: {Confirm, Snackbar, Alert, ToastViewer, ToastEditor},
   data: () =>({
   }),
   methods:{
@@ -31,6 +34,9 @@ export default {
     },
     openAlert: function (){
       this.$refs.alert.open();
+    },
+    confirm: function (){
+      this.$store.commit("confirm", {message : '삭제할까'});
     },
     openSnack: function(){
       //this.$store.state.snackbar.message = 'snack';

@@ -12,6 +12,12 @@ export default {
             title: null,
             message: null,
             callback: null
+        },
+        confirm: {
+            flag: false,
+            title: null,
+            message: null,
+            callback: null
         }
     },
     mutations:{
@@ -44,11 +50,29 @@ export default {
         alertClose(state) {
             state.alert.flag = false;
             if(state.alert.callback && typeof(state.alert.callback) == "function") {
-                // callback();
-                console.log('alertClose', state.alert['callback']);
                 state.alert['callback']();
             }
-        }
+        },
+        confirm(state, {title, message, callback}) {
+            if(message) {
+                state.confirm.title = title;
+                state.confirm.message = message;
+            } else {
+                state.confirm.message = title;
+                state.confirm.title = null;
+            }
+            state.confirm.flag = true;
+            state.confirm.callback = callback;
+        },
+        confirmOk(state) {
+            state.confirm.flag = false;
+            if(state.confirm.callback && typeof(state.confirm.callback) == "function") {
+                state.confirm['callback']();
+            }
+        },
+        confirmCancel(state) {
+            state.confirm.flag = false;
+        },
     },
     getters:{
         getLoadingStatus: function (state) {

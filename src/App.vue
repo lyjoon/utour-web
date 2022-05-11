@@ -4,6 +4,7 @@
     <loading />
     <snackbar />
     <alert />
+    <confirm />
   </div>
 </template>
 
@@ -11,9 +12,10 @@
   import Loading from "./components/common/Loading";
   import Snackbar from "@/components/common/Snackbar";
   import Alert from "@/components/common/Alert";
+  import Confirm from "@/components/common/Confirm";
   export default {
     name: 'App',
-    components: {Alert, Snackbar, Loading},
+    components: {Confirm, Alert, Snackbar, Loading},
   }
 </script>
 
