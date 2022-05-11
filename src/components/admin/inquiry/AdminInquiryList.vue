@@ -68,7 +68,9 @@
                 <router-link class="text-decoration-underline" :to="`/admin/inquiry/${item.inquiryId}`">{{ item.title }} </router-link>
               </td>
               <td class="text-center body-2">
-                {{ item.status }}
+                <v-chip dark class="pa-1 rounded caption" small :color="item.status == 'COMPLETE' ? 'green lighten-1' : 'secondary lighten-1'">
+                  {{ statusDesc(item.status) }}
+                </v-chip>
               </td>
               <td class="text-center body-2">
                 {{ item.writer || '-' }}
@@ -142,7 +144,7 @@ export default {
   computed:{
     paginationLimit (){
       return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
-    }
+    },
   },
   data: () =>({
     pagination: {
@@ -165,6 +167,16 @@ export default {
     setPage: function(p){
       this.pagination.page = p;
       this.search();
+    },
+    statusDesc(status) {
+      switch (status) {
+        case 'WAIT':
+          return '대기';
+        case 'COMPLETE':
+          return '완료';
+        default:
+          return '-';
+      }
     },
     searchQuery: function(){
       this.pagination.page = 1;
