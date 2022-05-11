@@ -35,6 +35,44 @@
 
       <v-divider class="mt-2 mb-2 mx-auto" />
 
+
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-kitesurfing</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title class="align-center">하와이</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-noodles</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title class="align-center">베트남</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-beach</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title class="align-center">몰디브</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-eiffel-tower</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>유럽</v-list-item-title>
+      </v-list-item>
+
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-smoking</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>칸쿤</v-list-item-title>
+      </v-list-item>
+
+      <v-divider class="mt-2 mb-2 mx-auto" />
+
       <v-list-item link to="/notice/list">
         <v-list-item-icon>
           <v-icon>mdi-information-variant</v-icon>
@@ -46,7 +84,9 @@
         <v-list-item-icon>
           <v-icon>mdi-comment-question-outline</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>질문과 답변</v-list-item-title>
+        <v-list-item-title>
+          질문과 답변
+        </v-list-item-title>
       </v-list-item>
 
 
@@ -71,9 +111,10 @@
 </template>
 
 <script>
-
+import CountryFlag from "vue-country-flag";
 export default {
   name: "AppNavigator",
+  components: {CountryFlag},
   data: ()=>({
     navigatorDrawer: false
   }),

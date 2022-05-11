@@ -8,13 +8,10 @@ import '@toast-ui/editor/dist/toastui-editor-only.css';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import '@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css';
 
-
 moment.locale("ko");
 
 Vue.use(Vuetify);
 Vue.use(VueMoment, { moment });
-
-
 Vue.filter('myDate', function(string){
     console.log('myDate.string', string);
     if(string) {

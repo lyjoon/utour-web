@@ -1,7 +1,7 @@
 <template>
   <v-app class="app-main">
-    <app-navigator ref="app_navigator" @open-inquiry-dialog="openInquiryDialog"/>
     <app-header @app-navigator-open="showNavigator" />
+<!--    <app-navigator ref="app_navigator" @open-inquiry-dialog="openInquiryDialog"/>-->
     <v-main class="mt-2">
       <router-view />
     </v-main>

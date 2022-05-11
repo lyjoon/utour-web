@@ -24,6 +24,7 @@
     "node-pre-gyp": "^0.17.0",
     "sass-migrator": "^1.5.4",
     "vue": "^2.6.11",
+    "vue-country-flag": "^2.3.2",
     "vue-moment": "^4.1.0",
     "vue-router": "^3.5.1",
     "vue2-google-maps": "^0.10.7",
