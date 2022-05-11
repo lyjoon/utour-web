@@ -27,6 +27,7 @@
                     <v-text-field
                         rounded filled
                         dense
+                        maxlength="20"
                         class="rounded body-2"
                         label="여행문의제목"
                         :rules="rules.title"
@@ -37,6 +38,7 @@
                     <v-text-field
                         rounded filled
                         dense
+                        maxlength="20"
                         class="rounded body-2"
                         label="성함 or 닉네임"
                         :rules="rules.writer"
@@ -47,6 +49,7 @@
                     <v-text-field
                         rounded filled
                         dense
+                        maxlength="20"
                         class="rounded body-2"
                         label="연락처"
                         placeholder="연락처(필수아님)"
@@ -58,6 +61,7 @@
                     <v-text-field
                         rounded filled
                         dense
+                        maxlength="50"
                         class="rounded body-2"
                         label="e-mail"
                         v-model="command.email"
@@ -154,6 +158,7 @@ export default {
       ],
       email: [
         v => !!v || '이메일 주소를 입력해주세요.',
+        v => (v && v.length <= 50) || '최대 50자까지 입력할 수 있습니다.',
         v => /.+@.+\..+/.test(v) || '이메일 주소가 유효하지 않습니다.',
       ],
       writer: [

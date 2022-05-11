@@ -1,15 +1,12 @@
 <template>
   <v-app-bar app fixed absolute dark class="gnb pa-0" dense>
     <v-container fluid>
-      <div class="d-flex flex-fill align-center">
-        <div class="d-flex">
-          <v-img :src="require('@/assets/images/logo.png')" width="100px" />
-        </div>
-        <v-btn v-if="$store.getters.isAuthor" @click="moveHome">
+      <div class="d-flex flex-fill align-center" v-if="$store.getters.isAuthor">
+        <v-btn @click="moveHome">
           <v-icon large>mdi-home</v-icon>
         </v-btn>
         <v-spacer />
-        <v-btn  v-if="$store.getters.isAuthor" icon @click="logout">
+        <v-btn icon @click="logout">
           <v-icon>mdi-logout</v-icon>
         </v-btn>
         <!--

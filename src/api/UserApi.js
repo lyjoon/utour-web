@@ -8,7 +8,7 @@ class UserApi extends Api {
 
     async updateYn(userId, useYn) {
         let payload = {userId:userId, useYn:useYn};
-        return await this.getAxios().put(`/api/v1/user/status`, payload);
+        return await this.getAxios().put(`/api/v1/user/updateYn`, payload);
     }
 
     async getList(page, limit, query){
@@ -21,7 +21,10 @@ class UserApi extends Api {
     }
 
     async get(userId) {
-        return await this.getAxios().get(`/api/v1/user/${userId}`);
+        return await this.getAxios().get(`/api/v1/user?userId=${userId}`);
+    }
+    async delete(userId) {
+        return await this.getAxios().delete(`/api/v1/user?userId=${userId}`);
     }
 }
 
