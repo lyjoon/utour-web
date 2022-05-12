@@ -1,10 +1,7 @@
 <template>
-  <div class="scope_title">
-    <v-card-subtitle class="font-weight-regular text-h6 pa-0">
-      <div class="rounded secondary d-inline-block mr-3 mt-1" style="width: 5px; height: 16px;" ></div>
-      {{title}}
-    </v-card-subtitle>
-    <v-card-text class="body-2 pl-4 grey--text mt-2 pr-0 pb-0 pt-0" >{{description || ''}}</v-card-text>
+  <div class="pt-6 pb-3">
+    <div class="text-h6 font-weight-bold" v-text="title" />
+    <div class="body-2 grey--text text--darken-2" v-if="!!description" v-text="description" style="line-height: 30px" />
   </div>
 </template>
 
@@ -24,12 +21,4 @@ export default {
 </script>
 
 <style scoped>
-  .scope_title{}
-  .scope_title ._caption {
-    margin-top: 5px;
-    padding: 0px;
-    /*color: grey;
-    font-size: 14px;
-    font-weight: 400;*/
-  }
 </style>

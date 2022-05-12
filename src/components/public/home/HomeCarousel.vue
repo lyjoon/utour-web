@@ -22,16 +22,16 @@
               </v-overlay>
             </v-parallax>
             -->
-            <v-img :src="item.src" dark height="100%" class="align-center">
+            <v-img :src="item.src" dark height="100%" class="align-end">
               <v-overlay absolute opacity="0.15">
-                <div class="text-center" style="opacity: 0.69">
-                  <v-card-title class="display-1 font-montserrat-300">바다..</v-card-title>
+                <div class="text-center">
+                  <v-card-title class="text-h6 text-md-h5 text-lg-h5 text-xl-h4 font-weight-bold pb-2 pb-md-4 pb-lg-4 pb-xl-4 pl-2 pr-2">이런</v-card-title>
                   <v-chip :small="$vuetify.breakpoint.smAndDown"
                           color="white"
-                          class="font-montserrat-300 text--secondary text-caption"
-                          link>
-                    <span class="mt-2 mb-2 text-sm-caption text-caption">MORE</span>
-                  </v-chip>
+                          link
+                          text-color="white"
+                          outlined
+                          class="elevation-0 rounded caption" style="opacity: 0.69">더보기</v-chip>
                 </div>
               </v-overlay>
             </v-img>
@@ -50,7 +50,7 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
         case "sm":
-          v = "60vh";
+          v = "47vh";
           break;
         case "md":
           v = "600px";

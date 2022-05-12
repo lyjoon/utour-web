@@ -1,13 +1,12 @@
 <template>
-  <v-row dense>
-    <v-col class="col-12">
-      <sub-title title="자주 찾는 상품" description="봉선생님께서 추천하는 여행상품" />
-    </v-col>
-    <v-col class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
-           v-for="item in dataList" v-bind:key="item.title">
-      <product-item :title="item.title" :description="item.desc" :src="item.src" />
-    </v-col>
-  </v-row>
+  <div>
+    <sub-title title="자주 찾는 상품" description="봉선생님께서 추천하는 여행상품" />
+    <v-row no-gutters dense>
+      <v-col class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" v-for="item in dataList" v-bind:key="item.title">
+        <product-item :title="item.title" :description="item.desc" :src="item.src" />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>

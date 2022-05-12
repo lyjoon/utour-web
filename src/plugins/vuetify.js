@@ -7,6 +7,7 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import '@toast-ui/editor/dist/toastui-editor-only.css';
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import '@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css';
+//import { mdiTempleBuddhist } from '@mdi/js';
 
 moment.locale("ko");
 

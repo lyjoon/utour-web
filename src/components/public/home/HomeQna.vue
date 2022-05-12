@@ -1,63 +1,60 @@
 <template>
   <div>
 
-    <sub-title title="질문과 답변" />
+    <router-link to="/qna/list"><sub-title title="질문과 답변" /></router-link>
 
-    <v-list class="flex-fill" >
+    <div>
 
-      <template v-for="(item, index) in items">
+      <v-list class="flex-fill pt-0 pb-0" >
 
-        <v-list-item :key="index" class="pl-1 pr-1" link to="/qna/123">
+        <template v-for="(item, index) in items">
 
-          <!--
-          <v-list-item-avatar class="hidden-sm-and-down">
-            <v-avatar color="secondary"
-                      class="white--text">
-              <v-icon dark>mdi-card-text</v-icon>
-            </v-avatar>
-          </v-list-item-avatar>
-          -->
+          <v-list-item :key="index" class="pl-1 pr-1" link :to="`/qna/view?qnaId=${item.qnaId}`">
 
-          <v-list-item-content>
-            <v-list-item-title>{{item.title}}</v-list-item-title>
-            <v-list-item-subtitle class="caption">
-              {{ item.writer }}
-              <span class="mx-auto mr-1 ml-1 caption">|</span>
-              {{ item.createAt }}
-              <span class="mx-auto mr-1 ml-1 caption">|</span>
-              조회수 {{ item.pv }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
+            <v-list-item-content>
+              <v-list-item-title class="body-2 mb-2" v-text="((item.replyCnt || 0) > 0) ? `${item.title} [${item.replyCnt}]`:item.title"></v-list-item-title>
+              <v-list-item-subtitle class="caption">
+                <v-chip small color="grey lighten-3" text-color="grey" class="rounded-lg pl-2 pr-2 mr-1">작성자 : {{ item.writer }}</v-chip>
+                <v-chip small color="grey lighten-3" text-color="grey" class="rounded-lg pl-2 pr-2 mr-1">등록일 : {{ $moment(item.createAt).format('YYYY.MM.DD') }}</v-chip>
+                <v-chip small color="grey lighten-3" text-color="grey" class="rounded-lg pl-2 pr-2">조회수 : {{ item.pv }}</v-chip>
+              </v-list-item-subtitle>
+            </v-list-item-content>
 
-          <v-icon small color="grey" class="lighten-2">mdi-lock</v-icon>
+            <v-icon small color="grey" class="lighten-2">{{item.privateYn == 'Y' ? 'mdi-lock' : 'mdi-lock-open-outline'}}</v-icon>
 
-        </v-list-item>
+          </v-list-item>
 
-        <!-- <v-divider :key="`div-${index}`" :inset="!$vuetify.breakpoint.mdAndDown"  />-->
-        <v-divider :key="`div-${index}`"  />
+          <!-- <v-divider :key="`div-${index}`" :inset="!$vuetify.breakpoint.mdAndDown"  />-->
+          <v-divider :key="`div-${index}`"  />
 
-      </template>
-    </v-list>
+        </template>
+      </v-list>
+    </div>
   </div>
 </template>
 
 <script>
 import SubTitle from "../../common/SubTitle";
+import qnaApi from "@/api/QnaApi";
 export default {
   components: {SubTitle},
+  mounted() {
+    this.search();
+  },
+  computed: {
+    paddingRL (){
+      return this.$vuetify.breakpoint.mdAndDown ? 0 : 1;
+    }
+  },
+  methods: {
+    search: function(){
+      qnaApi.getList(1, 10, 'ALL', null).then(res => {
+        this.items = res.data.result;
+      })
+    }
+  },
   data: () => ({
-    items: [
-      {title:"견적문의 드립니다.", contents: "견적문의 드립니다.", writer:"홍길동", createAt:"12:20", pv:12},
-      {title:"몰디브 견적요청", contents: "견적문의 드립니다.", writer:"차인표", createAt:"1:33", pv:2},
-      {title:"몰디브 4박견적", contents: "견적문의 드립니다.", writer:"김효진", createAt:"2022-03-25", pv:66},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-22", pv:12},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-21", pv:44},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-20", pv:12},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-18", pv:88},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-17", pv:4},
-      {title:"착한요금 안내 도와드립니다.", contents: "견적문의 드립니다.", writer:"ㅁㄴㅇ", createAt:"2022-03-18", pv:0},
-      {title:"라스베가스 + LA 신혼여행.", contents: "견적문의 드립니다.", writer:"삐리리김", createAt:"2022-03-18", pv:21},
-    ]
+    items: []
   })
 }
 </script>

@@ -20,41 +20,27 @@
 
       <v-divider class="mt-2 mb-2 mx-auto" />
 
-      <v-list-item link @click="showInquiry">
+      <v-subheader class="text-truncate d-flex flex-fill">여행</v-subheader>
+
+      <v-list-item link>
         <v-list-item-icon>
-          <v-icon>mdi-file-document-edit-outline</v-icon>
+          <v-icon>mdi-island</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>견적문의</v-list-item-title>
-      </v-list-item>
-      <v-list-item link disabled>
-        <v-list-item-icon>
-          <v-icon disabled>mdi-airplane-alert</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title>여행약관</v-list-item-title>
+        <v-list-item-title class="align-center">몰디브</v-list-item-title>
       </v-list-item>
 
-      <v-divider class="mt-2 mb-2 mx-auto" />
-
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>mdi-smoking</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>칸쿤</v-list-item-title>
+      </v-list-item>
 
       <v-list-item link>
         <v-list-item-icon>
           <v-icon>mdi-kitesurfing</v-icon>
         </v-list-item-icon>
         <v-list-item-title class="align-center">하와이</v-list-item-title>
-      </v-list-item>
-
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-noodles</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title class="align-center">베트남</v-list-item-title>
-      </v-list-item>
-
-      <v-list-item link>
-        <v-list-item-icon>
-          <v-icon>mdi-beach</v-icon>
-        </v-list-item-icon>
-        <v-list-item-title class="align-center">몰디브</v-list-item-title>
       </v-list-item>
 
       <v-list-item link>
@@ -66,9 +52,17 @@
 
       <v-list-item link>
         <v-list-item-icon>
-          <v-icon>mdi-smoking</v-icon>
+          <v-icon>mdi-noodles</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>칸쿤</v-list-item-title>
+        <v-list-item-title class="align-center">베트남</v-list-item-title>
+      </v-list-item>
+
+
+      <v-list-item link>
+        <v-list-item-icon>
+         <v-icon>mdi-human-female-dance</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title class="align-center">태국</v-list-item-title>
       </v-list-item>
 
       <v-divider class="mt-2 mb-2 mx-auto" />
@@ -89,32 +83,39 @@
         </v-list-item-title>
       </v-list-item>
 
-
-      <!--
       <v-divider class="mt-2 mb-2 mx-auto" />
 
-      <v-list-item link>
+      <v-list-item link disabled>
         <v-list-item-icon>
-          <v-icon>mdi-arrow-up-bold</v-icon>
+          <v-icon disabled>mdi-thumb-up</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>위로</v-list-item-title>
+        <v-list-item-title>
+          회사소개
+        </v-list-item-title>
       </v-list-item>
-      <v-list-item link>
+
+      <v-list-item link @click="showInquiry">
         <v-list-item-icon>
-          <v-icon>mdi-arrow-down-bold</v-icon>
+          <v-icon>mdi-file-document-edit-outline</v-icon>
         </v-list-item-icon>
-        <v-list-item-title>아래로</v-list-item-title>
+        <v-list-item-title>견적문의</v-list-item-title>
       </v-list-item>
-      -->
+
+      <v-list-item link disabled>
+        <v-list-item-icon>
+          <v-icon disabled>mdi-airplane-alert</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>여행약관</v-list-item-title>
+      </v-list-item>
+
+
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
-import CountryFlag from "vue-country-flag";
 export default {
   name: "AppNavigator",
-  components: {CountryFlag},
   data: ()=>({
     navigatorDrawer: false
   }),

@@ -41,13 +41,13 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "sm":
         case "xs":
-          v = 30;
+          v = 26;
           break;
         case "md":
-          v = 35;
+          v = 30;
           break;
         default:
-          v= 33;
+          v= 29;
           break;
       }
       return v + 'vh';

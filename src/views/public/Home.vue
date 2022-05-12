@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <home-carousel/>
-    <home-products class="mt-4" />
-    <v-row dense>
+    <home-products />
+    <v-row>
       <v-col :order="inquiryOrder" :cols="breakCols">
-        <inquiry-item class="mt-4"  />
+        <home-inquiry />
       </v-col>
       <v-col order="2" :cols="breakCols">
-        <home-qna class="mt-4" />
+        <home-qna />
       </v-col>
     </v-row>
   </v-container>
@@ -17,10 +17,11 @@
 import HomeCarousel from "../../components/public/home/HomeCarousel";
 import HomeProducts from "../../components/public/home/HomeProduct";
 import HomeQna from "../../components/public/home/HomeQna";
-import InquiryItem from "../../components/public/inquiry/InquiryItem";
+import HomeInquiry from "@/components/public/home/HomeInquiry";
+
 
 export default {
-  components: {HomeQna, InquiryItem, HomeProducts, HomeCarousel},
+  components: {HomeInquiry, HomeQna, HomeProducts, HomeCarousel},
   computed: {
     breakCols(){
       switch (this.$vuetify.breakpoint.name) {

@@ -8,7 +8,7 @@
         <product-view-image/>
       </v-col>
       <v-col class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" :order="inquiryOrder">
-        <inquiry-item  />
+        <inquiry-form  />
       </v-col>
       <v-col class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" :order="contentOrder">
         <product-view-content />
@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import InquiryItem from "../../components/public/inquiry/InquiryItem";
+import InquiryForm from "../../components/public/inquiry/InquiryForm";
 import ProductViewToolbar from "../../components/public/product/view/ProductViewToolbar";
 import ProductViewImage from "../../components/public/product/view/ProductViewImage";
 import ProductViewContent from "../../components/public/product/view/ProductViewContent";
 import ProductViewFacility from "../../components/public/product/view/ProductViewFacility";
 export default {
-  components: {ProductViewFacility, ProductViewContent, InquiryItem, ProductViewImage, ProductViewToolbar},
+  components: {ProductViewFacility, ProductViewContent, InquiryForm, ProductViewImage, ProductViewToolbar},
   computed:{
     toolbarOrder() {
       switch (this.$vuetify.breakpoint.name) {

@@ -47,7 +47,7 @@ export default [{
           component: QnaForm
         },
         {
-          path: ':id',
+          path: 'view',
           component: QnaView,
           name: 'qna-view',
           props: true
