@@ -133,8 +133,8 @@
 </template>
 
 <script>
-import PrivacyTerms from "@/components/public/inquiry/PrivacyTerms";
-import ThirdPartyTerms from "@/components/public/inquiry/ThirdPartyTerms";
+import PrivacyTerms from "@/components/public/terms/PrivacyTerms";
+import ThirdPartyTerms from "@/components/public/terms/ThirdPartyTerms";
 import inquiryApi from "@/api/InquiryApi";
 export default {
   components: {ThirdPartyTerms, PrivacyTerms},

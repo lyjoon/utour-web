@@ -115,8 +115,8 @@
 </template>
 
 <script>
-import ThirdPartyTerms from "@/components/public/inquiry/ThirdPartyTerms";
-import PrivacyTerms from "@/components/public/inquiry/PrivacyTerms";
+import ThirdPartyTerms from "@/components/public/terms/ThirdPartyTerms";
+import PrivacyTerms from "@/components/public/terms/PrivacyTerms";
 import inquiryApi from "@/api/InquiryApi";
 
 export default {

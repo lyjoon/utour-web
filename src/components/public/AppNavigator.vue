@@ -90,7 +90,7 @@
           <v-icon disabled>mdi-thumb-up</v-icon>
         </v-list-item-icon>
         <v-list-item-title>
-          회사소개
+          회사소개(준비중)
         </v-list-item-title>
       </v-list-item>
 
@@ -101,9 +101,9 @@
         <v-list-item-title>견적문의</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link disabled>
+      <v-list-item link @click="showServiceTerms">
         <v-list-item-icon>
-          <v-icon disabled>mdi-airplane-alert</v-icon>
+          <v-icon>mdi-airplane-alert</v-icon>
         </v-list-item-icon>
         <v-list-item-title>여행약관</v-list-item-title>
       </v-list-item>
@@ -122,6 +122,9 @@ export default {
   methods: {
     showInquiry: function (){
       this.$emit('open-inquiry-dialog');
+    },
+    showServiceTerms: function(){
+      this.$emit('open-service-terms-dialog');
     },
     showNavigator: function () {
       this.navigatorDrawer = !this.navigatorDrawer;

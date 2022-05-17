@@ -1,5 +1,5 @@
 <template>
-  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-12 pb-12 grey--text text--lighten-2" dark>
+  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-12 pb-12 grey--text text--lighten-2 mt-16" dark>
     <v-container>
       <div class="pt-4 pb-4">
         <div class="text-h4 font-weight-thin mb-4">U-TOUR</div>

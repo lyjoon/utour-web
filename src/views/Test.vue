@@ -1,20 +1,29 @@
 <template>
-  <v-container>
-    <div style="height: 50vh;">
-      <toast-editor ref="editor" @onChange="setMarkdown" />
-    </div>
-    <div style="height: 40vh;margin-top: 20px">
-      <toast-viewer ref="viewer" />
-    </div>
-    <div>
-      <v-btn @click="openAlert">SHOW</v-btn>
-      <v-btn @click="openSnack">SNACK</v-btn>
-      <v-btn @click="confirm">SNACK</v-btn>
-    </div>
-    <alert ref="alert" />
-    <snackbar ref="snackbar" />
-    <confirm ref="confirm" />
-  </v-container>
+  <v-app class="app-main">
+    <v-container>
+
+      <div>
+        <service-terms height="100%" />
+      </div>
+
+      <v-divider class="mt-5 mb-5" />
+
+      <div style="height: 50vh;">
+        <toast-editor ref="editor" @onChange="setMarkdown" />
+      </div>
+      <div style="height: 40vh;margin-top: 20px">
+        <toast-viewer ref="viewer" />
+      </div>
+      <div>
+        <v-btn @click="openAlert">SHOW</v-btn>
+        <v-btn @click="openSnack">SNACK</v-btn>
+        <v-btn @click="confirm">SNACK</v-btn>
+      </div>
+      <alert ref="alert" />
+      <snackbar ref="snackbar" />
+      <confirm ref="confirm" />
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -24,8 +33,9 @@ import ToastViewer from "@/components/common/ToastViewer";
 import Alert from "@/components/common/Alert";
 import Snackbar from "@/components/common/Snackbar";
 import Confirm from "@/components/common/Confirm";
+import ServiceTerms from "@/components/public/terms/ServiceTerms";
 export default {
-  components: {Confirm, Snackbar, Alert, ToastViewer, ToastEditor},
+  components: {ServiceTerms, Confirm, Snackbar, Alert, ToastViewer, ToastEditor},
   data: () =>({
   }),
   methods:{
