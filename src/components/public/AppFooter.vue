@@ -1,11 +1,11 @@
 <template>
-  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-12 pb-12 grey--text text--lighten-2 mt-16" dark>
+  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-6 pb-12 grey--text text--lighten-2 mt-16" dark>
     <v-container>
       <div class="pt-4 pb-4">
-        <div class="text-h4 font-weight-thin mb-4">U-TOUR</div>
+        <div class="text-h5 text-lg-h4 text-xl-h4 font-weight-thin mb-4">U-TOUR</div>
         <div class="d-flex flex-fill">
           <ul class="list-style-none body-2 font-weight-light ml-0 pl-0">
-           <li class="mb-1">주소 : 서울특별시 강남구 압구정로 18길 28 (신구초등학교 후문) </li>
+           <li class="mb-1">주소 : 서울특별시 강남구 압구정로 18길 28</li>
            <li class="mb-1">연락처 : 1688-0580 </li>
            <li>FAX : 043-719-7323</li>
           </ul>

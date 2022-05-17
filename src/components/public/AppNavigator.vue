@@ -83,8 +83,10 @@
         </v-list-item-title>
       </v-list-item>
 
+
       <v-divider class="mt-2 mb-2 mx-auto" />
 
+      <!--
       <v-list-item link disabled>
         <v-list-item-icon>
           <v-icon disabled>mdi-thumb-up</v-icon>
@@ -93,6 +95,7 @@
           회사소개(준비중)
         </v-list-item-title>
       </v-list-item>
+      -->
 
       <v-list-item link @click="showInquiry">
         <v-list-item-icon>
@@ -107,7 +110,6 @@
         </v-list-item-icon>
         <v-list-item-title>여행약관</v-list-item-title>
       </v-list-item>
-
 
     </v-list>
   </v-navigation-drawer>

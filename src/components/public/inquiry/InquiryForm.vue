@@ -6,39 +6,8 @@
       <v-form ref="frm" lazy-validation>
 
         <div>
-          <!-- 정보활용동의 -->
-          <div class="caption pb-1 grey--text text--darken-1 ">개인정보이용약관 확인 및 동의해주셔야 여행문의가 가능합니다.</div>
-
-          <v-sheet outlined>
-            <v-expansion-panels accordion>
-              <v-expansion-panel>
-                <v-expansion-panel-header class="pa-2">
-                  <div>
-                    <v-checkbox class="ma-0" dense hide-details label="개인정보수집동의" v-model="command.privacy" @change="setCheckTerms"/>
-                  </div>
-                </v-expansion-panel-header>
-                <v-expansion-panel-content class="body-2">
-                  <privacy-terms :height="330" />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-              <v-expansion-panel>
-                <v-expansion-panel-header class="pa-2">
-                  <div>
-                    <v-checkbox dense hide-details label="제3자 개인정보활용동의" v-model="command.thirdParty" @change="setCheckTerms"/>
-                  </div>
-                </v-expansion-panel-header>
-                <v-expansion-panel-content class="body-2">
-                  <third-party-terms :height="330" />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-          </v-sheet>
-
-        </div>
-
-        <div class="mt-4">
           <div class="pt-2 pt-2">
-            <div class="caption pb-1 grey--text text--darken-1 ">문의내용을 남겨주시면 빠른시간 내 확인 후 회신드리겠습니다:)</div>
+            <div class="caption pb-1 grey--text text--darken-1 ">문의를 남겨주시면 빠른시간 내 확인 후 회신드리겠습니다:)</div>
           </div>
           <v-row no-gutters dense>
             <v-col class="col-12" order="1">
@@ -102,9 +71,46 @@
           </v-row>
         </div>
 
+        <div>
+          <!-- 정보활용동의 -->
+          <div class="caption pb-1 grey--text text--darken-1 ">아래 약관확인 및 동의해주셔야 문의등록이 가능합니다.</div>
+
+          <v-sheet outlined>
+            <v-expansion-panels accordion>
+              <v-expansion-panel>
+                <v-expansion-panel-header class="pa-2">
+                  <div class="d-flex">
+                    <v-checkbox class="ma-0" dense hide-details label="개인정보수집동의" v-model="command.privacy" @click="setCheckTerms"/>
+                  </div>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="body-2">
+                  <v-divider />
+                  <div class="pa-2">
+                    <privacy-terms :height="330" />
+                  </div>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+              <v-expansion-panel>
+                <v-expansion-panel-header class="pa-2">
+                  <div class="d-flex">
+                    <v-checkbox class="ma-0" dense hide-details label="제3자 개인정보활용동의" v-model="command.thirdParty" @click="setCheckTerms"/>
+                  </div>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="body-2">
+                  <v-divider />
+                  <div class="pa-2">
+                    <third-party-terms :height="330" />
+                  </div>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-sheet>
+
+        </div>
+
       </v-form>
 
-      <div>
+      <div class="mt-4">
         <div class="d-flex flex-fill align-center justify-center pt-4 pb-4">
           <v-btn large elevation="0" color="deep-orange" class="darken-2 mr-2" dark min-width="120px" @click="store">문의하기</v-btn>
           <v-btn large elevation="0" color="grey" class="ml-2" dark min-width="120px" @click="clear">초기화</v-btn>
@@ -168,10 +174,11 @@ export default {
       this.command.privacy = false;
       this.command.thirdParty = false;
     },
-    setCheckTerms: function(){
+    setCheckTerms: function(e){
       if(this.checkTermsMessage && this.isCheckTerms) {
         this.checkTermsMessage = false;
       }
+      e.cancelBubble = true;
     },
     store: function() {
       let valid = this.$refs.frm.validate();

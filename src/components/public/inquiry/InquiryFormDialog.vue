@@ -16,7 +16,7 @@
         <v-divider />
 
         <div class="pa-4">
-          <div class="pt-2 pb-4 body-2">문의내용을 남겨주시면 빠른시간 내 확인 후 답변을 드리겠습니다:)</div>
+          <div class="pt-2 pb-4 body-2">문의를 남겨주시면 빠른시간 내 확인 후 답변을 드리겠습니다:)</div>
 
           <v-form ref="frm" lazy-validation>
             <v-row >
