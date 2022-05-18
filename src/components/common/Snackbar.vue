@@ -1,13 +1,14 @@
 <template>
-  <v-snackbar color="#43A047"
+  <v-snackbar color="#039BE5"
               multi-line
               v-model="$store.state.ui.snackbar.flag">
     <v-card-text >{{$store.state.ui.snackbar.message}}</v-card-text>
     <template v-slot:action="{attrs}">
       <div style="margin: 0px 10px;">
         <v-btn
-            v-bind="attrs" color="#F4FF81"
-            text
+            v-bind="attrs"
+            color="#4965ba"
+            dark
             elevation="0"
             @click="$store.state.ui.snackbar.flag = false">
           CLOSE

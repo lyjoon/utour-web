@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import AdminViewHeader from "@/components/common/title/AdminTItle";
+import AdminViewHeader from "@/components/common/title/AdminTitle";
 export default {
   name: "AdminInquiry",
   components: {AdminViewHeader},

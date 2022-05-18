@@ -6,7 +6,7 @@
       <v-card-actions >
         <div style="display: flex;width: 100%;justify-content: center;">
           <v-btn elevation="0" color="#1565C0" style="color: #ffffff;margin-right: 10px;" @click="$store.commit('confirmOk')">확인</v-btn>
-          <v-btn elevation="0" color="#1565C0" style="color: #ffffff" @click="$store.commit('confirmOk')">취소</v-btn>
+          <v-btn elevation="0" color="#1565C0" style="color: #ffffff" @click="$store.commit('confirmCancel')">취소</v-btn>
         </div>
       </v-card-actions>
     </v-card>

@@ -15,9 +15,9 @@
         <toast-viewer ref="viewer" />
       </div>
       <div>
-        <v-btn @click="openAlert">SHOW</v-btn>
-        <v-btn @click="openSnack">SNACK</v-btn>
-        <v-btn @click="confirm">SNACK</v-btn>
+        <v-btn @click="openAlert">show-alert</v-btn>
+        <v-btn @click="openSnack">show-snack</v-btn>
+        <v-btn @click="confirm">show-confirm</v-btn>
       </div>
       <alert ref="alert" />
       <snackbar ref="snackbar" />
@@ -43,7 +43,8 @@ export default {
       this.$refs.viewer.setMarkdown(markdown);
     },
     openAlert: function (){
-      this.$refs.alert.open();
+      //this.$refs.alert.open();
+      this.$store.commit('alert', {message:'쳐봐'});
     },
     confirm: function (){
       this.$store.commit("confirm", {message : '삭제할까', callback: function(){

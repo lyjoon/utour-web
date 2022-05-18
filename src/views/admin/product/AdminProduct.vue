@@ -3,7 +3,7 @@
     <v-card width="100%" elevation="0">
 
       <div class="pa-4">
-        <admin-view-header title="질문과 답변" :site-map="['게시판', 'Q&A']" :show-div="false"/>
+        <admin-title title="여행컨텐츠" :site-map="['관리', '여행컨텐츠']" :show-div="false"/>
       </div>
 
       <router-view />
@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import AdminViewHeader from "@/components/common/title/AdminTitle";
+import AdminTitle from "@/components/common/title/AdminTitle";
 export default {
-  name: "AdminQna",
-  components: {AdminViewHeader},
+  name: "AdminNotice",
+  components: {AdminTitle},
 }
 </script>
 

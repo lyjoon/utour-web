@@ -29,25 +29,26 @@
       </v-row>
     </div>
 
-    <!-- 데이터 목록(md 이상) -->
-    <div>
 
+    <div>
       <v-divider />
 
       <v-simple-table fixed-header class="hidden-md-and-down">
         <template v-slot:default>
           <colgroup>
             <col style="width: 100px" />
+            <col style="width: 150px" />
             <col  />
-            <col style="width: 120px" />
-            <col style="width: 80px" />
+            <col style="width: 110px" />
+            <col style="width: 100px" />
             <col style="width: 120px" />
           </colgroup>
           <thead>
           <tr>
-            <th class="text-center body-1 font-weight-bold">no</th>
-            <th class="text-left body-1 font-weight-bold">제목</th>
-            <th class="text-center body-1 font-weight-bold">비밀글</th>
+            <th class="text-center body-1 font-weight-bold">ID</th>
+            <th class="text-center body-1 font-weight-bold">국가</th>
+            <th class="text-center body-1 font-weight-bold">상품명</th>
+            <th class="text-center body-1 font-weight-bold">상품유형</th>
             <th class="text-center body-1 font-weight-bold">등록일</th>
             <th class="text-center body-1 font-weight-bold">actions</th>
           </tr>
@@ -55,22 +56,25 @@
           <tbody>
 
           <tr v-if="results != null && results.length < 1">
-            <td colspan="5" class="text-center">
+            <td colspan="6" class="text-center">
               조회 결과가 없습니다.
             </td>
           </tr>
 
           <tr v-for="(item, index) in results" :key="index">
             <td class="text-center body-2">
-              {{item.qnaId}}
+              {{item.productId}}
+            </td>
+            <td class="text-center body-2">
+              {{ item.nationName }}
             </td>
             <td class="text-left body-2">
-              <router-link class="text-decoration-underline" :to="`/admin/qna/${item.qnaId}`">
-                {{ item.title + (item.replyCnt > 0 ? ` [${item.replyCnt}]` : '')}}
+              <router-link class="text-decoration-underline" :to="`/admin/product/edit?productId=${item.productId}`">
+                {{ item.title }}
               </router-link>
             </td>
             <td class="text-center body-2">
-              <v-icon small v-if="item.privateYn == 'Y'">mdi-lock</v-icon>
+              {{ item.productType }}
             </td>
             <td class="text-center body-2">
               {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
@@ -79,7 +83,7 @@
               <v-icon
                   small
                   class="mr-2"
-                  @click="editItem(item)">
+                  @click="edit(item)">
                 mdi-pencil
               </v-icon>
 
@@ -94,6 +98,7 @@
         </template>
       </v-simple-table>
 
+
       <v-list class="flex-fill hidden-md-and-up">
         <v-card v-if="results != null && results.length < 1" min-height="100px" elevation="0">
           <v-card-text class="d-flex flex-fill fill-height align-center justify-center mt-12">
@@ -103,22 +108,24 @@
 
         <template v-for="(item, index) in results">
 
-          <v-list-item :key="index" class="pl-0 pr-0" link :to="`/admin/qna/${item.qnaId}`">
+          <v-list-item :key="index" class="pl-0 pr-0" link :to="`/admin/product/edit?productId=${item.productId}`">
+
+            <v-list-item-avatar class="pa-0">
+              <country-flag country="TH" size="big" />
+            </v-list-item-avatar>
 
             <v-list-item-content>
               <div class="subtitle-1">
-                {{ item.title + (item.replyCnt > 0 ? ` [${item.replyCnt}]` : '')}}
+                {{ item.title }}
               </div>
               <v-list-item-subtitle class="caption">
-                {{ item.writer || '관리자'}}
+                {{ item.nationName }}
                 <span class="mx-auto mr-1 ml-1 caption">|</span>
                 {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
                 <span class="mx-auto mr-1 ml-1 caption">|</span>
-                조회수 {{ item.pv }}
+                {{ item.productType }}
               </v-list-item-subtitle>
             </v-list-item-content>
-
-            <v-icon v-if="item.attachment" color="grey" class="lighten-2">mdi-file-check</v-icon>
 
           </v-list-item>
 
@@ -129,34 +136,31 @@
 
       </v-list>
 
-      <v-divider />
     </div>
 
 
-    <!-- 페이징 -->
-    <div class="pt-6 pb-12">
-      <v-pagination class="elevation-0"
-                    v-model="pagination.page"
-                    @input="setPage"
-                    color="deep-orange darken-2"
-                    :length="paginationLimit">
-      </v-pagination>
-    </div>
   </div>
 </template>
 
 <script>
-
-import qnaApi from "@/api/QnaApi";
+import CountryFlag from 'vue-country-flag'
 
 export default {
-  mounted() {
-    this.search();
-  },
-  computed:{
-    paginationLimit (){
-      return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
-    }
+  components:{CountryFlag},
+  methods: {
+    edit : function(item){
+      console.log('edit.item', item);
+      this.$router.push('/admin/product/edit');
+    },
+    deleteItem : function(item){
+      console.log('delete.item', item);
+    },
+    searchQuery: function(){
+      this.pagination.page = 1;
+    },
+    search: function(){
+
+    },
   },
   data: () =>({
     pagination: {
@@ -166,7 +170,15 @@ export default {
       limit: 20
     },
     query:null,
-    results:[],
+    results:[{
+      productId: 1234567,
+      title:'정규직',
+      description: '그때만큼재미있을까',
+      nationName: '셉',
+      areaName:'셉시티',
+      productType:'호텔',
+      createAt:'2022.07.15'
+    }],
     queryTypeItems: [
       {value:'ALL', text:'제목+내용'},
       {value:'TITLE', text:'제목'},
@@ -174,45 +186,10 @@ export default {
       {value:'CONTENT', text:'내용'},
     ],
     queryType: {value:'ALL', text:'제목+내용'},
-  }),
-  methods: {
-    setPage: function(p){
-      this.pagination.page = p;
-      this.search();
-    },
-    editItem : function(item){
-      this.$router.push(`/admin/qna/edit?qnaId=${item.qnaId}`);
-    },
-    deleteItem : function(item) {
-      let t = this;
-      this.$store.commit('confirm', {title:'삭제', message:'삭제할까요?', callback: function(){
-          // eslint-disable-next-line no-unused-vars
-          qnaApi.delete(item.qnaId).then(res => {
-            t.$store.commit('snackMessage', {message : '정상적으로 삭제되었습니다.'});
-            t.search();
-          })
-        }
-      });
-    },
-    searchQuery: function(){
-      this.pagination.page = 1;
-      this.search();
-    },
-    search: function(){
-      qnaApi.getList(this.pagination.page, this.pagination.limit, this.queryType.value, this.query)
-          .then(res => {
-            this.results = res.data.result;
-            this.pagination.page = res.data.page;
-            this.pagination.count = res.data.count;
-            this.pagination.pageCount = res.data.pageCount;
-          })
-    },
-    get: function(item) {
-      this.$router.push(`/admin/qna/${item.qnaId}`);
-    }
-  }
+  })
 }
 </script>
 
 <style scoped>
+
 </style>
