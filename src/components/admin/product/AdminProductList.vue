@@ -33,7 +33,7 @@
     <div>
       <v-divider />
 
-      <v-simple-table fixed-header class="hidden-md-and-down">
+      <v-simple-table fixed-header class="hidden-sm-and-down">
         <template v-slot:default>
           <colgroup>
             <col style="width: 100px" />
@@ -136,17 +136,46 @@
 
       </v-list>
 
+      <v-divider />
     </div>
 
 
+    <!-- 하단 actions -->
+    <div class="pt-4 pb-4">
+      <div class="justify-end flex-fill d-flex">
+        <v-btn color="blue-grey lighten-2" dark elevation="0" @click="onCreate">
+          <v-icon small class="mr-1">mdi-plus</v-icon> 추가
+        </v-btn>
+      </div>
+    </div>
+
+
+    <!-- 페이징 -->
+    <div class="pt-6 pb-12">
+      <v-pagination class="elevation-0"
+                    v-model="pagination.page"
+                    @input="next"
+                    color="deep-orange darken-2"
+                    :length="paginationLimit">
+      </v-pagination>
+    </div>
+
+
+    <admin-product-create-dialog ref="admin_product_create_dialog" />
   </div>
 </template>
 
 <script>
 import CountryFlag from 'vue-country-flag'
+import AdminProductCreateDialog from "@/components/admin/product/AdminProductCreateDialog";
 
 export default {
-  components:{CountryFlag},
+  components:{AdminProductCreateDialog, CountryFlag},
+  computed: {
+    paginationLimit(){
+      return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
+    }
+  },
   methods: {
     edit : function(item){
       console.log('edit.item', item);
@@ -157,10 +186,18 @@ export default {
     },
     searchQuery: function(){
       this.pagination.page = 1;
+      this.search();
     },
     search: function(){
-
+      this.$store.commit('alert', {message:'준비중인데'});
     },
+    next: function(page){
+      this.pagination.page = page;
+      this.search();
+    },
+    onCreate: function(){
+      this.$refs.admin_product_create_dialog.showDialog();
+    }
   },
   data: () =>({
     pagination: {
