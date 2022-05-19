@@ -167,10 +167,9 @@
 
 <script>
 import CountryFlag from 'vue-country-flag'
-import AdminProductCreateDialog from "@/components/admin/product/AdminProductCreateDialog";
 
 export default {
-  components:{AdminProductCreateDialog, CountryFlag},
+  components:{CountryFlag},
   computed: {
     paginationLimit(){
       return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
