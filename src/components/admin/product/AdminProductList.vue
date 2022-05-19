@@ -161,7 +161,7 @@
     </div>
 
 
-    <admin-product-create-dialog ref="admin_product_create_dialog" />
+<!--    <admin-product-create-dialog ref="admin_product_create_dialog" />-->
   </div>
 </template>
 
@@ -196,7 +196,8 @@ export default {
       this.search();
     },
     onCreate: function(){
-      this.$refs.admin_product_create_dialog.showDialog();
+      //this.$refs.admin_product_create_dialog.showDialog();
+      this.$router.push("/admin/product/edit");
     }
   },
   data: () =>({

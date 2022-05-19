@@ -146,7 +146,8 @@ export default {
           let qId = this.$route.query.qnaId || this.$route.params.qnaId;
           this.search(qId, this.password);
         } else if (type == 'delete') {
-          this.back();
+          // this.back();
+          this.deleteContent();
         } else if (type == 'edit'){
           let pwd = this.password;
           this.$router.push({name:'qna-edit-form', params:{qnaId: this.command.qnaId, password: pwd}});
