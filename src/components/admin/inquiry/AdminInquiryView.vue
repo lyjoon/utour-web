@@ -2,20 +2,20 @@
   <div class="pa-4">
     <div class="">
       <div class="mb-2 d-flex align-end">
-        <v-chip dark class="rounded pa-2" :color="command.status == 'COMPLETE' ? 'green lighten-1' : 'deep-orange lighten-1'">{{getStatus}}</v-chip>
+        <v-chip dark class="rounded pa-2" :color="command.status == 'COMPLETE' ? 'blue lighten-1' : 'deep-orange lighten-1'">{{getStatus}}</v-chip>
         <div class="title text-h6 ml-2">{{ command.title || '-' }}</div>
       </div>
       <div class="mt-2 mb-4 body-2 grey--text">
-          <v-chip small class="pa-2 rounded mt-1 mr-1" dark color="grey" outlined>
+          <v-chip small class="pa-2 rounded-lg mt-1 mr-1" dark color="grey lighten-1">
             작성자 : {{ command.writer || 'N/A' }}
           </v-chip>
-          <v-chip small class="pa-2 rounded mt-1 mr-1" dark color="blue lighten-1"  outlined>
+          <v-chip small class="pa-2 rounded-lg mt-1 mr-1" dark color="grey lighten-1">
             등록일 : {{ $moment(command.createAt).format('YYYY.MM.DD') || '-' }}
           </v-chip>
-          <v-chip small class="pa-2 rounded mt-1 mr-1" dark color="green lighten-1"  outlined>
+          <v-chip small class="pa-2 rounded-lg mt-1 mr-1" dark color="grey lighten-1" >
             Email : {{ command.email }}
           </v-chip>
-          <v-chip small class="pa-2 rounded mt-1" dark color="deep-orange lighten-1"  outlined>
+          <v-chip small class="pa-2 rounded-lg mt-1" dark color="grey lighten-1">
             연락처 : {{ command.contact }}
           </v-chip>
       </div>
@@ -39,7 +39,7 @@
               dense
               inset
               @change="updateStatus"
-              color="green lighten-1">
+              color="blue lighten-1">
             <template v-slot:label>
               <span class="body-2">해당 문의에 대한 마킹상태</span>
             </template>
@@ -48,7 +48,7 @@
 
         <v-spacer />
 
-        <v-btn class="ml-6" large outlined elevation="0" link to="/admin/inquiry/list">
+        <v-btn class="ml-6" large color="grey lighten-1" dark elevation="0" link to="/admin/inquiry/list">
           <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
         </v-btn>
       </div>

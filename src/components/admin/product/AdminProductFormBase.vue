@@ -140,7 +140,7 @@ export default {
       let _this = this;
       reader.addEventListener("load", function (){
         _this.repImageReaderSrc = reader.result;
-        console.log('reader.addEventListener.src', _this.repImageReaderSrc);
+        // console.log('reader.addEventListener.src', _this.repImageReaderSrc);
       }, false);
 
       if(file) {

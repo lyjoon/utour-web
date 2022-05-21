@@ -68,7 +68,7 @@
                 <router-link class="text-decoration-underline" :to="`/admin/inquiry/${item.inquiryId}`">{{ item.title }} </router-link>
               </td>
               <td class="text-center body-2">
-                <v-chip dark class="pa-1 rounded caption" small :color="item.status == 'COMPLETE' ? 'green lighten-1' : 'secondary lighten-1'">
+                <v-chip dark class="pa-1 rounded caption" small :color="item.status == 'COMPLETE' ? 'blue lighten-1' : 'secondary lighten-1'">
                   {{ statusDesc(item.status) }}
                 </v-chip>
               </td>

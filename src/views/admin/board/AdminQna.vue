@@ -1,5 +1,5 @@
 <template>
-  <v-container class="px-0">
+  <v-container>
     <v-card width="100%" elevation="0" outlined>
 
       <div class="pa-4">
