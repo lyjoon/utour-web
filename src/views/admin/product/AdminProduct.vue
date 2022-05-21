@@ -1,6 +1,6 @@
 <template>
-  <v-container >
-    <v-card width="100%" elevation="0">
+  <v-container class="px-0">
+    <v-card width="100%" elevation="0" outlined>
 
       <div class="pa-4">
         <admin-title title="여행컨텐츠" :site-map="['관리', '여행컨텐츠']" :show-div="false"/>

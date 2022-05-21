@@ -101,10 +101,12 @@ export default {
   mounted() {
     let loginInfoString = localStorage.getItem("loginInfo");
     // console.log('loginInfoString', loginInfoString);
-    let loginInfo = JSON.parse(loginInfoString);
-    this.loginId = loginInfo.loginId;
-    this.password = loginInfo.password;
-    this.storeLocalStorage = loginInfo.storeLocalStorage;
+    if((loginInfoString || '' ) != '') {
+      let loginInfo = JSON.parse(loginInfoString);
+      this.loginId = loginInfo.loginId;
+      this.password = loginInfo.password;
+      this.storeLocalStorage = loginInfo.storeLocalStorage;
+    }
   },
   methods:{
     doSubmit: function(){

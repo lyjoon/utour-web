@@ -1,6 +1,6 @@
 <template>
   <!-- 상품 -->
-  <v-card elevation="0">
+  <v-card elevation="0" outlined>
     <v-list>
       <v-subheader>
         <v-icon :color="color" class="mr-4">mdi-gift</v-icon>
@@ -22,6 +22,7 @@
         </v-list-item-action>
       </v-list-item>
 
+      <!--
       <v-divider class="mt-2 ml-4 mr-4" />
 
       <v-list-item>
@@ -36,6 +37,8 @@
           <v-list-item-action-text><v-chip :color="color" small dark link disabled >관리</v-chip></v-list-item-action-text>
         </v-list-item-action>
       </v-list-item>
+      -->
+
     </v-list>
   </v-card>
 

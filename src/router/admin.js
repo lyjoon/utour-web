@@ -16,7 +16,7 @@ import AdminUser from "@/views/admin/config/AdminUser";
 import AdminUserList from "@/components/admin/user/AdminUserList";
 import AdminProduct from "@/views/admin/product/AdminProduct";
 import AdminProductList from "@/components/admin/product/AdminProductList";
-import AdminProductForm from "@/components/admin/product/AdminProductForm";
+import AdminProductForm from "@/views/admin/product/AdminProductForm";
 
 export default [
 {
@@ -28,8 +28,8 @@ export default [
     {path: 'home',component: AdminHome, meta: { authorization: true }},
     {path: 'product', component: AdminProduct, children: [
         {path: 'list', component: AdminProductList, meta: { authorization: true }},
-        {path: 'edit', component: AdminProductForm, meta: { authorization: true }},
     ]},
+    {path: 'product/edit', component: AdminProductForm},
     {path: 'notice', component: AdminNotice,children:[
         {path: 'list',component: AdminNoticeList,meta: { authorization: true }},
         {path: 'edit',component: AdminNoticeForm,meta: { authorization: true }},

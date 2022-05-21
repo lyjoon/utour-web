@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card width="100%" elevation="0">
+  <v-container class="px-0">
+    <v-card width="100%" elevation="0" outlined>
 
       <div class="pa-4">
         <admin-view-header title="질문과 답변" :site-map="['게시판', 'Q&A']" :show-div="false"/>

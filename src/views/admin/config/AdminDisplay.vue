@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-card width="100%" elevation="0">
+  <v-container class="px-0">
+    <v-card width="100%" elevation="0" outlined>
 
       <div class="pa-4">
         <admin-title title="메인화면구성" :site-map="['설정', '메인화면구성']" :show-div="false"/>

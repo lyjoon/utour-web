@@ -1,6 +1,6 @@
 <template>
   <!-- 상품 -->
-  <v-card elevation="0">
+  <v-card elevation="0" outlined>
     <v-list>
       <v-subheader>
         <v-icon :color="color" class="mr-4">mdi-playlist-check</v-icon>
