@@ -2,7 +2,7 @@
   <div>
     <div>
       <div class="d-flex flex-fill">
-        <strong class="title">화면구성요소</strong>
+        <strong class="title">View Component</strong>
         <v-spacer />
         <v-btn color="grey" dark elevation="0" @click="openViewAppender">
           <v-icon small class="mr-1">mdi-shape-square-plus</v-icon> 요소추가
