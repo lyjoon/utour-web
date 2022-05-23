@@ -1,6 +1,6 @@
 <template>
   <v-form ref="frm">
-    <div class="pb-4">
+    <div class="pt-2 pb-4">
       <strong class="title">기본개요</strong>
     </div>
 
@@ -9,14 +9,14 @@
         <v-col cols="12">
           <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-pencil</v-icon>상품명(필수)</div>
           <v-text-field dense placeholder="여행상품에 대한 제목을 입력해주세요."
-                        aria-required="true" label="상품명" filled rounded class="rounded" ></v-text-field>
+                        aria-required="true" filled rounded class="rounded" ></v-text-field>
         </v-col>
 
         <v-col :cols="col4">
 
           <div>
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small >mdi-cog</v-icon>상품유형</div>
-            <v-select filled rounded dense class="rounded" placeholder="여행상품 유형을 선택해주세요" label="상품유형"
+            <v-select filled rounded dense class="rounded" placeholder="여행상품 유형을 선택해주세요"
                       v-model="selectedProductType"
                       disabled
                       eager
@@ -27,7 +27,6 @@
           <div>
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>여행국가</div>
             <v-select filled rounded dense class="rounded" placeholder="여행국가"
-                      label="여행국가를 지정해주세요."
                       :items="nationList"
                       v-model="selectedNation"
                       eager
@@ -39,7 +38,20 @@
           </div>
           <div>
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-city</v-icon>도시/지역</div>
-            <v-select filled rounded dense class="rounded" placeholder="여행도시/지역" label="여행도시/지역을 선택해주세요."></v-select>
+            <v-select filled
+                      rounded
+                      dense
+                      class="rounded"
+                      :items="nationAreaList"
+                      item-value="areaCode"
+                      item-text="areaName"
+                      v-model="selectedNationArea"
+                      placeholder="여행도시/지역"
+            >
+              <template v-slot:no-data>
+                <div class="body-2 pa-4">지역/도시정보가 없습니다.</div>
+              </template>
+            </v-select>
           </div>
 
           <div>
@@ -86,11 +98,11 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "xl":
         case "lg":
-          return '350px';
+          return '330px';
         case "md":
-          return '300px';
+          return '280px';
         default:
-          return '400px';
+          return '350px';
       }
     }
   },
@@ -116,6 +128,7 @@ export default {
     productType:[],
     selectedProductType: null,
     selectedNation: null,
+    selectedNationArea: null,
     command: {
       productId:null,
       productType:null,
@@ -149,6 +162,24 @@ export default {
     },
     onChangeNationCode: function(){
       console.log('get-nation-code');
+    },
+    getCommand: function() {
+      let command = {
+        productId: this.command.productId,
+        productType: this.command.productType,
+        nationCode: this.selectedNation ? this.selectedNation.nationCode : null,
+        areaCode: this.selectedNationArea ? this.selectedNationArea.areaCode : null,
+        repImageSrc: this.repImageFile.name,
+        title:this.command.title,
+        content: this.$refs["toast-editor"] ? this.$refs["toast-editor"].getMarkdown() : null,
+        writer:this.command.writer,
+        useYn:this.command.useYn,
+      };
+
+      return {
+        product: command,
+        file: this.repImageFile
+      };
     }
   }
 }

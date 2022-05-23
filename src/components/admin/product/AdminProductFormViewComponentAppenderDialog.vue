@@ -12,12 +12,21 @@
       </v-toolbar>
       <v-divider class="mb-4" />
       <v-card-text>
+
         <div class="mb-4">
-          <v-select placeholder="추가하려는 화면요소를 선택해주세요."
-                    outlined
-                    label="화면요소" :items="types"
-                    v-model="selectedType"
-                    item-value="value" item-text="text" />
+          <v-form ref="frm" lazy-validation onsubmit="return false">
+            <v-select placeholder="추가하려는 화면요소를 선택해주세요."
+                      outlined
+                      label="화면요소" :items="componentTypes"
+                      v-model="selectedType"
+                      :rules="rules"
+                      item-value="value"
+                      item-text="text" >
+              <template v-slot:no-data>
+                <div class="pa-4 body-2">추가가능한 구성요소가 없습니다.</div>
+              </template>
+            </v-select>
+          </v-form>
 
           <div class="body-2 pb-3">
             <ul class="grey--text text--darken-1 caption">
@@ -42,24 +51,65 @@
 export default {
   data: () =>({
     flag: false,
+    activeComponents:[],
     types: [
-      {value:'markdown', text:'마크다운(editor)'},
-      {value:'accommodation', text:'숙소정보'},
+      {value:'MARKDOWN', text:'마크다운(editor)', useSingle: true},
+      {value:'ACCOMMODATION', text:'숙소정보', useSingle: true},
     ],
-    selectedType: {value:'markdown', text:'마크다운(editor)'},
+    selectedType: null,
+    rules: [
+      v => !!v || '구성요소를 선택해주세요.',
+    ]
   }),
+  computed:{
+    componentTypes(){
+      let results = [];
+
+      for(let typeIdx = 0; typeIdx < this.types.length; typeIdx += 1) {
+        let type = this.types[typeIdx];
+        let flag = false;
+
+        if(type.useSingle) {
+          for(let idx = 0; idx < this.activeComponents.length; idx += 1) {
+            let activeComponent = this.activeComponents[idx];
+            if(activeComponent == type.value) {
+              flag = true;
+              break;
+            }
+          }
+        }
+
+        if(!flag) {
+          results.push(type);
+        }
+      }
+      return results;
+    }
+  },
   methods:{
     close: function(){
-      this.selectedType = this.types[0];
       this.flag = false;
+      this.clear();
     },
-    open: function(){
+    open: function(activeComponents) {
+      this.clear();
+      this.activeComponents = activeComponents;
       this.flag = true;
     },
     apply: function(){
-      let params = {value : this.selectedType.value, text: this.selectedType.text};
-      this.$emit('apply', params);
-      this.close();
+      let valid = this.$refs.frm.validate();
+      if(valid) {
+        let params = {value : this.selectedType};
+        this.$emit('apply', params);
+        this.close();
+      }
+    },
+    clear: function(){
+      this.selectedType = null;
+      if(this.$refs.frm) {
+        this.$refs.frm.reset();
+        this.$refs.frm.resetValidation();
+      }
     }
   }
 }

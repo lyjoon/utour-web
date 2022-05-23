@@ -24,7 +24,7 @@
 
         <div class="text-center">
           <v-btn color="blue darken-1" class="mr-2" dark elevation="0" @click="apply">
-            <v-icon small class="mr-1">mdi-check-outline</v-icon> 추가
+            <v-icon small class="mr-1">mdi-check-outline</v-icon> 적용
           </v-btn>
         </div>
       </v-card-text>
@@ -37,7 +37,7 @@ export default {
   data: ()=>({
     flag: false,
     groupName:null,
-    productImageGroupId:null,
+    productImageGroupIdx:null,
     rules: [
       v => !!v || '그룹명을 입력해주세요.',
       v => (v && v.length <= 50) || '최대 50자까지 입력 가능합니다.',
@@ -51,14 +51,14 @@ export default {
     open: function (params){
       this.clear();
       if(params) {
-        this.groupName = params.groupName;
-        this.productImageGroupId = params.productImageGroupId;
+        this.groupName = params.groupName || null;
+        this.productImageGroupIdx = isNaN(params.productImageGroupIdx) ? null : params.productImageGroupIdx;
       }
       this.flag = true;
     },
     clear: function(){
       this.groupName = null;
-      this.productImageGroupId = null;
+      this.productImageGroupIdx = null;
 
       if(this.$refs.frm) {
         this.$refs.frm.reset();
@@ -68,7 +68,7 @@ export default {
     apply: function() {
       let valid = this.$refs.frm.validate();
       if(valid) {
-        let params = {groupName : this.groupName, productImageGroupId: this.productImageGroupId};
+        let params = {groupName : this.groupName, productImageGroupIdx: this.productImageGroupIdx};
         this.$emit('apply', params);
         this.close();
       }
