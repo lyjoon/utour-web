@@ -63,6 +63,7 @@ import AdminProductFormImage from "@/components/admin/product/AdminProductFormIm
 import AdminProductAppendViewDialog from "@/components/admin/product/AdminProductFormViewComponentAppenderDialog";
 import AdminProductFormViewComponentEditor from "@/components/admin/product/AdminProductFormViewComponentEditor"
 import AdminProductFormViewComponentAccommodation from "@/components/admin/product/AdminProductFormViewComponentAccommodation"
+import productApi from "@/api/ProductApi";
 
 export default {
   name: "AdminNoticeForm",
@@ -83,9 +84,29 @@ export default {
   methods: {
     save: function() {
       let product = this.$refs.admin_product_form_base.getCommand();
-      let productImageGroupList = this.$refs.admin_product_form_image.getCommand();
-      console.log('product.command', product);
-      console.log('product_image_group.command', productImageGroupList);
+      let productImageGroup = this.$refs.admin_product_form_image.getCommand();
+      let componentMap = {};
+      this.components.forEach((item, index) => {
+        let refId = `ref_${item}_${index}`;
+        let _component = this.$refs[refId] ? this.$refs[refId][0] : null;
+        if(_component && _component['getCommand']) {
+          let refObjectCommand = _component.getCommand();
+          componentMap[item] = refObjectCommand;
+        }
+      });
+
+      let repImageFile = product.file;
+      let productImageFiles = productImageGroup.files;
+
+      let commandCollect = {
+        product: product,
+        productImageGroupList: productImageGroup.productImageGroupList,
+        viewComponents: componentMap
+      };
+
+      productApi.save(commandCollect, repImageFile, productImageFiles).then(res => {
+        console.log('product.store.response', res);
+      });
     },
     openViewAppender: function(){
       this.$refs.admin_product_append_view_dialog.open(this.components);

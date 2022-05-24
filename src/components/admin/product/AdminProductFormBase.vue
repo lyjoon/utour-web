@@ -169,7 +169,7 @@ export default {
         productType: this.command.productType,
         nationCode: this.selectedNation ? this.selectedNation.nationCode : null,
         areaCode: this.selectedNationArea ? this.selectedNationArea.areaCode : null,
-        repImageSrc: this.repImageFile.name,
+        repImageSrc: this.repImageFile ? this.repImageFile.name : null,
         title:this.command.title,
         content: this.$refs["toast-editor"] ? this.$refs["toast-editor"].getMarkdown() : null,
         writer:this.command.writer,
