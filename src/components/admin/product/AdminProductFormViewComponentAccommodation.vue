@@ -21,14 +21,6 @@
 
       <v-col :cols="col6">
         <div class="caption grey--text">
-          <v-icon color="grey mr-1" small>mdi-email-outline</v-icon>
-          E-MAIL
-        </div>
-        <v-text-field filled rounded class="rounded" placeholder="숙소 이메일주소를 입력해주세요." dense hide-details />
-      </v-col>
-
-      <v-col :cols="col6">
-        <div class="caption grey--text">
           <v-icon color="grey mr-1" small>mdi-web</v-icon>
           홈페이지
         </div>
@@ -134,7 +126,6 @@
 
       </v-row>
     </v-sheet>
-    <div class="caption grey--text">ㅁㄴㅇ</div>
   </div>
 </template>
 
@@ -142,6 +133,14 @@
 
 export default {
   data:() => ({
+    fax:null,
+    contact:null,
+    address:null,
+    homepage:null,
+    viewComponentId:null,
+    facilities: {
+
+    }
   }),
   computed: {
     col6(){

@@ -6,6 +6,7 @@
               :options="editorOptions"
               initialEditType="wysiwyg"
               height="100%"
+              :usageStatistics="false"
       />
     </v-sheet>
   </div>
@@ -15,6 +16,7 @@
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/vue-editor';
+import axios from "axios";
 
 export default {
   components: {Editor},
@@ -29,9 +31,32 @@ export default {
         ['ul', 'ol', 'task', 'indent', 'outdent'],
         ['table', 'image', 'link'],
         ['scrollSync'],
-      ]
-    }
+      ],
+      hooks: {
+        addImageBlobHook: (blob, callback) => {
+          let formData = new FormData();
+          formData.append('file', blob);
+          axios.post("/api/v1/image/temp/upload", formData).then(res => {
+            let resource = res.data.result;
+            callback(resource.src, resource.alt);
+          })
+        }
+      }
+    },
+    viewComponentId: null,
+    content:null,
   }),
+  mounted() {
+    if(this.view_component_id) {
+      this.viewComponentId = this.view_component_id;
+    }
+  },
+  props:{
+    view_component_id: {
+      default:0,
+      type: Number
+    }
+  },
   methods:{
     reset: function(){
       this.$refs.componentEditor.invoke("reset");
@@ -42,6 +67,13 @@ export default {
     getMarkdown: function(){
       return this.$refs.componentEditor.invoke("getMarkdown");
     },
+    getCommand: function(){
+      let command = {
+        viewComponentId: this.viewComponentId,
+        content: this.getMarkdown()
+      };
+      return command;
+    }
   }
 }
 </script>

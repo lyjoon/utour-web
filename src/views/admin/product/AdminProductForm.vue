@@ -26,7 +26,7 @@
           <strong class="title">{{ componentMap[item].title }}</strong>
         </div>
         <div class="mt-4">
-          <component :is="componentMap[item].componentName"></component>
+          <component :is="componentMap[item].componentName" :ref="`ref_${item}_${index}`"></component>
         </div>
       </div>
     </v-card>
@@ -61,18 +61,18 @@ import AdminProductFormBase from "@/components/admin/product/AdminProductFormBas
 import AdminProductFormImage from "@/components/admin/product/AdminProductFormImage";
 
 import AdminProductAppendViewDialog from "@/components/admin/product/AdminProductFormViewComponentAppenderDialog";
-import AdminProductFormViewComponentMarkdown from "@/components/admin/product/AdminProductFormViewComponentMarkdown"
+import AdminProductFormViewComponentEditor from "@/components/admin/product/AdminProductFormViewComponentEditor"
 import AdminProductFormViewComponentAccommodation from "@/components/admin/product/AdminProductFormViewComponentAccommodation"
 
 export default {
   name: "AdminNoticeForm",
-  components: {AdminProductFormImage, AdminProductFormBase, AdminTitle,AdminProductAppendViewDialog, AdminProductFormViewComponentMarkdown, AdminProductFormViewComponentAccommodation},
+  components: {AdminProductFormImage, AdminProductFormBase, AdminTitle,AdminProductAppendViewDialog, AdminProductFormViewComponentEditor, AdminProductFormViewComponentAccommodation},
   data: ()=> ({
     components: [],
     componentMap: {
-      MARKDOWN: {
-        componentName : 'AdminProductFormViewComponentMarkdown',
-        title: '마크다운(editor)',
+      EDITOR: {
+        componentName : 'AdminProductFormViewComponentEditor',
+        title: '에디터(markdown)',
       },
       ACCOMMODATION: {
         componentName : 'AdminProductFormViewComponentAccommodation',

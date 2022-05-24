@@ -53,7 +53,7 @@ export default {
     flag: false,
     activeComponents:[],
     types: [
-      {value:'MARKDOWN', text:'마크다운(editor)', useSingle: true},
+      {value:'EDITOR', text:'에디터(markdown)', useSingle: true},
       {value:'ACCOMMODATION', text:'숙소정보', useSingle: true},
     ],
     selectedType: null,

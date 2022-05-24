@@ -1,19 +1,25 @@
 <template>
   <v-app class="app-main">
     <v-container>
-
+<!--
       <div>
         <service-terms height="100%" />
-      </div>
+      </div>-->
 
       <v-divider class="mt-5 mb-5" />
 
       <div style="height: 50vh;">
-        <toast-editor ref="editor" @onChange="setMarkdown" />
+        <admin-product-form-view-component-editor ref="admin_product_form_view_component_editor" />
       </div>
       <div style="height: 40vh;margin-top: 20px">
         <toast-viewer ref="viewer" />
       </div>
+
+
+      <div>
+        <v-btn @click="copy" color="blue" >cpy</v-btn>
+      </div>
+
       <div>
         <v-btn @click="openAlert">show-alert</v-btn>
         <v-btn @click="openSnack">show-snack</v-btn>
@@ -34,11 +40,15 @@ import Alert from "@/components/common/Alert";
 import Snackbar from "@/components/common/Snackbar";
 import Confirm from "@/components/common/Confirm";
 import ServiceTerms from "@/components/public/terms/ServiceTerms";
+import AdminProductFormViewComponentEditor from "@/components/admin/product/AdminProductFormViewComponentEditor";
 export default {
-  components: {ServiceTerms, Confirm, Snackbar, Alert, ToastViewer, ToastEditor},
+  components: {AdminProductFormViewComponentEditor, ServiceTerms, Confirm, Snackbar, Alert, ToastViewer, ToastEditor},
   data: () =>({
   }),
   methods:{
+    copy: function(){
+      this.$refs.viewer.setMarkdown(this.$refs.admin_product_form_view_component_editor.getMarkdown());
+    },
     setMarkdown: function(markdown){
       this.$refs.viewer.setMarkdown(markdown);
     },
