@@ -168,7 +168,8 @@ export default {
               productImageId: image['productImageId'] || null,
               imageSrc: image['productId'] ? image['imageSrc'] : null,
               description: image['description'] || null,
-              originFileName: `${productImageGroupList.length}_${productImages.length}_$` + image['file'].name
+              originFileName: `${productImageGroupList.length}$` + image['file'].name
+              //originFileName: image['file'].name
             };
             productImages.push(productImage);
             files.push(image['file']);

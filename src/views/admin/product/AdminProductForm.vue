@@ -48,8 +48,8 @@
         <v-icon small class="mr-1">mdi-content-save</v-icon> 저장
       </v-btn>
 
-      <v-btn color="grey" large class="ml-4" dark elevation="0">
-        <v-icon small class="mr-1">mdi-cancel</v-icon> 취소
+      <v-btn color="grey" large class="ml-4" dark elevation="0" @click="back">
+        <v-icon small class="mr-1">mdi-format-list-bulleted</v-icon> 목록으로
       </v-btn>
     </div>
   </v-container>
@@ -99,20 +99,25 @@ export default {
       let productImageFiles = productImageGroup.files;
 
       let commandCollect = {
-        product: product,
+        product: product.product,
         productImageGroupList: productImageGroup.productImageGroupList,
         viewComponents: componentMap
       };
 
-      productApi.save(commandCollect, repImageFile, productImageFiles).then(res => {
-        console.log('product.store.response', res);
-      });
+      productApi.save(commandCollect, repImageFile, productImageFiles)
+          // eslint-disable-next-line no-unused-vars
+          .then(res => {
+            this.$router.push(`/admin/product/list?page=1`);
+          });
     },
     openViewAppender: function(){
       this.$refs.admin_product_append_view_dialog.open(this.components);
     },
     applyViewAppender: function(item){
       this.components.push(item.value);
+    },
+    back: function() {
+      this.$router.push(`/admin/product/list?page=1`);
     }
   }
 }

@@ -20,6 +20,20 @@ class ProductApi extends Api {
                 "Content-Type": `multipart/form-data`,
             }});
     }
+
+    async getList(page, limit, queryType, query){
+        let parameters = {
+            page: page,
+            limit: limit,
+            queryType: queryType,
+            query: query,
+        };
+
+        return await this.getAxios().get(`/api/v1/product/list?${this.queryString(parameters)}`);
+    }
+    async delete(productId){
+        return await this.getAxios().delete(`/api/v1/product/${productId}`);
+    }
 }
 
 export default new ProductApi()

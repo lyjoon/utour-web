@@ -8,7 +8,7 @@
       <v-row>
         <v-col cols="12">
           <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-pencil</v-icon>상품명(필수)</div>
-          <v-text-field dense placeholder="여행상품에 대한 제목을 입력해주세요."
+          <v-text-field dense placeholder="여행상품에 대한 제목을 입력해주세요." v-model="command.title"
                         aria-required="true" filled rounded class="rounded" ></v-text-field>
         </v-col>
 
@@ -17,7 +17,7 @@
           <div>
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small >mdi-cog</v-icon>상품유형</div>
             <v-select filled rounded dense class="rounded" placeholder="여행상품 유형을 선택해주세요"
-                      v-model="selectedProductType"
+                      v-model="command.productType"
                       disabled
                       eager
                       :items="productType" item-text="codeName" item-value="code"></v-select>
@@ -28,7 +28,7 @@
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>여행국가</div>
             <v-select filled rounded dense class="rounded" placeholder="여행국가"
                       :items="nationList"
-                      v-model="selectedNation"
+                      v-model="command.nationCode"
                       eager
                       item-value="nationCode"
                       item-text="nationName"
@@ -45,7 +45,7 @@
                       :items="nationAreaList"
                       item-value="areaCode"
                       item-text="areaName"
-                      v-model="selectedNationArea"
+                      v-model="command.areaCode"
                       placeholder="여행도시/지역"
             >
               <template v-slot:no-data>
@@ -116,9 +116,7 @@ export default {
       let resultData = res.data;
       if(resultData.result && resultData.result['codeList']) {
         this.productType = resultData.result['codeList'];
-        this.selectedProductType = this.productType.filter(item => {
-          return item.code == 'HOTEL';
-        })[0];
+        this.command.productType = 'HOTEL';
       }
     });
   },
@@ -126,9 +124,6 @@ export default {
     nationList:[],
     nationAreaList:[],
     productType:[],
-    selectedProductType: null,
-    selectedNation: null,
-    selectedNationArea: null,
     command: {
       productId:null,
       productType:null,
@@ -167,8 +162,8 @@ export default {
       let command = {
         productId: this.command.productId,
         productType: this.command.productType,
-        nationCode: this.selectedNation ? this.selectedNation.nationCode : null,
-        areaCode: this.selectedNationArea ? this.selectedNationArea.areaCode : null,
+        nationCode: this.command.nationCode,
+        areaCode: this.command.areaCode,
         repImageSrc: this.repImageFile ? this.repImageFile.name : null,
         title:this.command.title,
         content: this.$refs["toast-editor"] ? this.$refs["toast-editor"].getMarkdown() : null,

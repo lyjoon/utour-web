@@ -14,8 +14,6 @@
               <v-select placeholder="검색항목" class="body-2"
                         v-model="queryType"
                         :items="queryTypeItems"
-                        item-text="text"
-                        item-value="value"
                         hide-details dense outlined></v-select>
             </div>
             <div class="d-flex ml-1" style="width: 250px;">
@@ -37,8 +35,8 @@
         <template v-slot:default>
           <colgroup>
             <col style="width: 100px" />
-            <col style="width: 150px" />
             <col  />
+            <col style="width: 150px" />
             <col style="width: 110px" />
             <col style="width: 100px" />
             <col style="width: 120px" />
@@ -46,8 +44,8 @@
           <thead>
           <tr>
             <th class="text-center body-1 font-weight-bold">ID</th>
-            <th class="text-center body-1 font-weight-bold">국가</th>
             <th class="text-center body-1 font-weight-bold">상품명</th>
+            <th class="text-center body-1 font-weight-bold">국가</th>
             <th class="text-center body-1 font-weight-bold">상품유형</th>
             <th class="text-center body-1 font-weight-bold">등록일</th>
             <th class="text-center body-1 font-weight-bold">actions</th>
@@ -65,13 +63,12 @@
             <td class="text-center body-2">
               {{item.productId}}
             </td>
-            <td class="text-center body-2">
-              {{ item.nationName }}
-            </td>
+
             <td class="text-left body-2">
-              <router-link class="text-decoration-underline" :to="`/admin/product/edit?productId=${item.productId}`">
-                {{ item.title }}
-              </router-link>
+              {{ item.title }}
+            </td>
+            <td class="text-center body-2">
+              {{ item['nationName'] }}
             </td>
             <td class="text-center body-2">
               {{ item.productType }}
@@ -143,7 +140,7 @@
     <!-- 하단 actions -->
     <div class="pt-4 pb-4">
       <div class="justify-end flex-fill d-flex">
-        <v-btn color="blue-grey lighten-2" dark elevation="0" @click="onCreate">
+        <v-btn color="grey" dark elevation="0" @click="onCreate">
           <v-icon small class="mr-1">mdi-plus</v-icon> 추가
         </v-btn>
       </div>
@@ -167,6 +164,7 @@
 
 <script>
 import CountryFlag from 'vue-country-flag'
+import productApi from "@/api/ProductApi";
 
 export default {
   components:{CountryFlag},
@@ -175,20 +173,51 @@ export default {
       return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
     }
   },
+  mounted() {
+    this.search();
+  },
+  data: () =>({
+    pagination: {
+      page: 1,
+      pageCount : 1,
+      count: 0,
+      limit: 20
+    },
+    query:null,
+    results:[],
+    queryTypeItems: [
+      {value:'ALL', text:'제목+내용'},
+      {value:'TITLE', text:'제목'},
+      {value:'WRITER', text:'작성자'},
+      {value:'CONTENT', text:'내용'},
+    ],
+    queryType: {value:'ALL', text:'제목+내용'},
+  }),
   methods: {
     edit : function(item){
-      console.log('edit.item', item);
-      this.$router.push('/admin/product/edit');
+      this.$router.push(`/admin/product/edit?productId=${item.productId}`);
     },
     deleteItem : function(item){
-      console.log('delete.item', item);
-    },
-    searchQuery: function(){
-      this.pagination.page = 1;
-      this.search();
+      this.$store.commit('confirm', {message:'확인을 누르면 삭제합니다.', callback: function() {
+          // eslint-disable-next-line no-unused-vars
+        productApi.delete(item.productId).then(res => {
+          this.search();
+        });
+        }
+      })
     },
     search: function(){
-      this.$store.commit('alert', {message:'준비중인데'});
+      // this.$store.commit('alert', {message:'준비중인데'});
+      this.pagination.page = 1;
+      productApi.getList(this.pagination.page, 20, this.queryType.value, this.query).then(res => {
+        let data = res.data;
+        if(data) {
+          this.pagination.page = data.page || 1;
+          this.pagination.pageCount = data['pageCount'] || 0;
+          this.pagination.count = data['count'] || 0;
+          this.results = data.result || [];
+        }
+      });
     },
     next: function(page){
       this.pagination.page = page;
@@ -199,31 +228,6 @@ export default {
       this.$router.push("/admin/product/edit");
     }
   },
-  data: () =>({
-    pagination: {
-      page: 1,
-      pageCount : 1,
-      count: 0,
-      limit: 20
-    },
-    query:null,
-    results:[{
-      productId: 1234567,
-      title:'정규직',
-      description: '그때만큼재미있을까',
-      nationName: '셉',
-      areaName:'셉시티',
-      productType:'호텔',
-      createAt:'2022.07.15'
-    }],
-    queryTypeItems: [
-      {value:'ALL', text:'제목+내용'},
-      {value:'TITLE', text:'제목'},
-      {value:'WRITER', text:'작성자'},
-      {value:'CONTENT', text:'내용'},
-    ],
-    queryType: {value:'ALL', text:'제목+내용'},
-  })
 }
 </script>
 
