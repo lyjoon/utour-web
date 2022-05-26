@@ -198,10 +198,11 @@ export default {
       this.$router.push(`/admin/product/edit?productId=${item.productId}`);
     },
     deleteItem : function(item){
+      let t = this;
       this.$store.commit('confirm', {message:'확인을 누르면 삭제합니다.', callback: function() {
           // eslint-disable-next-line no-unused-vars
         productApi.delete(item.productId).then(res => {
-          this.search();
+          t.search();
         });
         }
       })

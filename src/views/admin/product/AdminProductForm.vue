@@ -26,7 +26,7 @@
           <strong class="title">{{ componentMap[item].title }}</strong>
         </div>
         <div class="mt-4">
-          <component :is="componentMap[item].componentName" :ref="`ref_${item}_${index}`"></component>
+          <component :is="componentMap[item].componentName" :ref="`vw_${item}_${index}`" v-bind="bind(item, index)"></component>
         </div>
       </div>
     </v-card>
@@ -80,14 +80,40 @@ export default {
         title: '숙소정보',
       }
     },
+    product: null,
+    productImageGroups: null,
+    viewComponents: null,
   }),
+  computed:{
+    isUpdate(){
+      return this.product && (this.product.productId || 0) > 0;
+    }
+  },
+  mounted() {
+    let productId = this.$route.query.productId;
+    if(productId) {
+      productApi.get(productId).then(res => {
+        this.product = res.data.result['product'];
+        this.productImageGroups = res.data.result['productImageGroups'];
+        this.viewComponents = res.data.result['viewComponents'];
+
+        this.$refs.admin_product_form_base.bind(res.data.result['product']);
+        this.$refs.admin_product_form_image.bind(res.data.result['productImageGroups']);
+        if(this.viewComponents) {
+          Object.keys(this.viewComponents).forEach((key) => {
+            this.components.push(key);
+          })
+        }
+      });
+    }
+  },
   methods: {
     save: function() {
       let product = this.$refs.admin_product_form_base.getCommand();
       let productImageGroup = this.$refs.admin_product_form_image.getCommand();
       let componentMap = {};
       this.components.forEach((item, index) => {
-        let refId = `ref_${item}_${index}`;
+        let refId = `vw_${item}_${index}`;
         let _component = this.$refs[refId] ? this.$refs[refId][0] : null;
         if(_component && _component['getCommand']) {
           let refObjectCommand = _component.getCommand();
@@ -118,6 +144,11 @@ export default {
     },
     back: function() {
       this.$router.push(`/admin/product/list?page=1`);
+    },
+    bind: function(item, index){
+      let keys = Object.keys(this.viewComponents);
+      let key = keys[index]
+      return this.viewComponents[key];
     }
   }
 }

@@ -47,14 +47,11 @@ export default {
     content:null,
   }),
   mounted() {
-    if(this.view_component_id) {
-      this.viewComponentId = this.view_component_id;
-    }
-  },
-  props:{
-    view_component_id: {
-      default:0,
-      type: Number
+    let attr = this.$attrs;
+    if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
+      this.viewComponentId = attr.viewComponentId;
+      this.content = attr.content;
+      this.setMarkdown(this.content);
     }
   },
   methods:{

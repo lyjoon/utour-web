@@ -175,6 +175,27 @@ export default {
         product: command,
         file: this.repImageFile
       };
+    },
+    bind: function(product) {
+      // console.log('product-form-base.bind', product);
+      if(product){
+        /*Object.keys(this.command).forEach(key => {
+          this.command[key] = product[key];
+        });*/
+        this.command.productId = product['productId'];
+        this.command.productType = product['productType'];
+        this.command.nationCode = product['nationCode'];
+        // this.command.areaCode = product['areaCode'];
+        this.command.repImageSrc = product['repImageSrc'];
+        this.command.title = product['title'];
+        this.command.content = product['content'];
+        this.command.writer = product['writer'];
+        this.command.useYn = product['useYn'];
+
+        this.$refs["toast-editor"].setMarkdown(this.command.content);
+
+        console.log('product-form-base.bind', this.command, product);
+      }
     }
   }
 }

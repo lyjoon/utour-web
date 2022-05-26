@@ -169,7 +169,6 @@ export default {
               imageSrc: image['productId'] ? image['imageSrc'] : null,
               description: image['description'] || null,
               originFileName: `${productImageGroupList.length}$` + image['file'].name
-              //originFileName: image['file'].name
             };
             productImages.push(productImage);
             files.push(image['file']);
@@ -185,6 +184,20 @@ export default {
       });
 
       return {productImageGroupList: productImageGroupList, files: files};
+    },
+    bind: function(productImageGroups){
+      // console.log('product-form-image.bind', productImageGroups);
+      if(productImageGroups && Array.isArray(productImageGroups) && (productImageGroups.length || 0 ) > 0) {
+        this.productImageGroupList = [];
+        productImageGroups.forEach(imageGroup => {
+          let entry = {
+            productImageGroupId: imageGroup.productImageGroupId,
+            groupName : imageGroup.groupName,
+            productImages: imageGroup.productImages,
+          };
+          this.productImageGroupList.push(entry);
+        });
+      }
     }
   }
 }

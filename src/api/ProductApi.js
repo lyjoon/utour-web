@@ -34,6 +34,11 @@ class ProductApi extends Api {
     async delete(productId){
         return await this.getAxios().delete(`/api/v1/product/${productId}`);
     }
+
+
+    async get(productId){
+        return await this.getAxios().get(`/api/v1/product/${productId}`);
+    }
 }
 
 export default new ProductApi()
