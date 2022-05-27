@@ -17,10 +17,10 @@
                         hide-details dense outlined></v-select>
             </div>
             <div class="d-flex ml-1" style="width: 250px;">
-              <v-text-field placeholder="검색어" v-model="query" label="검색어" outlined hide-details dense @keyup.enter="searchQuery" />
+              <v-text-field placeholder="검색어" v-model="query" label="검색어" outlined hide-details dense @keyup.enter="search" />
             </div>
             <div class="d-flex ml-1">
-              <v-btn color="deep-orange darken-2" height="39px" elevation="0" dark @click="searchQuery">검색</v-btn>
+              <v-btn color="deep-orange darken-2" height="39px" elevation="0" dark @click="search">검색</v-btn>
             </div>
           </div>
         </v-col>
@@ -199,7 +199,7 @@ export default {
     },
     deleteItem : function(item){
       let t = this;
-      this.$store.commit('confirm', {message:'확인을 누르면 삭제합니다.', callback: function() {
+      this.$store.commit('confirm', {title:'안내', message:'확인을 누르면 해당 상품정보가 삭제됩니다.', callback: function() {
           // eslint-disable-next-line no-unused-vars
         productApi.delete(item.productId).then(res => {
           t.search();

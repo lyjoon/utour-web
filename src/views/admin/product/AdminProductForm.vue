@@ -51,6 +51,10 @@
       <v-btn color="grey" large class="ml-4" dark elevation="0" @click="back">
         <v-icon small class="mr-1">mdi-format-list-bulleted</v-icon> 목록으로
       </v-btn>
+
+      <v-btn color="grey" large class="ml-4" dark elevation="0" @click="deleteProduct" v-if="isFind">
+        <v-icon small class="mr-1">mdi-delete</v-icon> 삭제
+      </v-btn>
     </div>
   </v-container>
 </template>
@@ -85,7 +89,7 @@ export default {
     viewComponents: null,
   }),
   computed:{
-    isUpdate(){
+    isFind(){
       return this.product && (this.product.productId || 0) > 0;
     }
   },
@@ -96,6 +100,7 @@ export default {
         this.product = res.data.result['product'];
         this.productImageGroups = res.data.result['productImageGroups'];
         this.viewComponents = res.data.result['viewComponents'];
+        // console.log('asd', this.product);
 
         this.$refs.admin_product_form_base.bind(res.data.result['product']);
         this.$refs.admin_product_form_image.bind(res.data.result['productImageGroups']);
@@ -149,6 +154,16 @@ export default {
       let keys = Object.keys(this.viewComponents);
       let key = keys[index]
       return this.viewComponents[key];
+    },
+    deleteProduct: function(){
+      let _this = this;
+      this.$store.commit('confirm', {title:'안내', message:'확인을 누르면 해당 상품정보가 삭제됩니다.', callback: function(){
+        // console.log('this.product', this.product);
+          // eslint-disable-next-line no-unused-vars
+        productApi.delete(_this.product.productId).then(res=>{
+          _this.back();
+        })
+        }});
     }
   }
 }

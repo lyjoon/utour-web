@@ -185,12 +185,13 @@ export default {
         this.command.productId = product['productId'];
         this.command.productType = product['productType'];
         this.command.nationCode = product['nationCode'];
-        // this.command.areaCode = product['areaCode'];
-        this.command.repImageSrc = product['repImageSrc'];
+        this.command.repImageSrc = `/api/v1/product/image/${this.command.productId}`;
         this.command.title = product['title'];
         this.command.content = product['content'];
         this.command.writer = product['writer'];
         this.command.useYn = product['useYn'];
+        this.repImageReaderSrc = this.command.repImageSrc;
+        // this.repImageReaderSrc = `/v1/product/image/${this.command.productId}`;
 
         this.$refs["toast-editor"].setMarkdown(this.command.content);
 
