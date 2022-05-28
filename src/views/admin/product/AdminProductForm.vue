@@ -31,7 +31,7 @@
       </div>
     </v-card>
 
-    <!-- 화면구성요소 추가구성 -->
+    <!-- 화면구성요소 추가구성
     <div class="pt-4 pb-4">
       <div class="flex-fill d-flex justify-center">
         <v-btn dark color="blue darken-1" class="flex-fill" x-large elevation="0" @click="openViewAppender">
@@ -39,6 +39,7 @@
           화면구성추가</v-btn>
       </div>
     </div>
+    -->
 
     <admin-product-append-view-dialog ref="admin_product_append_view_dialog" @apply="applyViewAppender" />
 
@@ -73,7 +74,7 @@ export default {
   name: "AdminNoticeForm",
   components: {AdminProductFormImage, AdminProductFormBase, AdminTitle,AdminProductAppendViewDialog, AdminProductFormViewComponentEditor, AdminProductFormViewComponentAccommodation},
   data: ()=> ({
-    components: [],
+    components: ["ACCOMMODATION", "EDITOR"],
     componentMap: {
       EDITOR: {
         componentName : 'AdminProductFormViewComponentEditor',
