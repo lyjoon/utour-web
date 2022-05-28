@@ -135,7 +135,7 @@ export default {
         viewComponents: componentMap
       };
 
-      if(this.isUpdate) {
+      if(this.isFind) {
         productApi.update(commandCollect, repImageFile, productImageFiles)
             // eslint-disable-next-line no-unused-vars
             .then(res => {

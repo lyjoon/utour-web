@@ -134,8 +134,8 @@ export default {
         let fileReader = new FileReader();
         fileReader.addEventListener("load", function () {
           let item = {
-            imageSrc: null, description: null, productId:null, productImageId:null, productImageGroupId: null,
-            checked:false, file: _file
+            imageSrc: null, title: null, description: null, productId:null, productImageId:null, productImageGroupId: null,
+            checked:false, file: _file, deleteYn: false
           };
           item.imageSrc = fileReader.result;
           _this.productImageGroupList[_this.productImageGroupIdx].productImages.push(item);
@@ -168,7 +168,8 @@ export default {
               productImageId: image['productImageId'] || null,
               imageSrc: image['productId'] ? image['imageSrc'] : null,
               description: image['description'] || null,
-              originFileName: `${productImageGroupList.length}$` + image['file'].name
+              originFileName: (image['file'] ? (`${productImageGroupList.length}$` + image['file'].name) : null),
+              deleteYn: image['deleteYn'] || false
             };
             productImages.push(productImage);
             files.push(image['file']);
@@ -185,16 +186,31 @@ export default {
 
       return {productImageGroupList: productImageGroupList, files: files};
     },
-    bind: function(productImageGroups){
-      // console.log('product-form-image.bind', productImageGroups);
+    bind: function(productImageGroups) {
       if(productImageGroups && Array.isArray(productImageGroups) && (productImageGroups.length || 0 ) > 0) {
         this.productImageGroupList = [];
         productImageGroups.forEach(imageGroup => {
           let entry = {
             productImageGroupId: imageGroup.productImageGroupId,
             groupName : imageGroup.groupName,
-            productImages: imageGroup.productImages,
+            productImages: [], //imageGroup.productImages
           };
+          if(imageGroup.productImages && Array.isArray(imageGroup.productImages)) {
+            imageGroup.productImages.forEach(image => {
+              let item = {
+                productId: image['productId'] || null,
+                productImageGroupId: image['productImageGroupId'] || null,
+                productImageId: image['productImageId'] || null,
+                imageSrc: `/api/v1/product/image/${image['productId']}/${image['productImageGroupId']}/${image['productImageId']}`,
+                description: image['description'] || null,
+                title: image['title'] || null,
+                checked:false,
+                deleteYn: false,
+                file: null,
+              };
+              entry.productImages.push(item);
+            })
+          }
           this.productImageGroupList.push(entry);
         });
       }
