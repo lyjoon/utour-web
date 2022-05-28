@@ -135,11 +135,19 @@ export default {
         viewComponents: componentMap
       };
 
-      productApi.save(commandCollect, repImageFile, productImageFiles)
-          // eslint-disable-next-line no-unused-vars
-          .then(res => {
-            this.$router.push(`/admin/product/list?page=1`);
-          });
+      if(this.isUpdate) {
+        productApi.update(commandCollect, repImageFile, productImageFiles)
+            // eslint-disable-next-line no-unused-vars
+            .then(res => {
+              this.$router.push(`/admin/product/list?page=1`);
+            });
+      } else {
+        productApi.save(commandCollect, repImageFile, productImageFiles)
+            // eslint-disable-next-line no-unused-vars
+            .then(res => {
+              this.$router.push(`/admin/product/list?page=1`);
+            });
+      }
     },
     openViewAppender: function(){
       this.$refs.admin_product_append_view_dialog.open(this.components);
