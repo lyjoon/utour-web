@@ -36,7 +36,7 @@ export default {
         addImageBlobHook: (blob, callback) => {
           let formData = new FormData();
           formData.append('file', blob);
-          axios.post("/api/v1/image/temp/upload", formData).then(res => {
+          axios.post("/api/v1/image/upload/temp", formData).then(res => {
             let resource = res.data.result;
             callback(resource.src, resource.alt);
           })

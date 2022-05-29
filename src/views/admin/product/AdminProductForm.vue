@@ -71,10 +71,10 @@ import AdminProductFormViewComponentAccommodation from "@/components/admin/produ
 import productApi from "@/api/ProductApi";
 
 export default {
-  name: "AdminNoticeForm",
   components: {AdminProductFormImage, AdminProductFormBase, AdminTitle,AdminProductAppendViewDialog, AdminProductFormViewComponentEditor, AdminProductFormViewComponentAccommodation},
   data: ()=> ({
     components: ["ACCOMMODATION", "EDITOR"],
+    //components: [],
     componentMap: {
       EDITOR: {
         componentName : 'AdminProductFormViewComponentEditor',
@@ -96,7 +96,7 @@ export default {
   },
   mounted() {
     let productId = this.$route.query.productId;
-    if(productId) {
+    if(productId != undefined && productId != '') {
       productApi.get(productId).then(res => {
         this.product = res.data.result['product'];
         this.productImageGroups = res.data.result['productImageGroups'];
@@ -160,9 +160,11 @@ export default {
       this.$router.push(`/admin/product/list?page=1`);
     },
     bind: function(item, index){
-      let keys = Object.keys(this.viewComponents);
-      let key = keys[index]
-      return this.viewComponents[key];
+      if(this.viewComponents) {
+        let keys = Object.keys(this.viewComponents);
+        let key = keys[index]
+        return this.viewComponents[key];
+      }
     },
     deleteProduct: function(){
       let _this = this;
