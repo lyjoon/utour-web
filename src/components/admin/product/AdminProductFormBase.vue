@@ -12,6 +12,12 @@
                         aria-required="true" filled rounded class="rounded" ></v-text-field>
         </v-col>
 
+        <v-col cols="12">
+          <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-text</v-icon>상품한줄설명</div>
+          <v-text-field dense hide-details placeholder="여행상품에 대한 설명을 작성해주세요." v-model="command.description"
+                        aria-required="true" filled rounded class="rounded" ></v-text-field>
+        </v-col>
+
         <v-col :cols="col4">
 
           <div>
@@ -58,7 +64,11 @@
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-image</v-icon>대표이미지</div>
             <v-sheet width="100%" :height="repImageHeight" elevation="0" color="grey lighten-3" class="mx-auto align-center d-flex justify-center" rounded>
               <v-icon v-if="!repImageReaderSrc" color="grey lighten-2" v-text="'mdi-image-plus'" size="100" @click="addRepImageSrc"></v-icon>
-              <v-img v-if="repImageReaderSrc" :src="repImageReaderSrc" width="100%" height="100%" class="rounded" />
+              <v-img v-if="repImageReaderSrc" :src="repImageReaderSrc" width="100%" height="100%" class="rounded" >
+                <template v-slot:placeholder>
+                  <v-skeleton-loader elevation="0" type="image,image"></v-skeleton-loader>
+                </template>
+              </v-img>
             </v-sheet>
 
             <v-file-input ref="repImageFileInput"
@@ -72,7 +82,7 @@
         </v-col>
 
         <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 8" class="pb-9">
-          <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1">mdi-pencil</v-icon>개요</div>
+          <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1">mdi-pencil</v-icon>여행상품개요</div>
           <v-sheet height="100%" min-height="500px">
             <toast-editor ref="toast-editor"></toast-editor>
           </v-sheet>
@@ -131,6 +141,7 @@ export default {
       areaCode:null,
       repImageSrc:null,
       title:null,
+      description:null,
       content:null,
       writer:null,
       useYn:null,
@@ -156,7 +167,19 @@ export default {
       }
     },
     onChangeNationCode: function(){
-      console.log('get-nation-code');
+      // console.log('get-nation-code');
+      let nationCode = this.command.nationCode;
+      codeApi.getNation(nationCode).then(res => {
+        let data = res.data.result;
+        //console.log('onChangeNationCode', data);
+        if(data) {
+          let nationAreaList = data.nationAreaList;
+          if(nationAreaList && Array.isArray(nationAreaList)) {
+            this.nationAreaList = nationAreaList;
+          }
+        }
+      })
+
     },
     getCommand: function() {
       let command = {
@@ -166,6 +189,7 @@ export default {
         areaCode: this.command.areaCode,
         repImageSrc: this.repImageFile ? this.repImageFile.name : null,
         title:this.command.title,
+        description:this.command.description,
         content: this.$refs["toast-editor"] ? this.$refs["toast-editor"].getMarkdown() : null,
         writer:this.command.writer,
         useYn:this.command.useYn,
@@ -187,6 +211,7 @@ export default {
         this.command.nationCode = product['nationCode'];
         this.command.repImageSrc = `/api/v1/product/image/${this.command.productId}`;
         this.command.title = product['title'];
+        this.command.description = product['description'];
         this.command.content = product['content'];
         this.command.writer = product['writer'];
         this.command.useYn = product['useYn'];

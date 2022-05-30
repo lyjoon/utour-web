@@ -48,6 +48,7 @@ export default {
   }),
   mounted() {
     let attr = this.$attrs;
+    console.log('mounted.admin-product-view-component-editor.bind-attr', attr);
     if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
       this.viewComponentId = attr.viewComponentId;
       this.content = attr.content;

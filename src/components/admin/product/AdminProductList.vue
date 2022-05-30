@@ -59,7 +59,7 @@
             </td>
           </tr>
 
-          <tr v-for="(item, index) in results" :key="index">
+          <tr v-for="(item, index) in results" :key="index" @click.stop="edit(item)" class="cursor-pointer">
             <td class="text-center body-2">
               {{item.productId}}
             </td>
@@ -80,13 +80,13 @@
               <v-icon
                   small
                   class="mr-2"
-                  @click="edit(item)">
+                  @click.stop="edit(item)">
                 mdi-pencil
               </v-icon>
 
               <v-icon
                   small
-                  @click="deleteItem(item)">
+                  @click.stop="deleteItem(item)">
                 mdi-delete
               </v-icon>
             </td>
@@ -171,7 +171,7 @@ export default {
   computed: {
     paginationLimit(){
       return this.pagination.pageCount > 5 ? 5 : this.pagination.pageCount;
-    }
+    },
   },
   mounted() {
     this.search();
@@ -214,7 +214,7 @@ export default {
         let data = res.data;
         if(data) {
           this.pagination.page = data.page || 1;
-          this.pagination.pageCount = data['pageCount'] || 0;
+          this.pagination.pageCount = data['pageCount'] || 1;
           this.pagination.count = data['count'] || 0;
           this.results = data.result || [];
         }

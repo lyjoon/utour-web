@@ -20,7 +20,7 @@
 
       <div class="d-flex flex-fill align-center">
         <v-chip-group v-model="productImageGroupIdx" column active-class="blue--text text--blue--4">
-          <v-chip v-for="(item, index) in productImageGroupList" :key="index" filter :value="index">{{item.groupName + ( item.productImages && item.productImages.length > 0 ? ` (${item.productImages.length})` : '')}}
+          <v-chip v-for="(item, index) in productImageGroupList" :key="index" filter :value="index" :class="`${item.deleteYn ? 'd-none':''}`">{{item.groupName + ( item.productImages && item.productImages.length > 0 ? ` (${item.productImages.length})` : '')}}
           </v-chip>
         </v-chip-group>
       </div>
@@ -39,13 +39,18 @@
       </div>
 
       <v-row dense>
-        <v-col :cols="gridImageCols" v-for="(item, idx) in productImageGroupList[productImageGroupIdx].productImages" :key="idx">
+        <v-col :cols="gridImageCols" v-for="(item, idx) in productImageGroupList[productImageGroupIdx].productImages" :key="idx" :class="`${item.deleteYn ? 'd-none':''}`">
           <v-img width="100%" :height="gridImageHeight" :src="item.imageSrc" class="rounded" @mouseenter="overlayProductImage(item, true)" @mouseleave="overlayProductImage(item, false)">
-            <v-overlay absolute opacity="0.2"  v-if="item.checked" class="justify-end align-start elevation-0">
-              <v-btn icon class="mr-1 mt-1" @click="deleteProductImage(item)">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-overlay>
+            <template v-slot:default>
+              <v-overlay absolute opacity="0.2"  v-if="item.checked" class="justify-end align-start elevation-0">
+                <v-btn icon class="mr-1 mt-1" @click="deleteProductImage(item)">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </v-overlay>
+            </template>
+            <template v-slot:placeholder>
+              <v-skeleton-loader elevation="0" type="image,image"></v-skeleton-loader>
+            </template>
           </v-img>
         </v-col>
       </v-row>
@@ -99,9 +104,16 @@ export default {
       } else this.$refs.admin_product_form_image_group_dialog.open();
     },
     deleteImageGroup: function() {
-      let targetIdx = this.productImageGroupIdx;
-      this.productImageGroupList.splice(targetIdx, 1);
-      this.productImageGroupIdx = null;
+      let item = this.productImageGroupList[this.productImageGroupIdx];
+      console.log('deleteImageGroup', item);
+      if(item) {
+        if ((item.productImageGroupId || 0) > 0) {
+          item.deleteYn = true;
+        } else {
+          this.productImageGroupList.splice(this.productImageGroupIdx, 1);
+        }
+        this.productImageGroupIdx = null;
+      }
     },
     applyImageGroup: function(params) {
 
@@ -147,8 +159,12 @@ export default {
     },
     deleteProductImage: function(item, index) {
       let productImages = this.productImageGroupList[this.productImageGroupIdx].productImages;
-      if(productImages && productImages.length > 0) {
-        productImages.splice(index, 1);
+      if((item.productImageId || 0)  > 0 ) {
+        item.deleteYn = true;
+      } else {
+        if(productImages && productImages.length > 0) {
+          productImages.splice(index, 1);
+        }
       }
     },
     overlayProductImage: function(item, flag) {
@@ -179,6 +195,7 @@ export default {
         let productImageGroup = {
           productImageGroupId: imageGroup.productImageGroupId,
           groupName : imageGroup.groupName,
+          deleteYn: imageGroup.deleteYn ? true:false,
           productImages: productImages,
         };
         productImageGroupList.push(productImageGroup);
@@ -193,6 +210,7 @@ export default {
           let entry = {
             productImageGroupId: imageGroup.productImageGroupId,
             groupName : imageGroup.groupName,
+            deleteYn: imageGroup.deleteYn || false,
             productImages: [], //imageGroup.productImages
           };
           if(imageGroup.productImages && Array.isArray(imageGroup.productImages)) {

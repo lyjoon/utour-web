@@ -20,7 +20,7 @@
       </div>
     </v-card>
 
-    <v-card class="mt-4" v-for="(item, index) in components" :key="index" elevation="0" outlined>
+    <v-card :class="`mt-4 ${item.deleteYn ? 'd-none' : ''}`" v-for="(item, index) in components" :key="index" elevation="0" outlined >
       <div class="pa-4">
         <div class="pt-4 pb-2">
           <strong class="title">{{ componentMap[item].title }}</strong>
@@ -44,18 +44,23 @@
     <admin-product-append-view-dialog ref="admin_product_append_view_dialog" @apply="applyViewAppender" />
 
     <!-- actions -->
-    <div class="ma-6 d-flex justify-center">
-      <v-btn color="blue darken-2" large dark elevation="0" @click="save">
-        <v-icon small class="mr-1">mdi-content-save</v-icon> 저장
-      </v-btn>
+    <div class="pt-6 pb-6">
+      <div class="d-flex flex-fill">
+        <v-btn color="blue darken-2" large dark elevation="0" @click="save">
+          <v-icon small class="mr-1">mdi-content-save</v-icon> 저장
+        </v-btn>
 
-      <v-btn color="grey" large class="ml-4" dark elevation="0" @click="back">
-        <v-icon small class="mr-1">mdi-format-list-bulleted</v-icon> 목록으로
-      </v-btn>
+        <v-btn color="grey" large class="ml-4" dark elevation="0" @click="deleteProduct" v-if="isFind">
+          <v-icon small class="mr-1">mdi-delete</v-icon> 삭제
+        </v-btn>
 
-      <v-btn color="grey" large class="ml-4" dark elevation="0" @click="deleteProduct" v-if="isFind">
-        <v-icon small class="mr-1">mdi-delete</v-icon> 삭제
-      </v-btn>
+        <v-spacer />
+
+        <v-btn color="grey" large class="ml-4" dark elevation="0" @click="back">
+          <v-icon small class="mr-1">mdi-format-list-bulleted</v-icon> 목록으로
+        </v-btn>
+
+      </div>
     </div>
   </v-container>
 </template>
@@ -73,8 +78,8 @@ import productApi from "@/api/ProductApi";
 export default {
   components: {AdminProductFormImage, AdminProductFormBase, AdminTitle,AdminProductAppendViewDialog, AdminProductFormViewComponentEditor, AdminProductFormViewComponentAccommodation},
   data: ()=> ({
-    components: ["ACCOMMODATION", "EDITOR"],
-    //components: [],
+    //components: ["ACCOMMODATION", "EDITOR"],
+    components: [],
     componentMap: {
       EDITOR: {
         componentName : 'AdminProductFormViewComponentEditor',
@@ -111,6 +116,8 @@ export default {
           })
         }
       });
+    } else {
+      this.components = ["ACCOMMODATION", "EDITOR"];
     }
   },
   methods: {
@@ -136,6 +143,7 @@ export default {
         viewComponents: componentMap
       };
 
+      console.log('product-save', commandCollect);
       if(this.isFind) {
         productApi.update(commandCollect, repImageFile, productImageFiles)
             // eslint-disable-next-line no-unused-vars
@@ -160,10 +168,11 @@ export default {
       this.$router.push(`/admin/product/list?page=1`);
     },
     bind: function(item, index){
+      console.log('base.bind', item,index, this.viewComponents);
       if(this.viewComponents) {
         let keys = Object.keys(this.viewComponents);
         let key = keys[index]
-        return this.viewComponents[key];
+        return this.viewComponents[item];
       }
     },
     deleteProduct: function(){

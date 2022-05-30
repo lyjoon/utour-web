@@ -161,6 +161,17 @@ export default {
       return this.$vuetify.breakpoint.smAndDown ? 6 : 3;
     }
   },
+  mounted() {
+    let attr = this.$attrs;
+    console.log('mounted.admin-product-view-component-accommodation.bind-attr', attr);
+    if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
+      this.viewComponentId = attr.viewComponentId;
+      this.fax = attr.fax;
+      this.contact = attr.contact;
+      this.address = attr.address;
+      this.url = attr.url;
+    }
+  },
   methods:{
     getCommand: function (){
       let command = {
