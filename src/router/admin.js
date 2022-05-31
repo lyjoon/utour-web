@@ -12,11 +12,12 @@ import AdminQnaView from "@/components/admin/qna/AdminQnaView";
 import AdminInquiry from "@/views/admin/board/AdminInquiry";
 import AdminInquiryList from "@/components/admin/inquiry/AdminInquiryList";
 import AdminInquiryView from "@/components/admin/inquiry/AdminInquiryView";
-import AdminUser from "@/views/admin/config/AdminUser";
+import AdminConfig from "@/views/admin/config/AdminConfig";
 import AdminUserList from "@/components/admin/user/AdminUserList";
 import AdminProduct from "@/views/admin/product/AdminProduct";
 import AdminProductList from "@/components/admin/product/AdminProductList";
 import AdminProductForm from "@/views/admin/product/AdminProductForm";
+import AdminConfigDisplay from "@/components/admin/display/AdminConfigDisplay";
 
 export default [
 {
@@ -43,9 +44,10 @@ export default [
         { path: 'list', component: AdminInquiryList, meta: { authorization: true }},
         { path: ':inquiryId', component: AdminInquiryView, meta: { authorization: true }},
       ]},
-    {path: 'config', component: AdminUser, children: [
-        { path: 'user', component: AdminUserList, meta: { authorization: true }},
-      ]}
+    {path: 'config', component: AdminConfig, children: [
+        {path: 'user', component: AdminUserList, meta: { authorization: true, title:'사용자관리', siteMap:'사용자' }},
+        {path: 'display', component: AdminConfigDisplay, meta: { authorization: true, title:'메인화면설정', siteMap:'화면구성' }}
+      ]},
   ]
 },
 ]
