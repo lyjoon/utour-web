@@ -20,13 +20,13 @@
       </div>
     </v-card>
 
-    <v-card :class="`mt-4 ${item.deleteYn ? 'd-none' : ''}`" v-for="(item, index) in components" :key="index" elevation="0" outlined >
+    <v-card :class="`mt-4 ${item.deleteYn ? 'd-none' : ''}`" v-for="(item, index) in viewComponents" :key="index" elevation="0" outlined >
       <div class="pa-4">
         <div class="pt-4 pb-2">
-          <strong class="title">{{ componentMap[item].title }}</strong>
+          <strong class="title">{{ componentMap[item.viewComponentType].title || '-' }}</strong>
         </div>
         <div class="mt-4">
-          <component :is="componentMap[item].componentName" :ref="`vw_${item}_${index}`" v-bind="bind(item, index)"></component>
+          <component :is="componentMap[item.viewComponentType].componentName" :ref="`ref_view_component_${item.viewComponentType}_${index}`" v-bind="item"></component>
         </div>
       </div>
     </v-card>
@@ -78,8 +78,6 @@ import productApi from "@/api/ProductApi";
 export default {
   components: {AdminProductFormImage, AdminProductFormBase, AdminTitle,AdminProductAppendViewDialog, AdminProductFormViewComponentEditor, AdminProductFormViewComponentAccommodation},
   data: ()=> ({
-    //components: ["ACCOMMODATION", "EDITOR"],
-    components: [],
     componentMap: {
       EDITOR: {
         componentName : 'AdminProductFormViewComponentEditor',
@@ -92,7 +90,7 @@ export default {
     },
     product: null,
     productImageGroups: null,
-    viewComponents: null,
+    viewComponents: [],
   }),
   computed:{
     isFind(){
@@ -110,27 +108,27 @@ export default {
 
         this.$refs.admin_product_form_base.bind(res.data.result['product']);
         this.$refs.admin_product_form_image.bind(res.data.result['productImageGroups']);
-        if(this.viewComponents) {
-          Object.keys(this.viewComponents).forEach((key) => {
-            this.components.push(key);
-          })
-        }
       });
     } else {
-      this.components = ["ACCOMMODATION", "EDITOR"];
+      this.viewComponents = [
+        {viewComponentType:"ACCOMMODATION", viewComponentId:null, useYn:null, ordinalPosition:1},
+        {viewComponentType:"EDITOR", viewComponentId:null, useYn:null, ordinalPosition:2}
+      ];
     }
   },
   methods: {
     save: function() {
       let product = this.$refs.admin_product_form_base.getCommand();
       let productImageGroup = this.$refs.admin_product_form_image.getCommand();
-      let componentMap = {};
-      this.components.forEach((item, index) => {
-        let refId = `vw_${item}_${index}`;
-        let _component = this.$refs[refId] ? this.$refs[refId][0] : null;
-        if(_component && _component['getCommand']) {
-          let refObjectCommand = _component.getCommand();
-          componentMap[item] = refObjectCommand;
+      //let componentMap = {};
+      let viewComponents = [];
+      this.viewComponents.forEach((item, index) => {
+        let refId = `ref_view_component_${item.viewComponentType}_${index}`;
+        let refComponent = this.$refs[refId] ? this.$refs[refId][0] : null;
+        if(refComponent && refComponent['getCommand']) {
+          let refComponentCommand = refComponent.getCommand();
+          // componentMap[item] = refObjectCommand;
+          viewComponents.push(refComponentCommand);
         }
       });
 
@@ -140,7 +138,7 @@ export default {
       let commandCollect = {
         product: product.product,
         productImageGroupList: productImageGroup.productImageGroupList,
-        viewComponents: componentMap
+        viewComponents: viewComponents
       };
 
       console.log('product-save', commandCollect);
@@ -159,27 +157,17 @@ export default {
       }
     },
     openViewAppender: function(){
-      this.$refs.admin_product_append_view_dialog.open(this.components);
+      this.$refs.admin_product_append_view_dialog.open(this.viewComponents);
     },
     applyViewAppender: function(item){
-      this.components.push(item.value);
+      this.viewComponents.push(item.value);
     },
     back: function() {
       this.$router.push(`/admin/product/list?page=1`);
     },
-    bind: function(item, index){
-      console.log('base.bind', item,index, this.viewComponents);
-      if(this.viewComponents) {
-        let keys = Object.keys(this.viewComponents);
-        let key = keys[index]
-        return this.viewComponents[item];
-      }
-    },
     deleteProduct: function(){
       let _this = this;
       this.$store.commit('confirm', {title:'안내', message:'확인을 누르면 해당 상품정보가 삭제됩니다.', callback: function(){
-        // console.log('this.product', this.product);
-          // eslint-disable-next-line no-unused-vars
         productApi.delete(_this.product.productId).then(res=>{
           _this.back();
         })

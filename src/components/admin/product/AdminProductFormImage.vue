@@ -105,7 +105,6 @@ export default {
     },
     deleteImageGroup: function() {
       let item = this.productImageGroupList[this.productImageGroupIdx];
-      console.log('deleteImageGroup', item);
       if(item) {
         if ((item.productImageGroupId || 0) > 0) {
           item.deleteYn = true;

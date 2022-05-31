@@ -163,8 +163,7 @@ export default {
   },
   mounted() {
     let attr = this.$attrs;
-    console.log('mounted.admin-product-view-component-accommodation.bind-attr', attr);
-    if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
+    if(attr && attr.viewComponentId && (attr.viewComponentId || 0) > 0) {
       this.viewComponentId = attr.viewComponentId;
       this.fax = attr.fax;
       this.contact = attr.contact;
@@ -175,7 +174,8 @@ export default {
   methods:{
     getCommand: function (){
       let command = {
-        viewComponentId: null,
+        viewComponentId: this.viewComponentId,
+        viewComponentType: 'ACCOMMODATION',
         fax: this.fax,
         contact: this.contact,
         address: this.address,

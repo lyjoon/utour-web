@@ -159,7 +159,6 @@ export default {
       let _this = this;
       reader.addEventListener("load", function (){
         _this.repImageReaderSrc = reader.result;
-        // console.log('reader.addEventListener.src', _this.repImageReaderSrc);
       }, false);
 
       if(file) {
@@ -167,11 +166,9 @@ export default {
       }
     },
     onChangeNationCode: function(){
-      // console.log('get-nation-code');
       let nationCode = this.command.nationCode;
       codeApi.getNation(nationCode).then(res => {
         let data = res.data.result;
-        //console.log('onChangeNationCode', data);
         if(data) {
           let nationAreaList = data.nationAreaList;
           if(nationAreaList && Array.isArray(nationAreaList)) {
@@ -201,7 +198,6 @@ export default {
       };
     },
     bind: function(product) {
-      // console.log('product-form-base.bind', product);
       if(product){
         /*Object.keys(this.command).forEach(key => {
           this.command[key] = product[key];
@@ -219,8 +215,6 @@ export default {
         // this.repImageReaderSrc = `/v1/product/image/${this.command.productId}`;
 
         this.$refs["toast-editor"].setMarkdown(this.command.content);
-
-        console.log('product-form-base.bind', this.command, product);
       }
     }
   }

@@ -48,7 +48,6 @@ export default {
   }),
   mounted() {
     let attr = this.$attrs;
-    console.log('mounted.admin-product-view-component-editor.bind-attr', attr);
     if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
       this.viewComponentId = attr.viewComponentId;
       this.content = attr.content;
@@ -68,6 +67,7 @@ export default {
     getCommand: function(){
       let command = {
         viewComponentId: this.viewComponentId,
+        viewComponentType: 'EDITOR',
         content: this.getMarkdown()
       };
       return command;
