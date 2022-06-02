@@ -49,6 +49,15 @@ class ProductApi extends Api {
 
         return await this.getAxios().get(`/api/v1/product/list?${this.queryString(parameters)}`);
     }
+
+    async findAll(nationCode, areaCode) {
+        let parameters = {
+            nationCode: nationCode,
+            areaCode: areaCode
+        };
+        return await this.getAxios().get(`/api/v1/product/find-all?${this.queryString(parameters)}`);
+    }
+
     async delete(productId){
         return await this.getAxios().delete(`/api/v1/product/${productId}`);
     }

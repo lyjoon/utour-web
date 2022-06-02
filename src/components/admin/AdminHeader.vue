@@ -1,9 +1,9 @@
 <template>
-  <v-app-bar app flat absolute class="admin_app_bar">
+  <v-app-bar app flat absolute dense height="58px" class="admin_app_bar">
     <template v-slot:default>
       <v-sheet dark width="100%" height="100%">
         <v-container class="justify-center d-flex flex-fill align-center fill-height pt-0 pb-0">
-          <div class="d-flex justify-start" style="width: 100px;">
+          <div class="d-flex justify-start" style="width: 100px;" @click="showNavigator">
             <v-btn icon v-if="$store.getters.isAuthor">
               <v-icon dark>mdi-menu</v-icon>
             </v-btn>
@@ -53,7 +53,7 @@
 export default {
   methods: {
     showNavigator: function () {
-      this.$emit('admin-navigator-open');
+      this.$emit('show-admin-navigator');
     },
     moveHome : function(){
       this.$router.push('/admin/home');

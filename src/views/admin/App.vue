@@ -1,6 +1,6 @@
 <template>
   <v-app class="admin-app">
-    <admin-header ref="admin_header" @admin-navigator-open="showNavigator" />
+    <admin-header ref="admin_header" @show-admin-navigator="showNavigator" />
     <admin-navigator ref="admin_navigator" />
 
     <v-main class="admin-main mt-2">

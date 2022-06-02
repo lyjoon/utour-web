@@ -17,7 +17,7 @@ import AdminUserList from "@/components/admin/user/AdminUserList";
 import AdminProduct from "@/views/admin/product/AdminProduct";
 import AdminProductList from "@/components/admin/product/AdminProductList";
 import AdminProductForm from "@/views/admin/product/AdminProductForm";
-import AdminConfigDisplay from "@/components/admin/display/AdminConfigDisplay";
+import AdminConfigDisplay from "@/views/admin/config/AdminConfigDisplay";
 
 export default [
 {
@@ -46,8 +46,8 @@ export default [
       ]},
     {path: 'config', component: AdminConfig, children: [
         {path: 'user', component: AdminUserList, meta: { authorization: true, title:'사용자관리', siteMap:'사용자' }},
-        {path: 'display', component: AdminConfigDisplay, meta: { authorization: true, title:'메인화면설정', siteMap:'화면구성' }}
       ]},
+    {path: 'config/display', component: AdminConfigDisplay, meta: { authorization: true, title:'메인화면설정', siteMap:'화면구성' }}
   ]
 },
 ]
