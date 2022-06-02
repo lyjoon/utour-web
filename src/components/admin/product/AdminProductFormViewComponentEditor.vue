@@ -16,6 +16,7 @@
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/vue-editor';
+
 import axios from "axios";
 
 export default {
@@ -34,19 +35,30 @@ export default {
       ],
       hooks: {
         addImageBlobHook: (blob, callback) => {
+          // let _this = this;
+          // console.log('#addImageBlobHook', Vue.options);
+          let imageFiles = JSON.parse(localStorage.getItem("imageFiles")) || [];
           let formData = new FormData();
           formData.append('file', blob);
           axios.post("/api/v1/image/upload/temp", formData).then(res => {
             let resource = res.data.result;
             callback(resource.src, resource.alt);
+            let fileName = resource['fileName'] || '';
+            if(fileName != '') {
+              imageFiles.push(resource['fileName']);
+              localStorage.setItem('imageFiles', JSON.stringify(imageFiles));
+            }
+            console.log('upload-temp', fileName, imageFiles);
           })
         }
       }
     },
     viewComponentId: null,
     content:null,
+    imageFiles:[],
   }),
   mounted() {
+    this.clear();
     let attr = this.$attrs;
     if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
       this.viewComponentId = attr.viewComponentId;
@@ -54,7 +66,16 @@ export default {
       this.setMarkdown(this.content);
     }
   },
+  destroyed() {
+    this.clear();
+  },
   methods:{
+    clear: function (){
+      let imageFiles = JSON.parse(localStorage.getItem('imageFiles'));
+      if(imageFiles && Array.isArray(imageFiles) && imageFiles.length) {
+        localStorage.removeItem('imageFiles');
+      }
+    },
     reset: function(){
       this.$refs.componentEditor.invoke("reset");
     },
@@ -68,8 +89,19 @@ export default {
       let command = {
         viewComponentId: this.viewComponentId,
         viewComponentType: 'EDITOR',
-        content: this.getMarkdown()
+        content: this.getMarkdown(),
+        imageFiles: []
       };
+
+      let imageFiles = JSON.parse(localStorage.getItem('imageFiles'));
+      if(imageFiles && Array.isArray(imageFiles) && imageFiles.length) {
+        for(let idx = 0; idx < imageFiles.length; idx += 1) {
+          let fileName = imageFiles[idx];
+          command.imageFiles.push(fileName);
+        }
+        localStorage.removeItem('imageFiles');
+      }
+
       return command;
     }
   }

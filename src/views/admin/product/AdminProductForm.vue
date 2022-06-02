@@ -142,6 +142,7 @@ export default {
       };
 
       console.log('product-save', commandCollect);
+
       if(this.isFind) {
         productApi.update(commandCollect, repImageFile, productImageFiles)
             // eslint-disable-next-line no-unused-vars
@@ -155,6 +156,7 @@ export default {
               this.$router.push(`/admin/product/list?page=1`);
             });
       }
+
     },
     openViewAppender: function(){
       this.$refs.admin_product_append_view_dialog.open(this.viewComponents);

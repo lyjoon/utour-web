@@ -24,7 +24,7 @@
         <v-row dense>
           <v-col cols="12">
             <v-sheet width="100%" :height="carouselHeight" color="grey lighten-3" rounded>
-              <v-carousel height="100%" show-arrows-on-hover hide-delimiters>
+              <v-carousel height="100%" show-arrows-on-hover hide-delimiters v-model="carouselIndex">
                 <v-sheet width="100%" height="100%" color="grey lighten-3" class="d-flex justify-center align-center" v-if="carouselList == null || carouselList.length < 1">
                   <v-icon size="50px" color="grey lighten-1">mdi-image-off-outline</v-icon>
                 </v-sheet>
@@ -46,7 +46,9 @@
                 </v-carousel-item>
               </v-carousel>
             </v-sheet>
-            <div class="d-flex justify-end flex-fill mt-2">
+            <div class="d-flex flex-fill mt-2">
+              <div class="caption pl-1 pr-1" v-text="`${(carouselIndex || 0 )+ 1 } / ${carouselList.length || 0}`" />
+              <v-spacer />
               <v-btn small color="blue" elevation="0" class="white--text" @click="addCarousel">
                 <v-icon small class="mr-1">mdi-image-plus</v-icon>
                 케로셀 신규추가</v-btn>
@@ -73,41 +75,35 @@
 
         <v-row dense>
           <v-col v-for="(item, index) in commerces" :key="index" :cols="commerceCols">
-            <v-hover v-slot="{hover}">
-              <v-img width="100%" :height="commerceItemHeight" :src="item.repImageSrc" class="rounded white--text align-end">
-                <template v-slot:placeholder>
-                  <v-sheet width="100%" height="100%" color="grey lighten-3" class="d-flex justify-center align-center">
-                    <v-icon size="50px" color="grey lighten-1">mdi-image-off-outline</v-icon>
-                  </v-sheet>
-                </template>
-                <template v-slot:default>
+            <v-sheet width="100%" :height="commerceItemHeight" color="grey lighten-3" class="d-flex justify-center align-center">
+              <v-hover v-slot="{hover}">
+                <v-img width="100%" height="100%" :src="item.repImageSrc" class="d-flex justify-center align-end">
+                  <template v-slot:default>
+                    <v-sheet dark translate="yes" color="rgba(0,0,0,0.41)" v-if="(item.productId || 0) > 0">
+                      <v-card-title class="body-2 text-md-subtitle-1 text-lg-subtitle-1 text-xl-subtitle-1 pb-0 pt-1 text-truncate">
+                        {{item.title || 'N/A'}}
+                      </v-card-title>
 
+                      <v-card-text class="caption text-md-body-2 text-lg-body-2 text-xl-body-2 pb-2 pt-1 text-truncate">
+                        {{item.description || '-'}}
+                      </v-card-text>
+                    </v-sheet>
 
-                  <v-sheet dark translate="yes" color="rgba(0,0,0,0.41)" v-if="(item.productId || 0) > 0">
-                    <v-card-title class="body-2 text-md-subtitle-1 text-lg-subtitle-1 text-xl-subtitle-1 pb-0 pt-1 text-truncate">
-                      {{item.title || 'N/A'}}
-                    </v-card-title>
+                    <v-overlay absolute opacity="0.2" v-if="hover" class="d-flex flex-fill fill-height justify-center align-center">
 
-                    <v-card-text class="caption text-md-body-2 text-lg-body-2 text-xl-body-2 pb-2 pt-1 text-truncate">
-                      {{item.description || '-'}}
-                    </v-card-text>
-                  </v-sheet>
-
-                  <v-overlay absolute opacity="0.2" v-if="hover" class="d-flex flex-fill fill-height justify-center align-center">
-
-                    <div v-if="(item.commerceId || 0) < 1">
-                      <v-btn color="blue" large dark elevation="0" @click.stop="addCommerce(index)"><v-icon class="mr-1">mdi-image-plus</v-icon> 상품등록</v-btn>
-                    </div>
-                    <div v-if="(item.commerceId || 0) > 0">
-                      <v-btn icon color="white" large dark elevation="0">
-                        <v-icon x-large @click="readCommerce(item)">mdi-cog</v-icon>
-                      </v-btn>
-                    </div>
-
-                  </v-overlay>
-                </template>
-              </v-img>
-            </v-hover>
+                      <div v-if="(item.commerceId || 0) < 1">
+                        <v-btn color="blue" large dark elevation="0" @click.stop="addCommerce(index)"><v-icon class="mr-1">mdi-image-plus</v-icon> 상품등록</v-btn>
+                      </div>
+                      <div v-if="(item.commerceId || 0) > 0">
+                        <v-btn icon color="white" large dark elevation="0">
+                          <v-icon x-large @click="readCommerce(item)">mdi-cog</v-icon>
+                        </v-btn>
+                      </div>
+                    </v-overlay>
+                  </template>
+                </v-img>
+              </v-hover>
+            </v-sheet>
           </v-col>
         </v-row>
       </div>
@@ -132,6 +128,7 @@ export default {
   data: ()=>({
     title: '-',
     siteMapDesc: '-',
+    carouselIndex: null,
     carouselList: [],
     commerces:[
       {commerceId:null, repImageSrc:null, productId:null, ordinalPosition:null, title:null, description:null},
