@@ -15,12 +15,12 @@
       <div class="flex-fill fill-height d-flex align-center" style="border-top: 1px solid #e6e7e5;border-bottom: 1px solid #e6e7e5" >
         <v-container class="fill-height align-center body-2 pt-0 pb-0">
           <ul class="list-style-none d-flex flex-fill pl-0 app_bar_ext_ul">
-            <li>몰디브</li>
-            <li>칸쿤</li>
-            <li>하와이</li>
-            <li>유럽</li>
-            <li>베트남</li>
-            <li>태국</li>
+            <li @click="moveProduct('AS', 'MV', null)">몰디브</li>
+            <li @click="moveProduct('SA', 'MX', 'MV')">칸쿤</li>
+            <li @click="moveProduct('NA', 'US', 'HNL')">하와이</li>
+            <li @click="moveProduct('EU', null, null)">유럽</li>
+            <li @click="moveProduct('AS', 'VN', null)">베트남</li>
+            <li @click="moveProduct('AS', 'TH', null)">태국</li>
           </ul>
         </v-container>
       </div>
@@ -32,11 +32,6 @@
 <script>
 export default {
   name: "AppHeader",
-  computed : {
-    drawer() {
-      return false;
-    },
-  },
   data: () =>({
     showNavigator: false
   }),
@@ -44,8 +39,13 @@ export default {
     openNavigator: function () {
       this.$emit('app-navigator-open');
     },
-    swipe: function(direction) {
-      console.log('direction : ', direction);
+    moveProduct: function(continentCode, nationCode, areaCode){
+      let parameters = {
+        continentCode:continentCode,nationCode:nationCode,areaCode:areaCode
+      };
+      let entries = Object.entries(parameters || {});
+      let queryString = entries && entries.length > 0 ? entries.map(e => e.join('=')).join('&') : '';
+      this.$router.replace(`/product?${queryString}`).catch(e => {});
     }
   }
 }

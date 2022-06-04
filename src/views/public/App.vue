@@ -6,7 +6,7 @@
                    @open-service-terms-dialog="openServiceTermsDialog"
     />
     <v-main class="mt-2">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </v-main>
     <app-footer />
     <inquiry-form-dialog ref="inquiry_form_dialog" />

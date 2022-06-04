@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <div class="d-flex flex-fill">
+    <div class="d-flex flex-fill pt-12 pb-4">
       <div class="d-flex">
         <h1 :class="`${$vuetify.breakpoint.smAndDown ? 'font-weight-regular text-h6' : 'font-weight-bold text-h5'}`">{{ title }}</h1>
       </div>
@@ -33,7 +33,7 @@ export default {
     },
     showDiv: {
       type: Boolean,
-      default: true
+      default: false
     }
   }
 }

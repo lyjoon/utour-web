@@ -39,23 +39,26 @@ class ProductApi extends Api {
             }});
     }
 
-    async getList(page, limit, queryType, query){
+    async getPageList(page, limit, queryType, query){
         let parameters = {
             page: page,
             limit: limit,
             queryType: queryType,
             query: query,
         };
-
-        return await this.getAxios().get(`/api/v1/product/list?${this.queryString(parameters)}`);
+        return await this.getAxios().get(`/api/v1/product/page/list?${this.queryString(parameters)}`);
     }
 
-    async findAll(nationCode, areaCode) {
+    async queryList(parameters) {
+        return await this.getAxios().post(`/api/v1/product/list`, parameters);
+    }
+
+    async getList(nationCode, areaCode) {
         let parameters = {
             nationCode: nationCode,
             areaCode: areaCode
         };
-        return await this.getAxios().get(`/api/v1/product/find-all?${this.queryString(parameters)}`);
+        return await this.getAxios().get(`/api/v1/product/list?${this.queryString(parameters)}`);
     }
 
     async delete(productId){

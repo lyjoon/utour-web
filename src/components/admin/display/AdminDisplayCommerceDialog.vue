@@ -282,7 +282,7 @@ export default {
         description:null,
         repImageSrc:null,
       };*/
-      productApi.findAll(this.nationCode, this.nationAreaCode).then(res => {
+      productApi.getList(this.nationCode, this.nationAreaCode).then(res => {
         let data = res.data.result;
         if(data && Array.isArray(data)) {
           this.productList = data;

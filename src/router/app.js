@@ -25,7 +25,7 @@ export default [{
     },
     {
       path: 'product',
-      component: Product
+      component: Product,
     },
     {
       path: 'product-view',
