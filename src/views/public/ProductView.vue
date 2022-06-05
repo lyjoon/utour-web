@@ -121,38 +121,22 @@ export default {
       this.$refs.product_view_toolbar.bind(toolbar);
     },
     bindContent: function(){
-      let content = {
+      let parameters = {
         productId : this.product.productId,
         content: this.product.content
       };
 
-      this.$refs.product_view_content.bind(content);
+      this.$refs.product_view_content.bind(parameters);
     },
     bindImages: function(){
-      let images = {
+      let parameters = {
         productId: this.product.productId,
-        productImages: []
+        title: this.product.title,
+        description: this.product.description,
+        productImageGroupList: this.productImageGroups
       };
 
-      if(this.productImageGroups && Array.isArray(this.productImageGroups)) {
-        this.productImageGroups.forEach(groupItem => {
-          let productImageGroupId = groupItem.productImageGroupId;
-          if(groupItem && groupItem.productImages && Array.isArray(groupItem.productImages)) {
-            groupItem.productImages.forEach(imageItem => {
-              images.productImages.push({
-                productId : images.productId,
-                productImageGroupId: productImageGroupId,
-                productImageId : imageItem.productImageId,
-                productImageSrc : `/api/v1/product/image/${images.productId}/${productImageGroupId}/${imageItem.productImageId}`,
-                title: imageItem.title,
-                description: imageItem.description
-              });
-            });
-          }
-        })
-      }
-
-      this.$refs.product_view_image.bind(images);
+      this.$refs.product_view_image.bind(parameters);
 
     },
     bindViewComponents: function() {

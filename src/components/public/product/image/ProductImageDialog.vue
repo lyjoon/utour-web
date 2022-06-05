@@ -2,10 +2,10 @@
   <v-dialog  v-model="dialog" fullscreen class="fill-height">
     <v-card elevation="0" color="white" class="d-block">
 
-      <v-toolbar dense elevation="0" class="pa-0">
+      <v-toolbar elevation="0" class="pa-0">
         <v-container fluid>
           <div class="d-flex flex-fill align-center">
-            <v-toolbar-title>상품_이미지_제목</v-toolbar-title>
+            <v-toolbar-title>{{title}}</v-toolbar-title>
             <v-spacer />
             <v-btn icon @click="close" color="#999999" outlined tile class="rounded toolbar-btn-outlined" small>
               <v-icon>mdi-close</v-icon>
@@ -18,52 +18,28 @@
 
       <v-container >
 
-        <v-row dense class="hidden-lg-and-up">
-          <v-col class="col-12">
-            <v-chip-group v-model="selectedItems">
-              <v-chip outlined filter value="1">숙소</v-chip>
-              <v-chip outlined filter value="2">객실</v-chip>
-              <v-chip outlined filter value="3">화장실</v-chip>
-            </v-chip-group>
-          </v-col>
-          <v-col v-for="item in items" v-bind:key="item.id" class="col-4">
-            <v-img :src="item.src" :height="imageHeight" class="rounded" light></v-img>
-          </v-col>
-        </v-row>
+        <div class="pt-2 pb-2">
+          <v-chip-group column v-model="productImageGroupId" @change="chooseImageGroup">
+            <v-chip outlined filter :value="-1">전체</v-chip>
+            <v-chip outlined filter v-for="(item, index) in productImageGroupList" :key="index" :value="item.productImageGroupId">
+              {{item.groupName}}
+            </v-chip>
+          </v-chip-group>
+        </div>
 
-        <v-row dense class="hidden-md-and-down">
-          <v-col class="col-8">
-            <v-layout column>
-              <v-flex>
-                <v-img class="grey lighten-2 rounded" src="http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg" height="500px"></v-img>
-              </v-flex>
-              <v-flex class="mt-1">
-                <v-row dense>
-                  <v-col v-for="item in items" v-bind:key="item.id" class="col-2">
-                    <v-img :src="item.src" :height="imageHeight" class="rounded" ></v-img>
-                  </v-col>
-                </v-row>
-              </v-flex>
-            </v-layout>
+        <div>
+          <v-img class="grey lighten-2 rounded" :src="productImage.productImageSrc" width="100%" :height="imageHeight"></v-img>
+        </div>
 
-          </v-col>
+        <v-row class="mt-2" dense>
+          <v-col :cols="$vuetify.breakpoint.smAndDown ?4:1" v-for="(item) in productImageList" :key="item.productImageId">
 
-          <v-col class="col-4 pl-4">
-            <v-layout column>
-              <v-flex class="pb-2">
-                <v-chip-group column v-model="selectedItems">
-                  <v-chip outlined filter value="1">숙소</v-chip>
-                  <v-chip outlined filter value="2">객실</v-chip>
-                  <v-chip outlined filter value="3">화장실</v-chip>
-                </v-chip-group>
-              </v-flex>
-              <v-flex>
-                <strong class="title">오션 프론트 풀빌라</strong>
-              </v-flex>
-              <v-flex class="mt-6 body-2">
-                전통주 바지락-칼국수 유니짜장면 돈까스 석쇠갈비 마파두부 고기국수 녹차케이크 피자 햄버거
-              </v-flex>
-            </v-layout>
+            <v-img :height="imageItemHeight" width="100%" class="rounded" :src="item.productImageSrc" @click="chooseImage(item)">
+              <v-overlay absolute opacity="0.3" color="black" class="align-center justify-center flex-fill d-flex cursor-pointer"
+                         v-if="productImage.productImageId == item.productImageId">
+                <v-icon size="50px" color="white">mdi-check</v-icon>
+              </v-overlay>
+            </v-img>
           </v-col>
         </v-row>
 
@@ -79,6 +55,17 @@ export default {
       switch (this.$vuetify.breakpoint.name){
         case "lg":
         case "xl":
+          return '600px';
+        case "md":
+          return "450px";
+        default:
+          return "50vh";
+      }
+    },
+    imageItemHeight() {
+      switch (this.$vuetify.breakpoint.name){
+        case "lg":
+        case "xl":
           return '88px';
         case "md":
           return "22vh";
@@ -91,39 +78,109 @@ export default {
   },
   data: () => ({
     dialog: false,
-    selectedItems: [],
-    items: [
-        {id:1, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-35.jpg", title: '로빈슨클럽'},
-        {id:2, src:"http://www.honeymoonlove.co.kr/resort_images/deluxe-suite-king.jpg", title: '디럭스'},
-        {id:3, src:"http://www.honeymoonlove.co.kr/resort_images/x_cafe.jpg", title: '카페'},
-        {id:4, src:"http://www.honeymoonlove.co.kr/resort_images/x_deluxe-suite-king-living-area.jpg", title: '디렉서스윗'},
-        {id:5, src:"http://www.honeymoonlove.co.kr/resort_images/x_events3.jpg", title: '이벤트홀'},
-        {id:6, src:"http://www.honeymoonlove.co.kr/resort_images/x_two-bedroom-oceanfront-pool-villa.jpg", title: '오션 프론트 풀빌라'},
-        {id:7, src:"http://www.honeymoonlove.co.kr/resort_images/oceanfront-pool-villa-1.jpg", title: '오션 프론트 풀빌라'},
-        {id:8, src:"http://www.honeymoonlove.co.kr/resort_images/ocean-view-pool-villa-katiliya.jpg", title: '오션 프론트 풀빌라'},
-        {id:9, src:"http://www.honeymoonlove.co.kr/resort_images/one-bedroom-oceanfront-pool-villa.jpg", title: '오션 프론트 풀빌라'},
-        {id:10, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:11, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:12, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:13, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:14, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:15, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:16, src:"http://www.honeymoonlove.co.kr/resort_images/pool-suite.jpg", title: '풀스윗'},
-        {id:17, src:"http://www.honeymoonlove.co.kr/resort_images/x_3319-54.jpg", title: '레스토랑'},
-        {id:18, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-21.jpg", title: '레스토랑'},
-        {id:19, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-24.jpg", title: '레스토랑'},
-        {id:20, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-26_0.jpg", title: '로빈슨클럽'},
-        {id:21, src:"http://www.honeymoonlove.co.kr/resort_images/x_khao-lak-resort-pool10.jpg", title: '로빈슨클럽'},
-        {id:22, src:"http://www.honeymoonlove.co.kr/resort_images/x_lagoon-villa-2.jpg", title: '로빈슨클럽'},
-        {id:23, src:"http://www.honeymoonlove.co.kr/resort_images/x_3370-35.jpg", title: '로빈슨클럽'},
-    ]
+    productId:null,
+    title:null,
+    productImageList:[],
+    productImageGroupList:[],
+    productImageGroupId: null,
+    productImage: {
+      productId:null,
+      productImageId:null,
+      productImageGroupId:null,
+      title:null,
+      description:null,
+      productImageSrc:null,
+    },
   }),
   methods : {
+    clear: function(){
+      this.productId = null;
+      this.productImageList = [];
+      this.productImageGroupList = [];
+      this.title = null;
+      this.productImageGroupId = null;
+      this.productImage = {
+        productId:null,
+        productImageId:null,
+        productImageGroupId:null,
+        title:null,
+        description:null,
+        productImageSrc:null,
+      };
+    },
     close : function (){
       this.dialog = false;
     },
-    open: function (){
-      this.dialog = true;
+    open: function(parameters) {
+      if(parameters) {
+        this.productId = parameters.productId;
+        this.title = parameters.title;
+        this.productImageGroupList = parameters.productImageGroupList;
+        this.dialog = true;
+        if(this.productImageGroupList.length > 0) {
+          this.productImageGroupId = this.productImageGroupList[0].productImageGroupId;
+        }
+        this.chooseImageGroup()
+      } else {
+        this.$store.commit('snackMessage', {title:'안내', message:'여행상품 정보가 전달되지 않아 이미지 상세화면을 볼 수 없습니다.'})
+        this.close();
+      }
+    },
+    chooseImageGroup: function(){
+      this.productImageList = [];
+      if(this.productImageGroupId == -1) {
+        this.productImageGroupList.forEach(imageGroupItem => {
+          if(Array.isArray(imageGroupItem.productImages) && imageGroupItem.productImages.length > 0) {
+            imageGroupItem.productImages.forEach(imageItem => {
+              this.productImageList.push({
+                productId: imageItem.productId,
+                productImageGroupId: imageItem.productImageGroupId,
+                productImageId: imageItem.productImageId,
+                title: imageItem.title,
+                description: imageItem.description,
+                productImageSrc: `/api/v1/product/image/${imageItem.productId}/${imageItem.productImageGroupId}/${imageItem.productImageId}`,
+              });
+            });
+            // this.productImage = this.productImageList[0];
+          }
+        })
+      } else {
+        let imageGroupItem = this.productImageGroupList.find(item => item.productImageGroupId == this.productImageGroupId);
+        if(imageGroupItem) {
+          // this.productImageList = imageGroupItem.productImageList;
+          if(Array.isArray(imageGroupItem.productImages) && imageGroupItem.productImages.length > 0) {
+            imageGroupItem.productImages.forEach(item => {
+              this.productImageList.push({
+                productId: item.productId,
+                productImageGroupId: item.productImageGroupId,
+                productImageId: item.productImageId,
+                title: item.title,
+                description: item.description,
+                productImageSrc: `/api/v1/product/image/${item.productId}/${item.productImageGroupId}/${item.productImageId}`,
+              });
+            });
+            // this.productImage = this.productImageList[0];
+          }
+        }
+      }
+
+      if(this.productImageList.length > 0) {
+        let first = this.productImageList[0];
+        this.productImage.productImageSrc = first.productImageSrc;
+        this.productImage.productId = first.productId;
+        this.productImage.productImageGroupId = first.productImageGroupId;
+        this.productImage.productImageId = first.productImageId;
+        this.productImage.title = first.title;
+      }
+    },
+    chooseImage: function(item) {
+      console.log('chooseImage', item);
+      this.productImage.productId = item.productId;
+      this.productImage.productImageId = item.productImageId;
+      this.productImage.productImageGroupId = item.productImageGroupId;
+      this.productImage.productImageSrc = item.productImageSrc;
+      this.productImage.title = item.title;
+      this.productImage.description = item.description;
     }
   }
 }

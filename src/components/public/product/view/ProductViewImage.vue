@@ -64,12 +64,12 @@
             </v-sheet>
           </template>
           <template v-slot:default>
-            <v-btn class="v-btn-more" elevation="0" dark @click="openDialog" :disabled="btnDisabled">더보기</v-btn>
+            <v-btn class="v-btn-more" elevation="0" small dark @click="openDialog" :disabled="btnDisabled">더보기</v-btn>
           </template>
         </v-img>
       </v-col>
     </v-row>
-    <product-image-dialog ref="dialog" />
+    <product-image-dialog ref="product_image_dialog" />
   </div>
 </template>
 
@@ -86,27 +86,51 @@ export default {
       return 250 + 'px';
     },
     btnDisabled(){
-      return true;
+      return false;
     }
   },
   data: ()=>({
-    images: [
-        "https://s3.ap-northeast-2.amazonaws.com/stone-i-dagym-centers/images/gyms/15f8f9274132f60b1d/Big)Shingu.jpg"
-      , "https://www.helssg.com/design/upload_file/BD268173/THUMBNAIL_1500_1500_c1222894c7a9e92e5720582b6dbfd55c_8407_3.jpeg"
-      , "https://s3.ap-northeast-2.amazonaws.com/refreshclub/cache/50/b9/50b99ab60174ace81381a3ae6a7f457d.jpg"
-      , "http://img3.tmon.kr/cdn3/deals/2019/04/24/1989097598/original_1989097598_front_0b1f9_1556091307production.jpg"
-      , "https://s3.ap-northeast-2.amazonaws.com/refreshclub/cache/29/22/2922a6b683e0775427d1b30070428ac7.jpg"
-    ],
-    productId:null,
     productImages: [],
+    productId:null,
+    title:null,
+    description:null,
+    productImageGroupList: null,
   }),
   methods: {
-    bind: function(data){
-      this.productId = data.productId;
-      this.productImages = data.productImages;
+    bind: function(parameters){
+      this.productId = parameters.productId;
+      this.title = parameters.title;
+      this.description = parameters.description;
+      this.productImageGroupList = parameters.productImageGroupList;
+      this.productImages = [];
+
+      if(this.productImageGroupList && Array.isArray(this.productImageGroupList)) {
+        this.productImageGroupList.forEach(groupItem => {
+          let productImageGroupId = groupItem.productImageGroupId;
+          if(groupItem && groupItem.productImages && Array.isArray(groupItem.productImages)) {
+            groupItem.productImages.forEach(imageItem => {
+              this.productImages.push({
+                productId : this.productId,
+                productImageGroupId: productImageGroupId,
+                productImageId : imageItem.productImageId,
+                productImageSrc : `/api/v1/product/image/${this.productId}/${productImageGroupId}/${imageItem.productImageId}`,
+                title: imageItem.title,
+                description: imageItem.description
+              });
+            });
+          }
+        })
+      }
+
     },
     openDialog : function (){
-      this.$refs.dialog.open();
+      let parameters = {
+        productId: this.productId,
+        title: this.title,
+        description: this.description,
+        productImageGroupList: this.productImageGroupList
+      };
+      this.$refs.product_image_dialog.open(parameters);
     },
     productImageSrc: function(idx) {
       return this.productImages.length > idx ? this.productImages[idx].productImageSrc : null;
@@ -117,7 +141,7 @@ export default {
 
 <style scoped>
   .v-btn-more {
-    opacity: 0.5;
     font-weight: 400;
+    opacity: 0.65;
   }
 </style>
