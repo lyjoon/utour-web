@@ -1,14 +1,25 @@
 <template>
   <div>
-    <v-sheet height="660px">
-      <editor ref="componentEditor"
-              previewStyle="vertical"
-              :options="editorOptions"
-              initialEditType="wysiwyg"
-              height="100%"
-              :usageStatistics="false"
-      />
-    </v-sheet>
+    <div class="pt-2 pb-2">
+      <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-city</v-icon>제목(주제)</div>
+      <v-text-field filled rounded class="rounded" hide-details dense placeholder="제목" v-model="title"></v-text-field>
+    </div>
+    <div class="pt-2 pb-4">
+      <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-text</v-icon>비고</div>
+      <v-text-field filled rounded class="rounded" hide-details dense placeholder="비고" v-model="description"></v-text-field>
+    </div>
+    <div>
+      <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-pencil</v-icon>내용</div>
+      <v-sheet height="660px">
+        <editor ref="componentEditor"
+                previewStyle="vertical"
+                :options="editorOptions"
+                initialEditType="wysiwyg"
+                height="100%"
+                :usageStatistics="false"
+        />
+      </v-sheet>
+    </div>
   </div>
 </template>
 
@@ -22,6 +33,8 @@ import axios from "axios";
 export default {
   components: {Editor},
   data:() => ({
+    title:null,
+    description:null,
     editorOptions:{
       plugins: [[colorSyntax]],
       language: 'ko-KR',
@@ -63,6 +76,8 @@ export default {
     if(attr && attr.viewComponentId && attr.viewComponentId > 0) {
       this.viewComponentId = attr.viewComponentId;
       this.content = attr.content;
+      this.title = attr.title;
+      this.description = attr.description;
       this.setMarkdown(this.content);
     }
   },
@@ -89,6 +104,8 @@ export default {
       let command = {
         viewComponentId: this.viewComponentId,
         viewComponentType: 'EDITOR',
+        title: this.title,
+        description: this.description,
         content: this.getMarkdown(),
         imageFiles: []
       };

@@ -1,24 +1,63 @@
 <template>
-  <v-layout row>
-    <v-flex class="d-flex col-12 flex-fill justify-end align-end">
 
-      <page-title title="호텔_숙소_개요" description="인천광역시 강화 화도면 해안남로 2683" />
-
+  <div class="pt-4 pb-2">
+    <div class="d-flex align-end flex-fill">
+      <div>
+        <div class="d-block">
+          <h1 :class="`${$vuetify.breakpoint.smAndDown ? 'font-weight-regular text-h6' : 'font-weight-bold text-h5'}`">{{ title }}</h1>
+        </div>
+        <div class="d-block">
+          <div class="body-1 pt-1 grey--text">{{description || 'little pain'}}</div>
+          <div class="body-2 pt-1" v-if="(accommodation.address || '' ) != ''">
+            주소 : {{accommodation.address}}
+          </div>
+        </div>
+      </div>
       <v-spacer />
-
-      <div class="hidden-md-and-down">
-        <v-btn elevation="0" color="grey" dark class="darken-3 body-2" to="/products">
-          <v-icon class="mr-1" small >mdi-dots-grid</v-icon> 목록으로
+      <div class="d-flex">
+        <v-btn elevation="0" color="grey lighten-2" class="body-2 grey--text text--darken-1" >
+          <v-icon class="mr-1">mdi-dots-grid</v-icon> <span v-if="!$vuetify.breakpoint.smAndDown" class="body-2 pt-1">목록으로</span>
         </v-btn>
       </div>
-    </v-flex>
-  </v-layout>
+    </div>
+  </div>
 </template>
 
 <script>
-import PageTitle from "../../../common/title/PageTitle";
 export default {
-  components: {PageTitle}
+  data:() =>({
+    title: null,
+    description: null,
+    productId : null,
+    nationCode: null,
+    areaCode: null,
+    nationName: null,
+    areaName: null,
+    accommodation: {
+      address: null,
+      fax: null,
+      contact: null,
+      url: null,
+    }
+  }),
+  methods: {
+    bind: function(data){
+      console.log('product_view_toolbar', data);
+      this.title = data.title;
+      this.description = data.description;
+      this.productId = data.productId;
+      this.nationCode = data.nationCode;
+      this.areaCode = data.areaCode;
+      this.nationName = data.nationName;
+      this.areaName = data.areaName;
+      if(data.accommodation) {
+        this.accommodation.address = data.accommodation.address;
+        this.accommodation.fax = data.accommodation.fax;
+        this.accommodation.contact = data.accommodation.contact;
+        this.accommodation.url = data.accommodation.url;
+      }
+    }
+  }
 }
 </script>
 

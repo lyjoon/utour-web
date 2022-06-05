@@ -1,5 +1,5 @@
 <template>
-  <v-card ref="itemCard" link elevation="0" outlined to="/product-view" :height="height">
+  <v-card ref="itemCard" link elevation="0" outlined :to="`/product-view?productId=${productId}`" :height="height">
     <v-img
         height="100%"
         max-height="100%"
@@ -60,6 +60,9 @@ export default {
       default: null
     },src: {
       default: null
+    },
+    productId:{
+      default: null,
     }
   }
 }

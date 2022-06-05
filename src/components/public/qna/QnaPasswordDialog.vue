@@ -1,19 +1,6 @@
 <template>
   <v-dialog v-model="showDialog" width="420px" persistent >
     <v-card elevation="1">
-
-      <v-alert
-          class="ma-0"
-          rounded="0"
-          dismissible
-          v-model="showAlert"
-          type="error"
-          title="Info">
-        <div class="caption">
-          비밀번호가 일치하지 않습니다.
-        </div>
-      </v-alert>
-
       <v-card-title class="subtitle-1 pt-8">
         비밀번호를 입력해주세요.
       </v-card-title>
@@ -48,25 +35,30 @@ export default {
     type:null,
     password:null,
     success:false,
-    showAlert: false,
     showDialog: false,
-    timeoutStatus: null
   }),
   methods:{
     open: function(qnaId, type){
       this.password = null;
       this.success = false;
-      this.showAlert = false;
       this.showDialog = true;
       this.type = type;
       this.qnaId = qnaId;
     },
     close: function(){
       this.showDialog = false;
+      this.clear();
+    },
+    clear: function(){
+      this.qnaId = null;
+      this.type = null;
+      this.password = null;
+      this.success = false;
     },
     doSubmit: function(){
       QnaApi.isAccess(this.qnaId, this.password).then(res => {
         let access = res.data.result.access;
+        console.log('delete.submit.access', res.data);
         if(access) {
           this.success = true;
           this.showDialog = false;
@@ -77,13 +69,7 @@ export default {
       });
     },
     openAlert: function(){
-      if(this.timeoutStatus) {
-        clearTimeout(this.timeoutStatus);
-      }
-      this.showAlert = true;
-      this.timeoutStatus = setTimeout(() => {
-        this.showAlert = false;
-      }, 3000);
+      this.$store.commit('alert', {title:'안내', message:'비밀번호가 일치하지 않습니다.'});
     },
     doCancel: function(){
       this.$emit('cancel', this.type);

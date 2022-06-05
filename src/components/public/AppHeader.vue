@@ -2,12 +2,16 @@
   <v-app-bar elevation="0" height="80px" extension-height="60px" dense flat app absolute color="white">
     <template v-slot:default>
       <div class="flex-fill">
-        <v-container class="justify-center d-flex flex-fill align-end">
-          <div class="caption secondary--text">뭘넣을까</div>
+        <v-container class="justify-center d-flex flex-fill align-end pr-2 pl-2">
+          <div style="width: 150px;" class="fill-height">
+            <div class="caption grey--text">뭘넣을까</div>
+          </div>
           <v-spacer />
           <router-link to="/home"><img :src="require('@/assets/images/logo_c.png')" width="94px" /></router-link>
           <v-spacer />
-          <div class="caption grey--text">연락처?</div>
+          <div style="width: 150px;" class="fill-height">
+            <div class="caption font-weight-regular grey--text text--darken-2">여행상담 : <span class="font-weight-regular body-1 secondary--text">1688-0580</span></div>
+          </div>
         </v-container>
       </div>
     </template>

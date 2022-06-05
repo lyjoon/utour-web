@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar color="#039BE5"
+  <v-snackbar color="#434343"
               multi-line
               v-model="$store.state.ui.snackbar.flag">
     <v-card-text >{{$store.state.ui.snackbar.message}}</v-card-text>
@@ -7,7 +7,7 @@
       <div style="margin: 0px 10px;">
         <v-btn
             v-bind="attrs"
-            color="#4965ba"
+            color="#D84315"
             dark
             elevation="0"
             @click="$store.state.ui.snackbar.flag = false">

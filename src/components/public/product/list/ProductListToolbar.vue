@@ -37,18 +37,48 @@
       </v-autocomplete>
     </div>
     -->
-    <div class="pt-8 pb-4">
-      <strong class="text-h4">태국</strong>
+    <div class="d-flex pt-8 pb-4 align-center">
+      <strong class="text-h5"><span class="font-weight-bold">{{ title || '-' }}</span></strong>
+      <v-spacer />
+      <div>
+        <v-btn color="secondary" elevation="0" dark @click="$router.push('/product')">전체상품보기</v-btn>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import codeApi from "@/api/CodeApi";
+
 export default {
   data() {
     return {
       query1: '',
-      query2: ''
+      query2: '',
+      title: null
+    }
+  },
+  methods:{
+    bind: function(parameters) {
+      let nationCode = parameters.nationCode || '';
+      let continentCode = parameters.continentCode || '';
+      if(nationCode != '' ) {
+        codeApi.getNation(nationCode) .then(res => {
+          let data = res.data.result;
+          this.title = data['nationName'] ;
+        })
+      } else {
+        if(continentCode != '') {
+          codeApi.getCommonCode('CONTINENTS').then(res =>{
+            console.log('code-res', res);
+            let resultData = res.data;
+            if(resultData.result && resultData.result['codeList']) {
+              let continentItem = resultData.result['codeList'].find(item => item.code == continentCode);
+              this.title = continentItem['codeName'];
+            }
+          });
+        } else this.title = '전체';
+      }
     }
   }
 }

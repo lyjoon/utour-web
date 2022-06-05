@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <product-list-toolbar />
+    <product-list-toolbar ref="product_list_toolbar" />
     <product-list ref="product_list"/>
   </v-container>
 </template>
@@ -24,7 +24,7 @@ export default {
     Object.keys(this.parameters).forEach(key => {
       this.parameters[key] = query[key]
     });
-    console.log('this.parameters', this.parameters);
+    this.$refs.product_list_toolbar.bind(this.parameters);
     this.search();
   },
   methods:{
