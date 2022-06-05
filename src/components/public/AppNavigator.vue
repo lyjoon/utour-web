@@ -22,35 +22,35 @@
 
       <v-subheader class="text-truncate d-flex flex-fill">여행</v-subheader>
 
-      <v-list-item link>
+      <v-list-item link @click="moveProduct('AS', 'MV')">
         <v-list-item-icon>
           <v-icon>mdi-island</v-icon>
         </v-list-item-icon>
         <v-list-item-title class="align-center">몰디브</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link>
+      <v-list-item link @click="moveProduct('SA', 'MX', 'MV')">
         <v-list-item-icon>
           <v-icon>mdi-smoking</v-icon>
         </v-list-item-icon>
         <v-list-item-title>칸쿤</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link>
+      <v-list-item link @click="moveProduct('NA', 'US', 'HNL')" >
         <v-list-item-icon>
           <v-icon>mdi-kitesurfing</v-icon>
         </v-list-item-icon>
         <v-list-item-title class="align-center">하와이</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link>
+      <v-list-item link  @click="moveProduct('EU')">
         <v-list-item-icon>
           <v-icon>mdi-eiffel-tower</v-icon>
         </v-list-item-icon>
         <v-list-item-title>유럽</v-list-item-title>
       </v-list-item>
 
-      <v-list-item link>
+      <v-list-item link @click="moveProduct('AS', 'VN')">
         <v-list-item-icon>
           <v-icon>mdi-noodles</v-icon>
         </v-list-item-icon>
@@ -58,7 +58,7 @@
       </v-list-item>
 
 
-      <v-list-item link>
+      <v-list-item link @click="moveProduct('AS', 'TH')">
         <v-list-item-icon>
          <v-icon>mdi-human-female-dance</v-icon>
         </v-list-item-icon>
@@ -130,6 +130,14 @@ export default {
     },
     showNavigator: function () {
       this.navigatorDrawer = !this.navigatorDrawer;
+    },
+    moveProduct: function(continentCode, nationCode, areaCode){
+      let parameters = {
+        continentCode:continentCode,nationCode:nationCode,areaCode:areaCode
+      };
+      let entries = Object.entries(parameters || {});
+      let queryString = entries && entries.length > 0 ? entries.map(e => e.join('=')).join('&') : '';
+      this.$router.replace(`/product?${queryString}`).catch(e => {});
     }
   }
 }

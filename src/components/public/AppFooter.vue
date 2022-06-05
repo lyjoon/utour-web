@@ -1,8 +1,8 @@
 <template>
-  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-6 pb-12 grey--text text--lighten-2 mt-16" dark>
+  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-6 pb-6 grey--text text--lighten-2 mt-16" dark>
     <v-container>
-      <div class="pt-4 pb-4">
-        <div class="text-h5 text-lg-h4 text-xl-h4 font-weight-thin mb-4">U-TOUR</div>
+      <div>
+        <div class="text-h6 text-lg-h5 text-xl-h5 font-weight-thin mb-2">U-TOUR</div>
         <div class="d-flex flex-fill">
           <ul class="list-style-none body-2 font-weight-light ml-0 pl-0">
            <li class="mb-1">주소 : 서울특별시 강남구 압구정로 18길 28</li>

@@ -31,7 +31,7 @@
             <v-spacer />
 
             <div class="d-flex justify-end">
-              <v-btn color="blue-grey lighten-1" dark small height="39px" elevation="0" @click="save">
+              <v-btn color="grey1" small dark height="39px" elevation="0" @click="save">
                 <template v-slot:default>
                   댓글저장
                 </template>

@@ -37,11 +37,12 @@
       </v-autocomplete>
     </div>
     -->
-    <div class="d-flex pt-8 pb-4 align-center">
+    <div class="d-flex pt-4 pb-4 align-center">
       <strong class="text-h5"><span class="font-weight-bold">{{ title || '-' }}</span></strong>
       <v-spacer />
       <div>
-        <v-btn color="secondary" elevation="0" dark @click="$router.push('/product')">전체상품보기</v-btn>
+        <v-btn color="grey lighten-2" elevation="0" class="grey--text text--darken-3" @click="$router.push('/product')">
+          <v-icon class="mr-1">mdi-filter-off-outline</v-icon> 전체보기</v-btn>
       </div>
     </div>
   </div>
@@ -62,15 +63,26 @@ export default {
     bind: function(parameters) {
       let nationCode = parameters.nationCode || '';
       let continentCode = parameters.continentCode || '';
+      let areaCode = parameters.areaCode || '';
       if(nationCode != '' ) {
-        codeApi.getNation(nationCode) .then(res => {
+        codeApi.getNation(nationCode).then(res => {
           let data = res.data.result;
-          this.title = data['nationName'] ;
+
+          if(areaCode != null) {
+            let nationAreaList = data['nationAreaList'];
+            if(nationAreaList && Array.isArray(nationAreaList)) {
+              let areaItem = nationAreaList.find(item => item.areaCode == areaCode);
+              if(areaItem && (areaItem.areaCode || '') != '') {
+                this.title = areaItem.areaName;
+              } else {
+                this.title = data['nationName'];
+              }
+            } else this.title = data['nationName'];
+          } else this.title = data['nationName'];
         })
       } else {
         if(continentCode != '') {
           codeApi.getCommonCode('CONTINENTS').then(res =>{
-            console.log('code-res', res);
             let resultData = res.data;
             if(resultData.result && resultData.result['codeList']) {
               let continentItem = resultData.result['codeList'].find(item => item.code == continentCode);

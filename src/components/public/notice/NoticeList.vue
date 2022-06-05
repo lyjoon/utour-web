@@ -106,7 +106,7 @@
 
     <div class="pt-12 pb-6">
       <v-pagination class="elevation-0"
-                    color="secondary"
+                    color="grey1"
                     v-model="pagination.page"
                     :length="paginationLimit">
       </v-pagination>

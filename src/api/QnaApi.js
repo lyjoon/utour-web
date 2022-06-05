@@ -39,7 +39,7 @@ class QnaApi extends Api {
     }
 
     async isAccess(qnaId, password) {
-        return await this.getAxios().get(`/api/v1/qna/${qnaId}?password=${password}`);
+        return await this.getAxios().get(`/api/v1/qna/access/${qnaId}?password=${password}`);
     }
 }
 export default new QnaApi()

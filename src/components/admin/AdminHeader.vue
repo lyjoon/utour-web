@@ -20,32 +20,6 @@
       </v-sheet>
 
     </template>
-<!--    <v-container fluid>
-      <div class="d-flex flex-fill align-center" v-if="$store.getters.isAuthor">
-        &lt;!&ndash;
-        <v-btn @click="moveHome">
-          <v-icon large>mdi-home</v-icon>
-        </v-btn>
-        <v-spacer />
-        <v-btn icon @click="logout">
-          <v-icon>mdi-logout</v-icon>
-        </v-btn>
-
-        <v-menu left >
-          <template v-slot:activator="{on, attrs}">
-            <v-btn v-bind="attrs" v-on="on" dark icon large @click="showNavigator">
-              <v-icon>mdi-menu</v-icon>
-            </v-btn>
-          </template>
-        </v-menu>
-        &ndash;&gt;
-      </div>
-      <div class="d-flex flex-fill justify-center" v-if="!$store.getters.isAuthor" >
-        <div class="d-flex">
-          <v-img :src="require('@/assets/images/logo.png')" width="100px" />
-        </div>
-      </div>
-    </v-container>-->
   </v-app-bar>
 </template>
 

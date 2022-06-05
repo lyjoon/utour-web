@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <v-layout column class="mt-4 mb-2">
       <v-flex class="caption">※ 비밀번호는 향후 수정 또는 삭제 시 필요하며, 쉬운 비밀번호를 입력하면 타인의 수정 또는 삭제가 될 수 있습니다.</v-flex>
       <v-flex class="caption">※ 욕설 및 혐오 등 게시물은 관리자에 의해 게시글이 삭제될 수 있습니다.</v-flex>
@@ -50,11 +50,11 @@
 
         <!-- button -->
         <v-col class="col-12">
-          <div class="d-flex flex-fill justify-end">
-            <v-btn dark color="deep-orange" class="darken-1 mr-3" elevation="0" link @click="save">
+          <div class="d-flex flex-fill justify-center pt-4 pb-4">
+            <v-btn dark large color="deep-orange darken-1" elevation="0" link @click="save">
               <v-icon class="mr-1" small>mdi-content-save</v-icon><span>저장</span>
             </v-btn>
-            <v-btn dark color="grey" class="darken-1" elevation="0" link @click="back">
+            <v-btn dark large color="grey2" class="ml-4" elevation="0" link @click="back">
               <v-icon class="mr-1" small>mdi-cancel</v-icon><span>취소</span>
             </v-btn>
           </div>
@@ -62,7 +62,7 @@
       </v-row>
     </v-form>
 
-  </v-container>
+  </div>
 
 </template>
 

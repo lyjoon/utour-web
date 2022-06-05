@@ -6,8 +6,9 @@
         <product-list-item :title="item.title" :description="item.description" :src="item.repImageSrc" :product-id="item.productId" />
       </v-col>
     </v-row>
-    <div class="pa-16 d-flex justify-center align-center flex-fill body-2" v-if="(results.length || 0) < 1" >
-      <v-sheet height="100%" :min-height="$vuetify.breakpoint.lgAndUp ? '400px':'0'" width="100%" class="d-flex justify-center align-center">
+
+    <div class="d-flex justify-center align-center flex-fill body-2" v-if="(results.length || 0) < 1" >
+      <v-sheet height="100%" :min-height="$vuetify.breakpoint.lgAndUp ? '500px':'0'" width="100%" class="d-flex justify-center align-center">
         <div>
           <v-icon size="150" color="grey lighten-3">mdi-database-remove</v-icon>
           <div class="mt-8 body-2 grey--text">등록된 상품이 없습니다.</div>

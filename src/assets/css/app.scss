@@ -102,6 +102,9 @@
   border-bottom: solid 1px #dadde6;
 }
 
-.toastui-editor-contents img {width: 100%;}
+.toastui-editor-contents img {
+  max-width: 100%;
+  width: 100%;
+}
 .toastui-editor-contents {font-size: 14px;}
 //.product_viewer .toastui-editor-contents {font-size: 16px;}

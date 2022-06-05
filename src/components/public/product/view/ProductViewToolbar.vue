@@ -7,7 +7,7 @@
           <h1 :class="`${$vuetify.breakpoint.smAndDown ? 'font-weight-regular text-h6' : 'font-weight-bold text-h5'}`">{{ title }}</h1>
         </div>
         <div class="d-block">
-          <div class="body-1 pt-1 grey--text">{{description || 'little pain'}}</div>
+          <div class="body-2 pt-2 grey--text text--darken-2" v-if="(description || '') != ''">{{description }}</div>
           <div class="body-2 pt-1" v-if="(accommodation.address || '' ) != ''">
             주소 : {{accommodation.address}}
           </div>
@@ -15,7 +15,7 @@
       </div>
       <v-spacer />
       <div class="d-flex">
-        <v-btn elevation="0" color="grey lighten-2" class="body-2 grey--text text--darken-1" >
+        <v-btn elevation="0" color="grey2" dark @click="$router.back()">
           <v-icon class="mr-1">mdi-dots-grid</v-icon> <span v-if="!$vuetify.breakpoint.smAndDown" class="body-2 pt-1">목록으로</span>
         </v-btn>
       </div>

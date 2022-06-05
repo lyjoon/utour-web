@@ -1,5 +1,5 @@
 <template>
-  <v-overlay :opacity="0.75" v-model="$store.state.ui.alert.flag" :z-index="99999" color="white">
+  <v-overlay :opacity="0.75" v-model="$store.state.ui.alert.flag" :z-index="99999" >
     <v-card elevation="3" color="#f1f1f1" min-width="300px" max-width="500px" outlined >
       <v-card-title v-if="!!$store.state.ui.alert.title" class="body-1" style="color: #333333">{{ $store.state.ui.alert.title }}</v-card-title>
       <v-card-text class="body-2" style="color: #333333">{{ $store.state.ui.alert.message || '-' }}</v-card-text>

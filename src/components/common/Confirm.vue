@@ -1,5 +1,5 @@
 <template>
-  <v-overlay :opacity="0.85" v-model="$store.state.ui.confirm.flag" :z-index="99999" color="white">
+  <v-overlay :opacity="0.85" v-model="$store.state.ui.confirm.flag" :z-index="99999">
     <v-card elevation="0" color="#f4f4f4" min-width="300px" max-width="500px" >
       <v-card-title v-if="!!$store.state.ui.confirm.title" style="color: #333333">{{ $store.state.ui.confirm.title }}</v-card-title>
       <v-card-text style="font-weight: 500;color: #333333">{{ $store.state.ui.confirm.message || '-' }}</v-card-text>

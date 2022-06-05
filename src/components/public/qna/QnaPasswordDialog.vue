@@ -17,8 +17,8 @@
                       label="비밀번호 입력"></v-text-field>
       </v-card-text>
       <v-card-actions class="align-center d-flex justify-center pb-8">
-        <v-btn elevation="0" color="secondary" dark @click="doSubmit">입력</v-btn>
-        <v-btn elevation="0" color="grey" class="darken-2" dark @click="doCancel">취소</v-btn>
+        <v-btn elevation="0" color="deep-orange darken-1" dark @click="doSubmit">입력</v-btn>
+        <v-btn elevation="0" color="grey1" class="darken-2" dark @click="doCancel">취소</v-btn>
       </v-card-actions>
 
     </v-card>

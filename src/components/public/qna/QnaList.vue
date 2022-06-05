@@ -115,7 +115,7 @@
 
     <div>
       <div class="d-flex flex-fill justify-end mt-4">
-        <v-btn color="grey" class="lighten-2" elevation="0" @click="edit">
+        <v-btn color="grey2" dark elevation="0" @click="edit">
           <v-icon class="mr-1">mdi-playlist-edit</v-icon>
           <span>작성</span>
         </v-btn>
@@ -124,7 +124,7 @@
 
     <div class="pt-6 pb-6">
       <v-pagination class="elevation-0"
-                    color="secondary"
+                    color="grey1"
                     v-model="pagination.page"
                     :length="pagination.pageCount">
       </v-pagination>

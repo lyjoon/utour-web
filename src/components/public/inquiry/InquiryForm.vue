@@ -112,8 +112,9 @@
 
       <div class="mt-4">
         <div class="d-flex flex-fill align-center justify-center pt-4 pb-4">
-          <v-btn large elevation="0" color="deep-orange" class="darken-2 mr-2" dark min-width="120px" @click="store">문의하기</v-btn>
-          <v-btn large elevation="0" color="grey" class="ml-2" dark min-width="120px" @click="clear">초기화</v-btn>
+          <v-btn large elevation="0" color="deep-orange darken-1" dark @click="store">
+            <v-icon class="mr-1">mdi-forum</v-icon> 문의하기</v-btn>
+          <v-btn large elevation="0" color="grey2" class="ml-4" dark @click="clear"><v-icon class="mr-1">mdi-close</v-icon>초기화</v-btn>
         </div>
       </div>
     </div>

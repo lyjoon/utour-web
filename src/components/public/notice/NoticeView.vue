@@ -37,7 +37,7 @@
 
     <div class="mt-4 mb-6">
       <div class="d-flex flex-fill justify-end">
-        <v-btn large outlined elevation="0" link to="/notice/list">
+        <v-btn large dark color="grey2" elevation="0" link to="/notice/list">
           <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
         </v-btn>
       </div>

@@ -28,19 +28,19 @@
       <div class="d-flex flex-fill">
         <div class="d-flex">
 
-          <v-btn color="blue darken-1" dark elevation="0" link @click="edit" v-if="notEmptyId">
-            <v-icon class="mr-1" small>mdi-playlist-edit</v-icon><span>수정</span>
+          <v-btn color="deep-orange darken-1" dark elevation="0" link @click="edit" v-if="notEmptyId">
+            <v-icon class="mr-1">mdi-playlist-edit</v-icon><span>수정</span>
           </v-btn>
 
-          <v-btn color="deep-orange darken-1" dark class="ml-2" elevation="0" link @click="deleteContent" v-if="notEmptyId">
-            <v-icon class="mr-1" small>mdi-delete</v-icon><span>삭제</span>
+          <v-btn color="grey2"  dark class="ml-2" elevation="0" link @click="deleteContent" v-if="notEmptyId">
+            <v-icon class="mr-1">mdi-delete</v-icon><span>삭제</span>
           </v-btn>
 
         </div>
         <v-spacer />
         <div class="d-flex justify-end">
-          <v-btn color="grey" dark elevation="0" link @click="back">
-            <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>
+          <v-btn color="grey2"  dark elevation="0" link @click="back">
+            <v-icon class="mr-1">mdi-format-list-bulleted</v-icon><span>글목록</span>
           </v-btn>
         </div>
       </div>
