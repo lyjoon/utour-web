@@ -26,7 +26,7 @@
       <div class="flex-fill fill-height d-flex align-center" style="border-top: 1px solid #e6e7e5;border-bottom: 1px solid #e6e7e5" >
         <v-container class="fill-height align-center body-2 pt-0 pb-0">
           <ul class="list-style-none d-flex flex-fill pl-0 app_bar_ext_ul app-header-ul">
-            <li v-for="(item, index) in menuList" :class="item.active ? 'active':''" :key="index" @click="moveProduct(item)" v-text="item.text" />
+            <li v-for="(item, index) in getMenuList" :class="item.active ? 'active':''" :key="index" @click="moveProduct(item)" v-text="item.text" />
           </ul>
         </v-container>
       </div>
@@ -40,9 +40,6 @@ export default {
   name: "AppHeader",
   data: () =>({
     showNavigator: false,
-    continentCode:null,
-    nationCode:null,
-    areaCode:null,
     menuList: [
       {text:'몰디브', continentCode: 'AS', nationCode:'MV',areaCode:null, active:false},
       {text:'칸쿤', continentCode: 'SA', nationCode:'MX',areaCode:'MV', active:false},
@@ -52,14 +49,24 @@ export default {
       {text:'태국', continentCode: 'AS', nationCode:'TH',areaCode:null, active:false},
     ]
   }),
-  mounted() {
-    let query = this.$route.query;
-    this.continentCode = query.continentCode;
-    this.nationCode = query.nationCode;
-    this.areaCode = query.areaCode;
-    this.menuList.forEach(item => {
-      item.active = (this.continentCode || '') == (item.continentCode || '') && (this.nationCode || '') == (item.nationCode || '') && (this.areaCode || '') == (item.areaCode || '') ? true:false;
-    })
+  computed:{
+    getMenuList(){
+      let query = this.$route.query;
+      let continentCode = query.continentCode;
+      let nationCode = query.nationCode;
+      let areaCode = query.areaCode;
+      let arr = [];
+      this.menuList.forEach(item => {
+        arr.push({
+          text:item.text,
+          continentCode:item.continentCode,
+          nationCode:item.nationCode,
+          areaCode:item.areaCode,
+          active:(continentCode || '') == (item.continentCode || '') && (nationCode || '') == (item.nationCode || '') && (areaCode || '') == (item.areaCode || '') ? true:false,
+        })
+      });
+      return arr;
+    }
   },
   methods: {
     openNavigator: function () {
