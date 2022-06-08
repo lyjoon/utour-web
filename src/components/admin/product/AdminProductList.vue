@@ -210,7 +210,14 @@ export default {
     search: function(){
       // this.$store.commit('alert', {message:'준비중인데'});
       this.pagination.page = 1;
-      productApi.getPageList(this.pagination.page, 20, this.queryType.value, this.query).then(res => {
+      let parameters = {
+        page: this.pagination.page,
+        limit: 20,
+        queryType: this.queryType.value,
+        query: this.query
+      };
+
+      productApi.pageList(parameters).then(res => {
         let data = res.data;
         if(data) {
           this.pagination.page = data.page || 1;

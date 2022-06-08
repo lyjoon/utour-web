@@ -31,14 +31,14 @@
           </div>
 
           <div>
-            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>여행국가</div>
-            <v-select filled rounded dense class="rounded" placeholder="여행국가"
-                      :items="nationList"
-                      v-model="command.nationCode"
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>목적지</div>
+            <v-select filled rounded dense class="rounded" placeholder="여행목적지"
+                      :items="arrivalList"
+                      v-model="command.arrivalCode"
                       eager
-                      item-value="nationCode"
-                      item-text="nationName"
-                      @change="onChangeNationCode">
+                      item-value="arrivalCode"
+                      item-text="arrivalName"
+                      @change="onChangeArrivalCode">
 
             </v-select>
           </div>
@@ -48,7 +48,7 @@
                       rounded
                       dense
                       class="rounded"
-                      :items="nationAreaList"
+                      :items="areaList"
                       item-value="areaCode"
                       item-text="areaName"
                       v-model="command.areaCode"
@@ -117,9 +117,9 @@ export default {
     }
   },
   mounted() {
-    codeApi.getNationAllList().then(res => {
+    codeApi.getArrivalList().then(res => {
       let resultData = res.data;
-      this.nationList = resultData.result;
+      this.arrivalList = resultData;
     });
 
     codeApi.getCommonCode('PRODUCT_TYPE').then(res => {
@@ -131,13 +131,13 @@ export default {
     });
   },
   data:() =>({
-    nationList:[],
-    nationAreaList:[],
+    arrivalList:[],
+    areaList:[],
     productType:[],
     command: {
       productId:null,
       productType:null,
-      nationCode:null,
+      arrivalCode:null,
       areaCode:null,
       repImageSrc:null,
       title:null,
@@ -165,15 +165,12 @@ export default {
         reader.readAsDataURL(this.repImageFile);
       }
     },
-    onChangeNationCode: function(){
-      let nationCode = this.command.nationCode;
-      codeApi.getNation(nationCode).then(res => {
-        let data = res.data.result;
-        if(data) {
-          let nationAreaList = data.nationAreaList;
-          if(nationAreaList && Array.isArray(nationAreaList)) {
-            this.nationAreaList = nationAreaList;
-          }
+    onChangeArrivalCode: function(){
+      let arrivalCode = this.command.arrivalCode;
+      codeApi.getAreaList({arrivalCode:arrivalCode}).then(res => {
+        let data = res.data;
+        if(data && Array.isArray(data)) {
+          this.areaList = data;
         }
       })
 
@@ -182,7 +179,7 @@ export default {
       let command = {
         productId: this.command.productId,
         productType: this.command.productType,
-        nationCode: this.command.nationCode,
+        arrivalCode: this.command.arrivalCode,
         areaCode: this.command.areaCode,
         repImageSrc: this.repImageFile ? this.repImageFile.name : null,
         title:this.command.title,
@@ -204,7 +201,8 @@ export default {
         });*/
         this.command.productId = product['productId'];
         this.command.productType = product['productType'];
-        this.command.nationCode = product['nationCode'];
+        this.command.arrivalCode = product['arrivalCode'];
+        this.command.areaCode = product['areaCode'];
         this.command.repImageSrc = `/api/v1/product/image/${this.command.productId}`;
         this.command.title = product['title'];
         this.command.description = product['description'];

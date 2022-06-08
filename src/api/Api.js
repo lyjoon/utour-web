@@ -1,5 +1,6 @@
 import axios from "../utils/axios";
 import fileDownload from "js-file-download";
+import store from "@/store";
 export default class Api {
     resource;
 
@@ -20,5 +21,12 @@ export default class Api {
         let contentDisposition = response.headers['content-disposition'];
         let fileName = decodeURI(contentDisposition.split('filename=')[1].split(';')[0].replace(/['"]/g, ''));
         this.getFileDownload()(response.data, originName || fileName);
+    }
+
+    getMultipartHeader() {
+        return {headers :{
+                "Authorization" :`Bearer ${store.state.auth.token}`,
+                "Content-Type": `multipart/form-data`,
+            }};
     }
 }

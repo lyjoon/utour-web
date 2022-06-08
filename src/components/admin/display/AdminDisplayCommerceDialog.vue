@@ -16,29 +16,29 @@
       <v-card-text>
         <v-form ref="frm" lazy-validation>
           <div>
-            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>여행국가</div>
-            <v-select filled rounded dense class="rounded" placeholder="여행국가"
-                      :items="nationList"
-                      v-model="nationCode"
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>여행목적지</div>
+            <v-select filled rounded dense class="rounded"
+                      :items="arrivalList"
+                      v-model="arrivalCode"
                       eager
-                      item-value="nationCode"
-                      item-text="nationName"
-                      @change="onChangeNationCode">
+                      item-value="arrivalCode"
+                      item-text="arrivalName"
+                      @change="onChangeArrivalCode">
 
             </v-select>
           </div>
           <div>
-            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-city</v-icon>도시/지역</div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-city</v-icon>지역</div>
             <v-select filled
                       rounded
                       dense
                       class="rounded"
-                      :items="nationAreaList"
+                      :items="areaList"
                       item-value="areaCode"
                       item-text="areaName"
-                      v-model="nationAreaCode"
+                      v-model="areaCode"
                       placeholder="여행도시/지역"
-                      @change="onChangeNationAreaCode"
+                      @change="onChangeAreaCode"
             >
               <template v-slot:no-data>
                 <div class="body-2 pa-4">지역/도시정보가 없습니다.</div>
@@ -128,10 +128,10 @@ export default {
       ordinalPosition: null,
       useYn: null,
     },
-    nationCode:null,
-    nationList:[],
-    nationAreaCode:null,
-    nationAreaList:[],
+    arrivalList:[],
+    arrivalCode:null,
+    areaList:[],
+    areaCode:null,
     productList:[],
     product: {
       productId:null,
@@ -150,10 +150,10 @@ export default {
       Object.keys(this.command).forEach(key => {
         this.command[key] = null;
       });
-      this.nationCode = null;
-      this.nationAreaCode = null;
-      this.nationAreaList = [];
-      this.nationList = [];
+      this.arrivalCode = null;
+      this.areaCode = null;
+      this.arrivalList = [];
+      this.areaList = [];
       this.productList = [];
       this.product = {
         productId:null,
@@ -178,56 +178,56 @@ export default {
         // 상품정보 조회 이후 지역정보 세팅.
         productApi.get(this.command.productId).then(res => {
           let data = res.data;
-          let nationCode = null, nationAreaCode = null;
+          let arrivalCode = null, areaCode = null;
           if(data && data.result && data.result.product && (data.result.product.productId || 0) > 0) {
             let _product = data.result.product;
             this.product.productId = _product.productId;
             this.product.title = _product.title;
             this.product.description = _product.description;
-            nationAreaCode = _product.areaCode;
-            nationCode = _product.nationCode;
+            areaCode = _product.areaCode;
+            arrivalCode = _product.arrivalCode;
           }
 
-          codeApi.getNationAllList().then(res => {
+          codeApi.getArrivalList().then(res => {
             let resultData = res.data;
-            this.nationList = resultData.result;
+            if(Array.isArray(resultData)) {
+              this.arrivalList = resultData;
 
-            let _nation = this.nationList.find(item => {
-              return item.nationCode == nationCode;
-            });
-
-            if(_nation && _nation.nationCode) {
-              this.nationCode = _nation.nationCode;
-
-              codeApi.getNation(nationCode).then(res => {
-                let data = res.data.result;
-                if(data) {
-                  let nationAreaList = data.nationAreaList;
-                  if(nationAreaList && Array.isArray(nationAreaList)) {
-                    this.nationAreaList = nationAreaList;
-
-                    let _area = this.nationAreaList.find(item => {return item.areaCode == nationAreaCode;})
-                    if(_area && _area.areaCode) {
-                      this.nationAreaCode = _area.areaCode;
-                      this.getProductList();
-                    } else {
-                      this.getProductList();
-                    }
-                  }
-                }
+              let _arrival = this.arrivalList.find(item => {
+                return item.arrivalCode == arrivalCode;
               });
 
-            } else {
-              this.getProductList();
+              if(_arrival && _arrival.arrivalCode) {
+                this.arrivalCode = _arrival.arrivalCode;
+
+                codeApi.getAreaList({arrivalCode : this.arrivalCode})
+                    .then(areaResponse => {
+                      let areaData = areaResponse.data;
+                      if(Array.isArray(areaData)) {
+                        this.areaList = areaData;
+                        let _area = this.areaList.find(areaItem => areaItem.areaCode == areaCode);
+                        if(_area && _area.areaCode) {
+                          this.areaCode = _area.areaCode;
+                          this.getProductList();
+                        } else {
+                          this.getProductList();
+                        }
+                      }
+                    })
+              } else {
+                this.getProductList();
+              }
             }
           });
-        })
+        });
       } else {
         this.command.ordinalPosition = param.ordinalPosition;
 
-        codeApi.getNationAllList().then(res => {
+        codeApi.getArrivalList().then(res => {
           let resultData = res.data;
-          this.nationList = resultData.result;
+          if(Array.isArray(resultData)) {
+            this.arrivalList = resultData;
+          }
         });
       }
       this.drawDialog = true;
@@ -236,10 +236,10 @@ export default {
       this.drawDialog = false;
       this.clear();
     },
-    onChangeNationAreaCode: function(){
+    onChangeAreaCode: function(){
       this.getProductList();
     },
-    onChangeNationCode: function(){
+    onChangeArrivalCode: function(){
       let nationCode = this.nationCode;
       codeApi.getNation(nationCode).then(res => {
         let data = res.data.result;
@@ -276,15 +276,10 @@ export default {
       });
     },
     getProductList: function(){
-      /*this.product = {
-        productId:null,
-        title:null,
-        description:null,
-        repImageSrc:null,
-      };*/
-      productApi.getList(this.nationCode, this.nationAreaCode).then(res => {
-        let data = res.data.result;
-        if(data && Array.isArray(data)) {
+      productApi.getList(this.arrivalCode, this.areaCode).then(res => {
+        let data = res.data;
+        console.log('product-list', data);
+        /*if(data && Array.isArray(data)) {
           this.productList = data;
 
           if(this.product && (this.product.productId || 0) > 0 ) {
@@ -299,7 +294,7 @@ export default {
               this.product.repImageSrc = `/api/v1/product/image/${_product.productId}`;
             }
           }
-        }
+        }*/
       });
     }
   }
