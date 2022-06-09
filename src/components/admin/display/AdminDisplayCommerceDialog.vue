@@ -23,6 +23,7 @@
                       eager
                       item-value="arrivalCode"
                       item-text="arrivalName"
+                      placeholder="여행목적지"
                       @change="onChangeArrivalCode">
 
             </v-select>
@@ -58,7 +59,7 @@
               <template v-slot:item="{item}"><span class="body-2">{{item.title}}</span></template>
               <template v-slot:selection="{item}">{{item.title}}</template>
               <template v-slot:no-data>
-                <div class="body-2 pa-4">{{ (nationCode || '') != '' ? '등록된 상품이 없습니다.':'여행국가를 선택해주세요.' }}</div>
+                <div class="body-2 pa-4">{{ (arrivalCode || '') != '' ? '등록된 상품이 없습니다.':'목적지를 선택해주세요.' }}</div>
               </template>
             </v-select>
           </div>
@@ -240,17 +241,13 @@ export default {
       this.getProductList();
     },
     onChangeArrivalCode: function(){
-      let nationCode = this.nationCode;
-      codeApi.getNation(nationCode).then(res => {
-        let data = res.data.result;
-        if(data) {
-          let nationAreaList = data.nationAreaList;
-          if(nationAreaList && Array.isArray(nationAreaList)) {
-            this.nationAreaList = nationAreaList;
-          }
+      codeApi.getAreaList({arrivalCode : this.arrivalCode}).then( res=> {
+        let data = res.data;
+        if(Array.isArray(data)) {
+          this.areaList = data;
         }
+        this.getProductList();
       });
-      this.getProductList();
     },
     onChangeProduct: function(){
       let _productId = this.command.productId;
@@ -279,6 +276,21 @@ export default {
       productApi.getList(this.arrivalCode, this.areaCode).then(res => {
         let data = res.data;
         console.log('product-list', data);
+        if(Array.isArray(data) && data.length > 0) {
+          this.productList = [];
+          data.forEach(item => {
+            if(Array.isArray(item.results)) {
+              item.results.forEach(productItem =>
+                  this.productList.push(
+                      {productId : productItem.productId,
+                        title: productItem.title,
+                        description:productItem.description,
+                        arrivalCode:productItem.arrivalCode,
+                        areaCode:productItem.areaCode}));
+            }
+          });
+          console.log('commerce.getProductList', data, this.productList);
+        }
         /*if(data && Array.isArray(data)) {
           this.productList = data;
 

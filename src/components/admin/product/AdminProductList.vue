@@ -208,7 +208,6 @@ export default {
       })
     },
     search: function(){
-      // this.$store.commit('alert', {message:'준비중인데'});
       this.pagination.page = 1;
       let parameters = {
         page: this.pagination.page,
@@ -232,7 +231,6 @@ export default {
       this.search();
     },
     onCreate: function(){
-      //this.$refs.admin_product_create_dialog.showDialog();
       this.$router.push("/admin/product/edit");
     }
   },
