@@ -21,6 +21,10 @@ class CodeApi extends Api {
     async getCommonCode(groupCode) {
         return await this.getAxios().get(`/api/v1/code/common?groupCode=${groupCode || ''}`);
     }
+
+    async getArrival(parameters) {
+        return this.getAxios().post('/api/v1/code/arrival', parameters);
+    }
 }
 
 export default new CodeApi()

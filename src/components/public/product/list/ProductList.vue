@@ -1,11 +1,14 @@
 <template>
   <div>
-    <v-row dense v-if="(results.length || 0) > 0">
-      <v-col class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
-             v-for="(item, index) in results" v-bind:key="index">
-        <product-list-item :title="item.title" :description="item.description" :src="item.repImageSrc" :product-id="item.productId" />
-      </v-col>
-    </v-row>
+    <div v-for="(areaItem, areaIdx) in results" :key="areaIdx">
+      <div class="title" v-text="areaItem.areaName || 'N/A'" ></div>
+      <v-row dense>
+        <v-col class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4"
+               v-for="(item, index) in areaItem.results" v-bind:key="index">
+          <product-list-item :title="item.title" :description="item.description" :src="item.repImageSrc" :product-id="item.productId" />
+        </v-col>
+      </v-row>
+    </div>
 
     <div class="d-flex justify-center align-center flex-fill body-2" v-if="(results.length || 0) < 1" >
       <v-sheet height="100%" :min-height="$vuetify.breakpoint.lgAndUp ? '500px':'0'" width="100%" class="d-flex justify-center align-center">
@@ -28,14 +31,22 @@ export default {
   methods: {
     bind: function(data){
       this.results = [];
-      if(data && data.result && Array.isArray(data.result)) {
-        data.result.forEach(item => {
-          this.results.push({
-            productId: item.productId,
-            title: item.title,
-            description: item.description,
-            repImageSrc: `/api/v1/product/image/${item.productId}`,
-          });
+
+      if(Array.isArray(data)) {
+        data.forEach( areaItem => {
+          let results = areaItem.results;
+          if(Array.isArray(results) && results.length > 0) {
+            let _area = {
+              areaCode : areaItem.areaCode,
+              areaName : areaItem.areaName,
+              arrivalCode : areaItem.arrivalCode,
+              results : results.map(product => {
+                product['repImageSrc'] = `/api/v1/product/image/${product.productId}`;
+                return product;
+              })
+            };
+            this.results.push(_area);
+          }
         })
       }
     }

@@ -13,7 +13,7 @@ class ProductApi extends Api {
     }
 
     async pageList(parameters){
-        return await this.getAxios().post(`/api/v1/product/page/list`, parameters);
+        return await this.getAxios().post(`/api/v1/product/list`, parameters);
     }
 
     async getList(arrivalCode, areaCode) {
