@@ -57,8 +57,7 @@ export default {
     },
     doSubmit: function(){
       QnaApi.isAccess(this.qnaId, this.password).then(res => {
-        let access = res.data.result.access;
-        console.log('delete.submit.access', res.data);
+        let access = res.data.result;
         if(access) {
           this.success = true;
           this.showDialog = false;
