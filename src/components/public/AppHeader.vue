@@ -1,9 +1,20 @@
 <template>
-  <v-app-bar dense height="54px" elevation="0" app color="white" absolute class="app-bar-ext">
+  <v-app-bar dense :height="`54px`" elevation="0" app color="white" absolute class="app-bar-ext">
+<!--    <template v-slot:img>
+      <v-icon class="mx-auto align-center">mdi-menu</v-icon>
+    </template>-->
     <template v-slot:default>
       <div class="flex-fill">
-        <v-container class="justify-center d-flex flex-fill align-center pa-0">
-          <router-link to="/home"><img :src="require('@/assets/images/logo_c.png')" width="80px" /></router-link>
+        <v-container :class="`justify-center d-flex flex-fill align-center ${$vuetify.breakpoint.smAndDown ? 'pl-2 pr-2' : ''}`">
+          <v-row no-gutters dense>
+            <v-col class="col-1 align-center d-flex">
+              <v-icon color="secondary" @click.stop="openNavigator">mdi-menu</v-icon>
+            </v-col>
+            <v-col class="col-10 text-center">
+              <router-link to="/home" ><img :src="require('@/assets/images/logo_c.png')" :width="$vuetify.breakpoint.smAndDown ? '80px':'80px'" /></router-link>
+            </v-col>
+            <v-col class="col-1  align-center d-flex"></v-col>
+          </v-row>
         </v-container>
       </div>
     </template>

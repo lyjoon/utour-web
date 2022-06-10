@@ -29,9 +29,9 @@ export default {
     title: null,
     description: null,
     productId : null,
-    nationCode: null,
+    arrivalCode: null,
     areaCode: null,
-    nationName: null,
+    arrivalName: null,
     areaName: null,
     accommodation: {
       address: null,
@@ -42,13 +42,12 @@ export default {
   }),
   methods: {
     bind: function(data){
-      console.log('product_view_toolbar', data);
       this.title = data.title;
       this.description = data.description;
       this.productId = data.productId;
-      this.nationCode = data.nationCode;
+      this.arrivalCode = data.arrivalCode;
       this.areaCode = data.areaCode;
-      this.nationName = data.nationName;
+      this.arrivalName = data.arrivalName;
       this.areaName = data.areaName;
       if(data.accommodation) {
         this.accommodation.address = data.accommodation.address;

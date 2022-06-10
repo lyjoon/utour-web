@@ -68,7 +68,7 @@
               {{ item.title }}
             </td>
             <td class="text-center body-2">
-              {{ item['nationName'] }}
+              {{ item['arrivalName'] || '-' }}
             </td>
             <td class="text-center body-2">
               {{ item.productType }}
@@ -116,7 +116,7 @@
                 {{ item.title }}
               </div>
               <v-list-item-subtitle class="caption">
-                {{ item.nationName }}
+                {{ item.arrivalName }}
                 <span class="mx-auto mr-1 ml-1 caption">|</span>
                 {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
                 <span class="mx-auto mr-1 ml-1 caption">|</span>
