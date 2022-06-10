@@ -18,6 +18,10 @@
   padding-right: 0px !important;
 }
 
+.app-bar-ext .v-toolbar__content {
+  padding-left: 0px; padding-right: 0px;
+}
+
 /* inquiry-form */
 .inquiry_form {
   padding: 20px 15px;
@@ -64,35 +68,6 @@
   font-size: 16px;
   color: brown;
 }
-
-.app_bar_ext_ul{
-  margin: 0px;
-  height: 100%;
-  li {
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
-  }
-
-  li.active {
-    font-weight: 600;
-    color: #ff7f00;
-  }
-
-  li:hover {
-    color: white;
-    font-weight: 600;
-    background-color: #ff7f00;
-  }
-}
-
 
 .v-expansion-panel-content__wrap {
   padding: 0px;

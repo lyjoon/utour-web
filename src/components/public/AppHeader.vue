@@ -1,23 +1,29 @@
 <template>
-  <v-app-bar elevation="0" dense flat app absolute color="white">
+  <v-app-bar dense height="54px" elevation="0" app color="white" absolute class="app-bar-ext">
     <template v-slot:default>
       <div class="flex-fill">
-        <v-container class="justify-center d-flex flex-fill align-center pr-0 pl-0">
-          <router-link to="/home"><img :src="require('@/assets/images/logo_c.png')" width="70px" /></router-link>
+        <v-container class="justify-center d-flex flex-fill align-center pa-0">
+          <router-link to="/home"><img :src="require('@/assets/images/logo_c.png')" width="80px" /></router-link>
         </v-container>
       </div>
     </template>
-    <template v-slot:extension>
-      <div class="flex-fill fill-height d-flex align-center" style="border-top: 1px solid #e6e7e5;border-bottom: 1px solid #e6e7e5" >
-        <v-container class="fill-height align-center body-2 align-center pa-0">
-          <ul class="list-style-none d-flex flex-fill pl-0 app_bar_ext_ul app-header-ul">
-            <li v-for="(item, index) in getMenuList" :class="item.active ? 'active':''" :key="index" @click="moveProduct(item)" v-text="item.arrivalName" />
+    <template v-slot:extension >
+      <div class="d-flex flex-fill menu_div" v-if="$vuetify.breakpoint.mdAndUp">
+        <v-container class="pt-0 pb-0">
+          <ul class="list-style-none d-flex flex-fill pl-0 app-bar-lg-menu">
+            <li v-for="(item, index) in getMenuList" :class="`pa-3 ${item.active ? 'active':''}`" :key="index" @click="moveProduct(item)" v-text="item.arrivalName" />
           </ul>
         </v-container>
       </div>
+      <v-container fluid class="pa-0 menu_div secondary" v-if="$vuetify.breakpoint.smAndDown" >
+        <v-slide-group>
+          <v-slide-item v-for="(item, index) in getMenuList" :key="index">
+            <div class="pa-3 text-center body-2 white--text font-weight-bold">{{item.arrivalName}}</div>
+          </v-slide-item>
+        </v-slide-group>
+      </v-container>
     </template>
   </v-app-bar>
-
 </template>
 
 <script>
@@ -27,7 +33,8 @@ export default {
   name: "AppHeader",
   data: () =>({
     showNavigator: false,
-    menuList: []
+    menuList: [],
+    selectMenu:null
   }),
   mounted() {
     codeApi.getArrivalList().then(res => {
@@ -78,11 +85,36 @@ export default {
 </script>
 
 <style scoped>
-  .app-header-ul .active {
-    color: #ff7f00;
+
+  .menu_div {
+    border-top: 1px solid #e6e7e5;
+    border-bottom: 1px solid #e6e7e5;
   }
 
-  .app-header-ul .active:hover {
+  .app-bar-lg-menu{
+    margin: 0px;
+    height: 100%;
+  }
+
+  .app-bar-lg-menu li {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .app-bar-lg-menu li.active {
+    font-weight: 600;
+  }
+
+  .app-bar-lg-menu li:hover {
     color: white;
+    font-weight: 600;
+    background-color: #ff7f00;
   }
 </style>
