@@ -36,19 +36,21 @@
           <colgroup>
             <col style="width: 100px" />
             <col  />
-            <col style="width: 150px" />
             <col style="width: 110px" />
+            <col style="width: 110px" />
+            <col style="width: 100px" />
             <col style="width: 100px" />
             <col style="width: 120px" />
           </colgroup>
           <thead>
           <tr>
-            <th class="text-center body-1 font-weight-bold">ID</th>
-            <th class="text-center body-1 font-weight-bold">상품명</th>
-            <th class="text-center body-1 font-weight-bold">국가</th>
-            <th class="text-center body-1 font-weight-bold">상품유형</th>
-            <th class="text-center body-1 font-weight-bold">등록일</th>
-            <th class="text-center body-1 font-weight-bold">actions</th>
+            <th class="text-center body-2 font-weight-bold">ID</th>
+            <th class="text-center body-2 font-weight-bold">상품명</th>
+            <th class="text-center body-2 font-weight-bold">목적지</th>
+            <th class="text-center body-2 font-weight-bold">지역</th>
+            <th class="text-center body-2 font-weight-bold">사용유무</th>
+            <th class="text-center body-2 font-weight-bold">등록일</th>
+            <th class="text-center body-2 font-weight-bold">actions</th>
           </tr>
           </thead>
           <tbody>
@@ -71,7 +73,11 @@
               {{ item['arrivalName'] || '-' }}
             </td>
             <td class="text-center body-2">
-              {{ item.productType }}
+              {{ item['areaName'] }}
+            </td>
+
+            <td class="text-center body-2">
+              {{ item['useYn'] == 'Y'  ? '사용':'미사용'}}
             </td>
             <td class="text-center body-2">
               {{ $moment(item['createAt']).format('YYYY.MM.DD') }}

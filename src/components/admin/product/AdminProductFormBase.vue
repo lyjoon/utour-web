@@ -5,60 +5,10 @@
     </div>
 
     <div>
-      <v-row>
-        <v-col cols="12">
-          <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-pencil</v-icon>상품명(필수)</div>
-          <v-text-field dense placeholder="여행상품에 대한 제목을 입력해주세요." v-model="command.title"
-                        aria-required="true" filled rounded class="rounded" ></v-text-field>
-        </v-col>
 
-        <v-col cols="12">
-          <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-text</v-icon>상품한줄설명</div>
-          <v-text-field dense hide-details placeholder="여행상품에 대한 설명을 작성해주세요." v-model="command.description"
-                        aria-required="true" filled rounded class="rounded" ></v-text-field>
-        </v-col>
+      <v-row dense>
 
         <v-col :cols="col4">
-
-          <div>
-            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small >mdi-cog</v-icon>상품유형</div>
-            <v-select filled rounded dense class="rounded" placeholder="여행상품 유형을 선택해주세요"
-                      v-model="command.productType"
-                      disabled
-                      eager
-                      :items="productType" item-text="codeName" item-value="code"></v-select>
-
-          </div>
-
-          <div>
-            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>목적지</div>
-            <v-select filled rounded dense class="rounded" placeholder="여행목적지"
-                      :items="arrivalList"
-                      v-model="command.arrivalCode"
-                      eager
-                      item-value="arrivalCode"
-                      item-text="arrivalName"
-                      @change="onChangeArrivalCode">
-
-            </v-select>
-          </div>
-          <div>
-            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-city</v-icon>도시/지역</div>
-            <v-select filled
-                      rounded
-                      dense
-                      class="rounded"
-                      :items="areaList"
-                      item-value="areaCode"
-                      item-text="areaName"
-                      v-model="command.areaCode"
-                      placeholder="여행도시/지역"
-            >
-              <template v-slot:no-data>
-                <div class="body-2 pa-4">지역/도시정보가 없습니다.</div>
-              </template>
-            </v-select>
-          </div>
 
           <div>
             <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-image</v-icon>대표이미지</div>
@@ -79,13 +29,79 @@
           </div>
 
 
+          <div class="pt-4">
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-check</v-icon>사용유무</div>
+            <div class="d-flex justify-start align-center">
+
+              <v-radio-group dense row class="mt-0 ml-0" v-model="command.useYn">
+                <v-radio value="Y"><template v-slot:label><span class="body-2">사용</span></template></v-radio>
+                <v-radio value="N"><template v-slot:label><span class="body-2">사용안함</span></template></v-radio>
+              </v-radio-group>
+            </div>
+          </div>
+
+          <div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small >mdi-cog</v-icon>상품유형</div>
+            <v-select filled rounded dense class="rounded" placeholder="여행유형선택"
+                      v-model="command.productType"
+                      disabled
+                      eager
+                      :items="productType" item-text="codeName" item-value="code"></v-select>
+          </div>
+
+
+          <div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-earth</v-icon>목적지</div>
+            <v-select filled rounded dense class="rounded" placeholder="여행목적지"
+                      :items="arrivalList"
+                      v-model="command.arrivalCode"
+                      eager
+                      item-value="arrivalCode"
+                      item-text="arrivalName"
+                      @change="onChangeArrivalCode">
+
+            </v-select>
+          </div>
+
+          <div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-city</v-icon>도시/지역</div>
+            <v-select filled
+                      rounded
+                      dense
+                      class="rounded"
+                      :items="areaList"
+                      item-value="areaCode"
+                      item-text="areaName"
+                      v-model="command.areaCode"
+                      placeholder="여행도시/지역"
+            >
+              <template v-slot:no-data>
+                <div class="body-2 pa-4">지역/도시정보가 없습니다.</div>
+              </template>
+            </v-select>
+          </div>
+
         </v-col>
 
-        <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 8" class="pb-9">
-          <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1">mdi-pencil</v-icon>여행상품개요</div>
-          <v-sheet height="100%" min-height="500px">
-            <toast-editor ref="toast-editor"></toast-editor>
-          </v-sheet>
+        <v-col :cols="col8">
+          <div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-pencil</v-icon>상품명(필수)</div>
+            <v-text-field dense placeholder="제목입력" v-model="command.title"
+                          aria-required="true" filled rounded class="rounded" ></v-text-field>
+          </div>
+
+          <div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1" small>mdi-pencil</v-icon>상품설명</div>
+            <v-text-field dense placeholder="여행설명" v-model="command.description"
+                          aria-required="true" filled rounded class="rounded" ></v-text-field>
+          </div>
+
+          <div>
+            <div class="grey--text caption"><v-icon class="mr-1" color="grey lighten-1">mdi-pencil</v-icon>여행상품개요</div>
+            <v-sheet height="469">
+              <toast-editor ref="toast-editor"></toast-editor>
+            </v-sheet>
+          </div>
         </v-col>
 
       </v-row>
@@ -103,6 +119,9 @@ export default {
   computed: {
     col4(){
       return this.$vuetify.breakpoint.smAndDown ? 12 : 4;
+    },
+    col8(){
+      return this.$vuetify.breakpoint.smAndDown ? 12 : 8;
     },
     repImageHeight(){
       switch (this.$vuetify.breakpoint.name) {
@@ -144,7 +163,7 @@ export default {
       description:null,
       content:null,
       writer:null,
-      useYn:null,
+      useYn:'N',
     },
     repImageFile:null,
     repImageReaderSrc:null
@@ -213,6 +232,10 @@ export default {
         // this.repImageReaderSrc = `/v1/product/image/${this.command.productId}`;
 
         this.$refs["toast-editor"].setMarkdown(this.command.content);
+
+        if(this.command.arrivalCode) {
+          this.onChangeArrivalCode();
+        }
       }
     }
   }

@@ -22,7 +22,7 @@ export default {
       hideModeSwitch: false,
       toolbarItems: [
         ['heading', 'bold', 'italic', 'strike'],
-        ['hr', 'quote'],
+        //['hr', 'quote'],
         ['ul', 'ol', 'task', 'indent', 'outdent'],
         //['table', 'image', 'link'],
         ['table', 'link'],
