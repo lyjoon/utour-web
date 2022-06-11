@@ -1,22 +1,17 @@
 <template>
 
-  <div class="pt-4 pb-2">
+  <div>
     <div class="d-flex align-end flex-fill">
       <div>
-        <div class="d-block">
-          <h1 :class="`${$vuetify.breakpoint.smAndDown ? 'font-weight-regular text-h6' : 'font-weight-bold text-h5'}`">{{ title }}</h1>
+        <div class="d-block pb-1">
+          <h1 class="title font-weight-bold">{{ title }}</h1>
         </div>
-        <div class="d-block">
-          <div class="body-2 pt-2 grey--text text--darken-2" v-if="(description || '') != ''">{{description }}</div>
-          <div class="body-2 pt-1" v-if="(accommodation.address || '' ) != ''">
-            주소 : {{accommodation.address}}
-          </div>
-        </div>
+        <div class="body-2 pt-1 grey--text" v-if="(description || '') != ''">{{description }}</div>
       </div>
       <v-spacer />
       <div class="d-flex">
-        <v-btn elevation="0" color="grey2" dark @click="$router.back()">
-          <v-icon class="mr-1">mdi-dots-grid</v-icon> <span v-if="!$vuetify.breakpoint.smAndDown" class="body-2 pt-1">목록으로</span>
+        <v-btn elevation="0" color="secondary" dark icon @click="$router.back()">
+          <v-icon>mdi-dots-grid</v-icon>
         </v-btn>
       </div>
     </div>
@@ -29,9 +24,9 @@ export default {
     title: null,
     description: null,
     productId : null,
-    nationCode: null,
+    arrivalCode: null,
     areaCode: null,
-    nationName: null,
+    arrivalName: null,
     areaName: null,
     accommodation: {
       address: null,
@@ -42,13 +37,12 @@ export default {
   }),
   methods: {
     bind: function(data){
-      console.log('product_view_toolbar', data);
       this.title = data.title;
       this.description = data.description;
       this.productId = data.productId;
-      this.nationCode = data.nationCode;
+      this.arrivalCode = data.arrivalCode;
       this.areaCode = data.areaCode;
-      this.nationName = data.nationName;
+      this.arrivalName = data.arrivalName;
       this.areaName = data.areaName;
       if(data.accommodation) {
         this.accommodation.address = data.accommodation.address;

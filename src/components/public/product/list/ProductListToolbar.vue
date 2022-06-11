@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="d-flex pt-4 pb-4 align-center">
+      <strong class="text-h5"><span class="font-weight-bold">{{ arrivalName || '-' }}</span></strong>
+      <v-spacer />
+    </div>
+
     <!--
     <div>
         <v-autocomplete v-model="query1"
@@ -37,18 +42,11 @@
       </v-autocomplete>
     </div>
     -->
-    <div class="d-flex pt-4 pb-4 align-center">
-      <strong class="text-h5"><span class="font-weight-bold">{{ title || '-' }}</span></strong>
-      <v-spacer />
-      <div>
-        <v-btn color="grey lighten-2" elevation="0" class="grey--text text--darken-3" @click="$router.push('/product')">
-          <v-icon class="mr-1">mdi-filter-off-outline</v-icon> 전체보기</v-btn>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+
 import codeApi from "@/api/CodeApi";
 
 export default {
@@ -56,40 +54,22 @@ export default {
     return {
       query1: '',
       query2: '',
-      title: null
+      arrivalName: null,
+      arrivalCode: null
     }
   },
   methods:{
-    bind: function(parameters) {
-      let nationCode = parameters.nationCode || '';
-      let continentCode = parameters.continentCode || '';
-      let areaCode = parameters.areaCode || '';
-      if(nationCode != '' ) {
-        codeApi.getNation(nationCode).then(res => {
-          let data = res.data.result;
-
-          if(areaCode != null) {
-            let nationAreaList = data['nationAreaList'];
-            if(nationAreaList && Array.isArray(nationAreaList)) {
-              let areaItem = nationAreaList.find(item => item.areaCode == areaCode);
-              if(areaItem && (areaItem.areaCode || '') != '') {
-                this.title = areaItem.areaName;
-              } else {
-                this.title = data['nationName'];
-              }
-            } else this.title = data['nationName'];
-          } else this.title = data['nationName'];
+    bind: function (parameters) {
+      // console.log('product-list-toolbar', parameters);
+      //let arrivalCode = parameters.arrivalCode;
+      this.arrivalCode = parameters.arrivalCode;
+      if((this.arrivalCode || '') != '') {
+        codeApi.getArrival({arrivalCode: this.arrivalCode}).then(res => {
+          let data = res.data;
+          if(data['arrivalName']) {
+            this.arrivalName = data['arrivalName'];
+          }
         })
-      } else {
-        if(continentCode != '') {
-          codeApi.getCommonCode('CONTINENTS').then(res =>{
-            let resultData = res.data;
-            if(resultData.result && resultData.result['codeList']) {
-              let continentItem = resultData.result['codeList'].find(item => item.code == continentCode);
-              this.title = continentItem['codeName'];
-            }
-          });
-        } else this.title = '전체';
       }
     }
   }

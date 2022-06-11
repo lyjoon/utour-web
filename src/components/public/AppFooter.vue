@@ -1,20 +1,20 @@
 <template>
-  <v-footer min-height="100px" color="blue-grey darken-3" class="pt-6 pb-6 grey--text text--lighten-2 mt-16" dark>
-    <v-container>
+  <v-footer min-height="100px" color="grey lighten-3" class="grey--text text--darken-1">
+    <v-container :fluid="$vuetify.breakpoint.smAndDown">
       <div>
-        <div class="text-h6 text-lg-h5 text-xl-h5 font-weight-thin mb-2">U-TOUR</div>
-        <div class="d-flex flex-fill">
-          <ul class="list-style-none body-2 font-weight-light ml-0 pl-0">
-           <li class="mb-1">주소 : 서울특별시 강남구 압구정로 18길 28</li>
-           <li class="mb-1">연락처 : 1688-0580 </li>
-           <li>FAX : 043-719-7323</li>
+        <div class="subtitle-1">U-TOUR</div>
+        <div class="mt-1 d-flex flex-fill">
+          <ul class="list-style-none caption font-weight-light ml-0 pl-0">
+           <li>(06155) 서울특별시 강남구 삼성로103길 6, 지하 1층</li>
+           <li>(주) 유투어 <span class="font-weight-light grey--text text--lighten-1 body-2">|</span> 사업자등록번호 : 000-00-00000</li>
+           <li>대표 : 이봉찬 <span class="font-weight-light grey--text text--lighten-1 body-2">|</span> TEL : 010-3108-7077</li>
           </ul>
         </div>
       </div>
 
-      <v-divider class="mt-4 mb-6" />
+      <v-divider class="mt-2 mb-2 mx-auto" />
 
-      <div class="font-montserrat-300 font-weight-light body-2 grey--text text--lighten-1">Copyright © 2022 U-TOUR. All Rights Reserved.</div>
+      <div class="font-montserrat-300 font-weight-light caption">Copyright © 2022 U-TOUR. All Rights Reserved.</div>
 
     </v-container>
   </v-footer>

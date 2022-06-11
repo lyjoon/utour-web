@@ -18,6 +18,10 @@
   padding-right: 0px !important;
 }
 
+.app-bar-ext .v-toolbar__content {
+  padding-left: 0px; padding-right: 0px;
+}
+
 /* inquiry-form */
 .inquiry_form {
   padding: 20px 15px;
@@ -65,35 +69,6 @@
   color: brown;
 }
 
-.app_bar_ext_ul{
-  margin: 0px;
-  height: 100%;
-  li {
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 18px;
-    @media screen and (max-width: 720px){
-      font-size: 16px;
-    }
-    @media screen and (max-width: 560px){
-      font-size: 14px;
-    }
-  }
-
-  li:hover {
-    background-color: #ff7f00;
-    color: white;
-  }
-}
-
-
 .v-expansion-panel-content__wrap {
   padding: 0px;
 }
@@ -101,6 +76,17 @@
 .border-bottom {
   border-bottom: solid 1px #dadde6;
 }
+.border-right {
+  border-right: solid 1px #dadde6;
+}
+.border-top {
+  border-top: solid 1px #dadde6;
+}
+
+.border-left {
+  border-left: solid 1px #dadde6;
+}
+
 
 .toastui-editor-contents img {
   max-width: 100%;

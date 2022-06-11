@@ -36,19 +36,21 @@
           <colgroup>
             <col style="width: 100px" />
             <col  />
-            <col style="width: 150px" />
             <col style="width: 110px" />
+            <col style="width: 110px" />
+            <col style="width: 100px" />
             <col style="width: 100px" />
             <col style="width: 120px" />
           </colgroup>
           <thead>
           <tr>
-            <th class="text-center body-1 font-weight-bold">ID</th>
-            <th class="text-center body-1 font-weight-bold">상품명</th>
-            <th class="text-center body-1 font-weight-bold">국가</th>
-            <th class="text-center body-1 font-weight-bold">상품유형</th>
-            <th class="text-center body-1 font-weight-bold">등록일</th>
-            <th class="text-center body-1 font-weight-bold">actions</th>
+            <th class="text-center body-2 font-weight-bold">ID</th>
+            <th class="text-center body-2 font-weight-bold">상품명</th>
+            <th class="text-center body-2 font-weight-bold">목적지</th>
+            <th class="text-center body-2 font-weight-bold">지역</th>
+            <th class="text-center body-2 font-weight-bold">사용유무</th>
+            <th class="text-center body-2 font-weight-bold">등록일</th>
+            <th class="text-center body-2 font-weight-bold">actions</th>
           </tr>
           </thead>
           <tbody>
@@ -68,10 +70,14 @@
               {{ item.title }}
             </td>
             <td class="text-center body-2">
-              {{ item['nationName'] }}
+              {{ item['arrivalName'] || '-' }}
             </td>
             <td class="text-center body-2">
-              {{ item.productType }}
+              {{ item['areaName'] }}
+            </td>
+
+            <td class="text-center body-2">
+              {{ item['useYn'] == 'Y'  ? '사용':'미사용'}}
             </td>
             <td class="text-center body-2">
               {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
@@ -116,7 +122,7 @@
                 {{ item.title }}
               </div>
               <v-list-item-subtitle class="caption">
-                {{ item.nationName }}
+                {{ item.arrivalName }}
                 <span class="mx-auto mr-1 ml-1 caption">|</span>
                 {{ $moment(item['createAt']).format('YYYY.MM.DD') }}
                 <span class="mx-auto mr-1 ml-1 caption">|</span>
@@ -208,9 +214,15 @@ export default {
       })
     },
     search: function(){
-      // this.$store.commit('alert', {message:'준비중인데'});
       this.pagination.page = 1;
-      productApi.getPageList(this.pagination.page, 20, this.queryType.value, this.query).then(res => {
+      let parameters = {
+        page: this.pagination.page,
+        limit: 20,
+        queryType: this.queryType.value,
+        query: this.query
+      };
+
+      productApi.pageList(parameters).then(res => {
         let data = res.data;
         if(data) {
           this.pagination.page = data.page || 1;
@@ -225,7 +237,6 @@ export default {
       this.search();
     },
     onCreate: function(){
-      //this.$refs.admin_product_create_dialog.showDialog();
       this.$router.push("/admin/product/edit");
     }
   },

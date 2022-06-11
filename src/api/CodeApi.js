@@ -2,20 +2,20 @@ import Api from "@/api/Api";
 
 class CodeApi extends Api {
 
-    async getNationAllList(){
-        return await this.getAxios().get(`/api/v1/code/nation/all`);
+    async getAreaList(parameters) {
+        return await this.getAxios().post('/api/v1/code/area-list', parameters)
     }
 
-    async getNationList(query){
-        return await this.getAxios().get(`/api/v1/code/nation/list?query=${query}`);
-    }
-
-    async getNation(nationCode) {
-        return await this.getAxios().get(`/api/v1/code/nation?nationCode=${nationCode || ''}`);
+    async getArrivalList() {
+        return this.getAxios().post('/api/v1/code/arrival-list' ,{});
     }
 
     async getCommonCode(groupCode) {
         return await this.getAxios().get(`/api/v1/code/common?groupCode=${groupCode || ''}`);
+    }
+
+    async getArrival(parameters) {
+        return this.getAxios().post('/api/v1/code/arrival', parameters);
     }
 }
 

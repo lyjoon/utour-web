@@ -14,9 +14,8 @@ export default {
   components: {ProductList, ProductListToolbar},
   data : ()=>({
     parameters: {
-      continentCode: null,
-      nationCode: null,
-      areaCode: null
+      arrivalCode: null,
+      areaCode: null,
     },
   }),
   mounted() {
@@ -29,9 +28,9 @@ export default {
   },
   methods:{
     search: function (){
-      productApi.queryList(this.parameters ).then(res =>{
+      productApi.getList(this.parameters.arrivalCode, this.parameters.areaCode).then(res =>{
         let data = res.data;
-        if(data && data.result) {
+        if(data) {
           this.$refs.product_list.bind(data);
         }
       })

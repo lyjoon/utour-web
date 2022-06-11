@@ -107,9 +107,9 @@ export default {
         title: this.product.title,
         description: this.product.description,
         productId : this.product.productId,
-        nationCode: this.product.nationCode,
+        arrivalCode: this.product.arrivalCode,
         areaCode: this.product.areaCode,
-        nationName: this.product.nationName,
+        arrivalName: this.product.arrivalName,
         areaName: this.product.areaName,
         accommodation: {
           address: accommodation.address,

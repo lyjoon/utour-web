@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <home-carousel class="mt-2"/>
-    <home-products class="mt-6" />
-    <v-row class="mt-4">
+    <home-carousel class="pt-4"/>
+    <home-products class="pt-4 pb-4" />
+    <v-row class="pt-4">
       <v-col :order="inquiryOrder" :cols="breakCols">
         <home-inquiry />
       </v-col>
