@@ -1,21 +1,21 @@
 <template>
   <div>
     <div style="position: relative" class="hidden-lg-and-up">
-      <v-btn class="v-btn-more" elevation="0" style="position: absolute;right: 10px;bottom: 10px; width: 0px;z-index: 1;"
-             @click="openDialog" :disabled="btnDisabled">더보기</v-btn>
-      <v-carousel style="position: relative" :height="$vuetify.breakpoint.smAndDown ? '400px' : '450px'"
+      <v-btn dark color="secondary" small elevation="0" style="position: absolute;right: 10px;bottom: 10px; width: 0px;z-index: 1;"
+             @click="openDialog" :disabled="btnDisabled" class="caption">more</v-btn>
+      <v-carousel style="position: relative" :height="$vuetify.breakpoint.smAndDown ? '300px' : '350px'"
                   hide-delimiters show-arrows-on-hover>
         <v-carousel-item
             v-for="(item, index) in productImages"
             :key="index">
-          <v-img :src="item.productImageSrc" dark height="100%" />
+          <v-img :src="item.productImageSrc" eager dark height="100%" />
         </v-carousel-item>
       </v-carousel>
     </div>
 
     <v-row dense class="hidden-md-and-down">
       <v-col class="col-6">
-        <v-img :src="productImageSrc(0)"
+        <v-img :src="productImageSrc(0)" eager
                :height="mainImageHeight" class="rounded">
           <template v-slot:placeholder>
             <v-sheet color="grey lighten-4" outlined width="100%" height="100%" class="justify-center d-flex align-center">
@@ -26,7 +26,7 @@
       </v-col>
 
       <v-col class="col-3">
-        <v-img :src="productImageSrc(1)"
+        <v-img :src="productImageSrc(1)" eager
                :height="subImageHeight" class="rounded">
           <template v-slot:placeholder>
             <v-sheet color="grey lighten-4" outlined width="100%" height="100%" class="justify-center d-flex align-center">
@@ -34,7 +34,7 @@
             </v-sheet>
           </template>
         </v-img>
-        <v-img :src="productImageSrc(2)"
+        <v-img :src="productImageSrc(2)" eager
                class="mt-2 rounded"
                :height="subImageHeight">
           <template v-slot:placeholder>
@@ -45,7 +45,7 @@
         </v-img>
       </v-col>
       <v-col class="col-3">
-        <v-img :src="productImageSrc(3)"
+        <v-img :src="productImageSrc(3)" eager
                :height="subImageHeight"
                position="0 auto" class="rounded">
           <template v-slot:placeholder>
@@ -54,7 +54,7 @@
             </v-sheet>
           </template>
         </v-img>
-        <v-img :src="productImageSrc(4)"
+        <v-img :src="productImageSrc(4)" eager
                class="mt-2 align-end justify-end text-right pa-2 rounded"
                :height="subImageHeight"
                position="0 auto">
@@ -64,7 +64,7 @@
             </v-sheet>
           </template>
           <template v-slot:default>
-            <v-btn class="v-btn-more" elevation="0" small dark @click="openDialog" :disabled="btnDisabled">더보기</v-btn>
+            <v-btn elevation="0" color="secondary" class="caption" small dark @click="openDialog" :disabled="btnDisabled">more</v-btn>
           </template>
         </v-img>
       </v-col>
@@ -140,8 +140,4 @@ export default {
 </script>
 
 <style scoped>
-  .v-btn-more {
-    font-weight: 400;
-    opacity: 0.65;
-  }
 </style>

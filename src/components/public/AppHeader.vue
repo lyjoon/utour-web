@@ -5,13 +5,13 @@
     </template>-->
     <template v-slot:default>
       <div class="flex-fill">
-        <v-container :class="`justify-center d-flex flex-fill align-center ${$vuetify.breakpoint.smAndDown ? 'pl-2 pr-2' : ''}`">
+        <v-container class="justify-center d-flex flex-fill align-center pl-2 pr-2 pt-1 pb-1">
           <v-row no-gutters dense>
             <v-col class="col-1 align-center d-flex">
               <v-icon color="secondary" @click.stop="openNavigator">mdi-menu</v-icon>
             </v-col>
-            <v-col class="col-10 text-center">
-              <router-link to="/home" ><img :src="require('@/assets/images/logo_c.png')" :width="$vuetify.breakpoint.smAndDown ? '80px':'80px'" /></router-link>
+            <v-col class="col-10 align-center d-flex justify-center">
+              <router-link to="/home" ><img :src="require('@/assets/images/logo_c.png')" height="32px" /></router-link>
             </v-col>
             <v-col class="col-1  align-center d-flex"></v-col>
           </v-row>

@@ -17,8 +17,7 @@
       <v-divider />
 
       <v-container >
-
-        <div class="pt-2 pb-2">
+        <div class="pb-1">
           <v-chip-group column v-model="productImageGroupId" @change="chooseImageGroup">
             <v-chip outlined filter :value="-1">전체</v-chip>
             <v-chip outlined filter v-for="(item, index) in productImageGroupList" :key="index" :value="item.productImageGroupId">
@@ -28,13 +27,13 @@
         </div>
 
         <div>
-          <v-img class="grey lighten-2 rounded" :src="productImage.productImageSrc" width="100%" :height="imageHeight"></v-img>
+          <v-img eager class="grey lighten-2 rounded" :src="productImage.productImageSrc" width="100%" :height="imageHeight"></v-img>
         </div>
 
-        <v-row class="mt-2" dense>
+        <v-row class="mt-1" dense>
           <v-col :cols="$vuetify.breakpoint.smAndDown ?4:1" v-for="(item) in productImageList" :key="item.productImageId">
 
-            <v-img :height="imageItemHeight" width="100%" class="rounded" :src="item.productImageSrc" @click="chooseImage(item)">
+            <v-img eager :height="imageItemHeight" width="100%" class="rounded" :src="item.productImageSrc" @click="chooseImage(item)">
               <v-overlay absolute opacity="0.3" color="black" class="align-center justify-center flex-fill d-flex cursor-pointer"
                          v-if="productImage.productImageId == item.productImageId">
                 <v-icon size="50px" color="white">mdi-check</v-icon>
