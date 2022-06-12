@@ -15,7 +15,6 @@ moment.locale("ko");
 Vue.use(Vuetify);
 Vue.use(VueMoment, { moment });
 Vue.filter('myDate', function(string){
-    console.log('myDate.string', string);
     if(string) {
         let res = moment(String(string)).format('yyyy.MM.DD')
         return res;
@@ -24,6 +23,7 @@ Vue.filter('myDate', function(string){
 
 export default new Vuetify({
     theme: {
+        dark: false,
         themes: {
             light: {
                 primary: '#3b3939',
@@ -33,6 +33,7 @@ export default new Vuetify({
                 secondary: '#ff7f00',
                 identity: '#470d6c',
                 error: '#b71c1c',
+                default_background: '#fafbfd'
             },
         },
     },

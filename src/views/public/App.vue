@@ -1,11 +1,11 @@
 <template>
-  <v-app class="app-main">
+  <v-app id="main" :style="{backgroundColor: $vuetify.theme.themes.light.default_background}">
     <app-header @app-navigator-open="showNavigator" />
     <app-navigator ref="app_navigator"
                    @open-inquiry-dialog="openInquiryDialog"
                    @open-service-terms-dialog="openServiceTermsDialog"
     />
-    <v-main class="mt-2">
+    <v-main>
       <router-view :key="$route.fullPath" />
     </v-main>
     <app-footer />
@@ -39,7 +39,4 @@ export default {
 </script>
 
 <style scoped>
-  .app-main {
-    background-color: white;
-  }
 </style>
