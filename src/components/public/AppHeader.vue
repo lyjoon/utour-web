@@ -29,7 +29,7 @@
       <v-container fluid class="pa-0 menu_div secondary" v-if="$vuetify.breakpoint.smAndDown" >
         <v-slide-group>
           <v-slide-item v-for="(item, index) in getMenuList" :key="index">
-            <div class="pa-3 text-center body-2 white--text font-weight-bold">{{item.arrivalName}}</div>
+            <div class="pa-3 text-center body-2 white--text font-weight-bold" @click="moveProduct(item)">{{item.arrivalName}}</div>
           </v-slide-item>
         </v-slide-group>
       </v-container>
@@ -55,13 +55,6 @@ export default {
               {arrivalName: item.arrivalName, arrivalCode:item.arrivalCode,active:false}
           );
         })
-      } else {
-        this.menuList.push({arrivalName:'몰디브', arrivalCode:'MV',active:false});
-        this.menuList.push({arrivalName:'칸쿤', arrivalCode:'CUN',active:false});
-        this.menuList.push({arrivalName:'하와이', arrivalCode:'HNL',active:false});
-        this.menuList.push({arrivalName:'유럽', arrivalCode:'EU', active:false});
-        this.menuList.push({arrivalName:'베트남', arrivalCode:'VN', active:false});
-        this.menuList.push({arrivalName:'태국', arrivalCode:'TH', active:false});
       }
     });
   },
