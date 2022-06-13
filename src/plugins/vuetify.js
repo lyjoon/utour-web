@@ -33,7 +33,7 @@ export default new Vuetify({
                 secondary: '#ff7f00',
                 identity: '#470d6c',
                 error: '#b71c1c',
-                default_background: '#fafbfd'
+                default_background: '#f6f7f9'
             },
         },
     },

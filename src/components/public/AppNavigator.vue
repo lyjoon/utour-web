@@ -1,6 +1,7 @@
 <template>
-  <v-navigation-drawer color="grey"
-                       class="lighten-4"
+  <v-navigation-drawer color="grey lighten-4"
+                       class="elevation-8"
+                       width="300px"
                        fixed
                        v-model="navigatorDrawer"
                        disable-resize-watcher

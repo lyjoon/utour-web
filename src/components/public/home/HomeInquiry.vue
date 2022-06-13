@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <sub-title title="여행견적 문의하기" />
-
-    <div class="pt-2">
+  <v-card elevation="0" class="pt-5 pb-7 pl-5 pr-5 rounded-lg">
+    <div class="title font-weight-bold">여행문의하기</div>
+    <div class="mt-4">
       <inquiry-form />
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
-import SubTitle from "@/components/common/SubTitle";
 import InquiryForm from "@/components/public/inquiry/InquiryForm";
 export default {
   name: "HomeInquiry",
-  components: {InquiryForm, SubTitle}
+  components: {InquiryForm}
 }
 </script>
 

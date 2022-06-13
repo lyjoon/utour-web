@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <sub-title title="추천상품" />
-    <v-row no-gutters dense v-if="(commerces.length || 0) > 0">
-      <v-col class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-4" v-for="(item, index) in commerces" v-bind:key="index">
+  <v-card elevation="0" class="pt-5 pb-7 pl-5 pr-5 rounded-lg">
+    <div class="title font-weight-bold">추천상품</div>
+    <v-row class="mt-4" dense v-if="(commerces.length || 0) > 0">
+      <v-col :cols="col2" v-for="(item, index) in commerces" v-bind:key="index">
         <product-item :title="item.title" :description="item.description" :src="item.repImageSrc" :product-id="item.productId" />
       </v-col>
     </v-row>
@@ -12,19 +12,23 @@
         <div class="pt-4 body-2 grey--text text--lighten-1">등록된 추천상품이 없습니다.</div>
       </div>
     </v-sheet>
-  </div>
+  </v-card>
 </template>
 
 <script>
 import ProductItem from "../product/list/ProductListItem";
-import SubTitle from "../../common/SubTitle";
 import displayApi from "@/api/DisplayApi";
 export default {
   name: "HomeProduct",
-  components: {SubTitle, ProductItem},
+  components: {ProductItem},
   data : ()=>({
     commerces:[]
   }),
+  computed:{
+    col2(){
+      return this.$vuetify.breakpoint.smAndDown ? 6 : 3;
+    }
+  },
   mounted() {
     this.search();
   },

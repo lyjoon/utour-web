@@ -1,12 +1,12 @@
 <template>
-  <v-container>
-    <home-carousel class="pt-4"/>
-    <home-products class="pt-4 pb-4" />
-    <v-row class="pt-4">
-      <v-col :order="inquiryOrder" :cols="breakCols">
+  <v-container :fluid="$vuetify.breakpoint.smAndDown" :class="`${$vuetify.breakpoint.smAndDown ? 'pl-0 pr-0' :''}`">
+    <home-carousel />
+    <home-products class="mt-7" />
+    <v-row class="mt-7" no-gutters dense>
+      <v-col class="d-flex justify-start pr-3" :order="inquiryOrder" :cols="breakCols">
         <home-inquiry />
       </v-col>
-      <v-col order="2" :cols="breakCols">
+      <v-col class="d-flex justify-end flex-fill pl-3" order="2" :cols="breakCols">
         <home-qna />
       </v-col>
     </v-row>

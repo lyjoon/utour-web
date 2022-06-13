@@ -1,37 +1,35 @@
 <template>
-  <v-row dense :no-gutters="$vuetify.breakpoint.smAndDown">
-    <v-col class="col-12" >
-      <v-sheet color="grey lighten-3" rounded width="100%"
-               v-if="(carouselItems.length || 0) < 1"
-               :height="height" elevation="0" outlined class="justify-center d-flex align-center">
-        <v-icon size="90px" color="grey lighten-2">mdi-image</v-icon>
-      </v-sheet>
-      <v-carousel v-model="carouselItem" :height="height"
-                  class="rounded align-center"
-                  v-if="(carouselItems.length || 0) > 0"
-                  show-arrows-on-hover hide-delimiters>
-        <v-carousel-item
-            v-for="item in carouselItems"
-            :key="item.id">
-          <v-img :src="item.imageSrc" dark height="100%" class="align-end">
-            <v-overlay absolute opacity="0.15">
-              <div class="text-center">
-                <v-card-title class="text-h6 text-md-h5 text-lg-h5 text-xl-h4 font-weight-bold pb-2 pb-md-4 pb-lg-4 pb-xl-4 pl-2 pr-2" v-text="item.title" />
-                <v-chip :small="$vuetify.breakpoint.smAndDown"
-                        color="white"
-                        link
-                        text-color="white"
-                        outlined
-                        @click="redirect(item)"
-                        v-if="(item.linkUrl || '') != ''"
-                        class="elevation-0 rounded caption" style="opacity: 0.69">더보기</v-chip>
-              </div>
-            </v-overlay>
-          </v-img>
-        </v-carousel-item>
-      </v-carousel>
-    </v-col>
-  </v-row>
+  <div>
+    <v-sheet color="grey lighten-3" rounded width="100%"
+             v-if="(carouselItems.length || 0) < 1"
+             :height="height" elevation="0" outlined class="justify-center d-flex align-center">
+      <v-icon size="90px" color="grey lighten-2">mdi-image</v-icon>
+    </v-sheet>
+    <v-carousel v-model="carouselItem" :height="height"
+                class="align-center rounded"
+                v-if="(carouselItems.length || 0) > 0"
+                show-arrows-on-hover hide-delimiters>
+      <v-carousel-item
+          v-for="item in carouselItems"
+          :key="item.id">
+        <v-img :src="item.imageSrc" dark height="100%" class="align-end">
+          <v-overlay absolute opacity="0.35" >
+            <div class="text-center">
+              <div class="title mb-2" v-text="item.title" />
+              <v-chip :small="$vuetify.breakpoint.smAndDown"
+                      color="white"
+                      link
+                      text-color="white"
+                      outlined
+                      @click="redirect(item)"
+                      v-if="(item.linkUrl || '') != ''"
+                      class="elevation-0 rounded caption">더보기</v-chip>
+            </div>
+          </v-overlay>
+        </v-img>
+      </v-carousel-item>
+    </v-carousel>
+  </div>
 </template>
 
 <script>
@@ -44,16 +42,14 @@ export default {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
         case "sm":
-          v = "47vh";
+          v = "38vh";
           break;
         case "md":
-          v = "600px";
+          v = "400px";
           break;
         case "lg":
-          v = "700px";
-          break;
         case "xl":
-          v = "700px";
+          v = "550px";
           break;
       }
       return v;
