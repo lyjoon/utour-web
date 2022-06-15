@@ -1,6 +1,6 @@
 <template>
   <v-footer min-height="100px" color="default_background darken-1" class="grey--text text--darken-2">
-    <v-container :fluid="$vuetify.breakpoint.smAndDown" class="pl-0 pr-0">
+    <v-container :fluid="$vuetify.breakpoint.smAndDown" :class="$vuetify.breakpoint.smAndDown ? 'pl-0 pr-0':''">
       <div>
         <div class="subtitle-1">U-TOUR</div>
         <div class="mt-2 d-flex flex-fill">
