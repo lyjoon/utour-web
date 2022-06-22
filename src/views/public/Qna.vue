@@ -1,7 +1,9 @@
 <template>
-  <v-container>
-    <page-title title="Q&A" :site-map="['Q&A']" />
-    <router-view />
+  <v-container :class="$vuetify.breakpoint.smAndDown ? 'pa-0':''">
+    <v-card class="pa-4 rounded-lg" rounded elevation="0">
+      <page-title title="Q&A" :site-map="['Q&A']" />
+      <router-view />
+    </v-card>
   </v-container>
 </template>
 <script>

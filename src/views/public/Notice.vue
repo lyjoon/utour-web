@@ -1,9 +1,10 @@
 <template>
-  <v-container>
+  <v-container :class="$vuetify.breakpoint.smAndDown ? 'pa-0':''">
+    <v-card class="pa-4 rounded-lg" rounded elevation="0">
+      <page-title title="공지사항" :site-map="['공지사항']" />
 
-    <page-title title="공지사항" :site-map="['공지사항']" />
-
-    <router-view />
+      <router-view />
+    </v-card>
 
   </v-container>
 </template>

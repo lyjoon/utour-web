@@ -1,16 +1,16 @@
 <template>
   <div>
 
-    <div class="pt-6 pb-4">
+    <div>
       <div class="title text-h6">{{ command.title || '-' }}</div>
-      <div class="mt-2 mb-6 body-2 grey--text">
+      <div class="mt-2 mb-2 body-2 grey--text">
         <div class="d-flex flex-fill">
           <div>작성자 : {{ command.writer || '-' }} </div>
           <div><span class="mx-auto mr-2 ml-2">|</span> 등록일 : {{ $moment(command.createAt).format('YYYY.MM.DD') || '-' }}</div>
           <div><span class="mx-auto mr-2 ml-2">|</span> 조회 : {{ command.pv || '-' }}</div>
         </div>
       </div>
-      <v-divider class="grey" />
+      <v-divider class="grey lighten-2" />
     </div>
 
     <div>

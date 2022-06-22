@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="pt-12 pb-4">
+    <div class="mb-4">
       <v-row no-gutters class="align-end">
         <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 5" :class="`mb-${$vuetify.breakpoint.smAndDown ? '2' : '0'}`">
           <div class="d-flex body-2 font-weight-medium text--black align-center">
@@ -86,7 +86,7 @@
             <div class="pa-8">검색결과가 없습니다.</div>
           </td>
         </tr>
-        <tr v-for="(item, index) in items" :key="index" :class="item.noticeYn == 'Y' ? `grey lighten-4 `:``" @click="$router.push(`/notice/${item.noticeId}`)">
+        <tr v-for="(item, index) in items" :key="index" :class="`cursor-pointer ${item.noticeYn == 'Y' ? `grey lighten-4 `:``}`" @click="$router.push(`/notice/${item.noticeId}`)">
           <td class="text-center">
             <span v-if="item.noticeYn != 'Y'" >{{ item.noticeId }}</span>
             <v-chip v-if="item.noticeYn == 'Y'" dark outlined color="secondary" small class="caption rounded pl-1 pr-1">공지</v-chip>
@@ -104,7 +104,7 @@
 
     <v-divider class="grey" />
 
-    <div class="pt-12 pb-6">
+    <div class="mt-6 mb-6">
       <v-pagination class="elevation-0"
                     color="grey1"
                     v-model="pagination.page"

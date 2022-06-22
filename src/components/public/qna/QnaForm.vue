@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout column class="mt-4 mb-2">
+    <v-layout column class="mb-2">
       <v-flex class="caption">※ 비밀번호는 향후 수정 또는 삭제 시 필요하며, 쉬운 비밀번호를 입력하면 타인의 수정 또는 삭제가 될 수 있습니다.</v-flex>
       <v-flex class="caption">※ 욕설 및 혐오 등 게시물은 관리자에 의해 게시글이 삭제될 수 있습니다.</v-flex>
     </v-layout>

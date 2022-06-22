@@ -1,7 +1,6 @@
 <template>
   <div>
-
-    <div class="pt-12 pb-4">
+    <div class="mb-4">
       <v-row no-gutters class="align-end">
         <v-col :cols="$vuetify.breakpoint.smAndDown ? 12 : 5" :class="`mb-${$vuetify.breakpoint.smAndDown ? '2' : '0'}`">
           <div class="d-flex body-2 font-weight-medium text--black align-center">
@@ -122,7 +121,7 @@
       </div>
     </div>
 
-    <div class="pt-6 pb-6">
+    <div class="mt-6 mb-6">
       <v-pagination class="elevation-0"
                     color="grey1"
                     v-model="pagination.page"

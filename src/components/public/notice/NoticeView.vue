@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="pt-6 pb-4">
+    <div class="mb-4">
       <div class="title text-h6">{{ command.title || '-' }}</div>
       <div class="mt-2 mb-6 body-2 grey--text">
         <div class="d-flex flex-fill">
@@ -10,7 +10,7 @@
           <div><span class="mx-auto mr-2 ml-2">|</span> 조회 : {{ command.pv || '-' }}</div>
         </div>
       </div>
-      <v-divider class="grey" />
+      <v-divider class="grey lighten-2" />
     </div>
 
     <div>
@@ -21,7 +21,7 @@
 
     <!-- 첨부파일 -->
 
-    <div v-if="attachments && attachments.length > 0" class="mt-4 mb-6">
+    <div v-if="attachments && attachments.length > 0" class="mt-4 mb-4">
       <v-divider />
       <v-sheet color="grey lighten-4" class="pa-4">
         <ul>
@@ -33,9 +33,9 @@
       <v-divider />
     </div>
 
-    <v-divider class="grey" />
+    <v-divider class="grey lighten-2" v-if="( attachments.length || 0) < 1" />
 
-    <div class="mt-4 mb-6">
+    <div class="mt-4 mb-4">
       <div class="d-flex flex-fill justify-end">
         <v-btn large dark color="grey2" elevation="0" link to="/notice/list">
           <v-icon class="mr-1" small>mdi-format-list-bulleted</v-icon><span>글목록</span>

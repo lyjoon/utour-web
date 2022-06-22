@@ -3,7 +3,8 @@
     <v-container :fluid="$vuetify.breakpoint.smAndDown" :class="$vuetify.breakpoint.smAndDown ? 'pl-0 pr-0':''">
       <div>
         <div class="subtitle-1">U-TOUR</div>
-        <div class="mt-2 d-flex flex-fill">
+
+        <div class="mt-2 d-flex flex-fill" v-if="showCompanyInfo">
           <ul class="list-style-none body-2 ml-0 pl-0">
            <li>(06155) 서울특별시 강남구 삼성로103길 6, 지1층</li>
            <li class="pt-1">(주) 유투어 <span class="font-weight-light grey--text text--lighten-1 body-2">|</span> 사업자등록번호 : 000-00-00000</li>
@@ -12,7 +13,7 @@
         </div>
       </div>
 
-      <v-divider class="mt-2 mb-2 mx-auto" />
+      <v-divider class="mt-2 mb-2 mx-auto" v-if="showCompanyInfo" />
 
       <div class="font-montserrat-300 font-weight-light caption">Copyright © 2022 U-TOUR. All Rights Reserved.</div>
 
@@ -22,6 +23,9 @@
 
 <script>
 export default {
+  data:()=>({
+    showCompanyInfo: false
+  })
 }
 </script>
 
