@@ -7,13 +7,13 @@
       <div class="flex-fill">
         <v-container class="justify-center d-flex flex-fill align-center pl-2 pr-2 pt-1 pb-1">
           <v-row no-gutters dense>
-            <v-col class="col-1 align-center d-flex">
+<!--            <v-col class="col-1 align-center d-flex">
               <v-icon color="secondary" @click.stop="openNavigator">mdi-menu</v-icon>
-            </v-col>
-            <v-col class="col-10 align-center d-flex justify-center">
+            </v-col>-->
+            <v-col class="col-12 align-center d-flex justify-center">
               <router-link to="/home" ><img :src="require('@/assets/images/logo_c.png')" height="32px" /></router-link>
             </v-col>
-            <v-col class="col-1  align-center d-flex"></v-col>
+<!--            <v-col class="col-1  align-center d-flex"></v-col>-->
           </v-row>
         </v-container>
       </div>
